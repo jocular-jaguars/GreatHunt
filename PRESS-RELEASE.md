@@ -17,28 +17,35 @@ Once the project moves into development, the press release can be used as a touc
  -->
  
 ## Heading ##
-  > Name the product in a way the reader (i.e. your target customers) will understand.
+  > Scavenger Hunt
 
 ## Sub-Heading ##
-  > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
+
+  > Familiarize yourself to a new location or have fun with a group of friends.
 
 ## Summary ##
-  > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
+  > Explore new locations! Find hidden gems! Get out and about and explore! Create a scavenger hunt for your friends, or choose one of ours. You can gather a group and head out and find interesting places. Just grab your web-enabled device and head out on a hunt!
 
 ## Problem ##
   > Describe the problem your product solves.
+  > It can be tedious to setup and organize a scavenger hunt for friends or to play one that someone else has made. It can be difficult to know a good way to explore a city.
 
 ## Solution ##
   > Describe how your product elegantly solves the problem.
+  > We provide a platform where all you have to do is link a picture and a clue and you can easily setup and run your own scavenger hunts among unlimited number of players. If you don't hwant to create your own hunt, find one that we provide.
 
 ## Quote from You ##
   > A quote from a spokesperson in your company.
+  I didn't know Mrs. Doubtfire was filmed here until I made this scavenger hunt. You can find so many interesting things around the city!
 
 ## How to Get Started ##
   > Describe how easy it is to get started.
+  Open your browser, choose a hunt, and you're on your way.
 
 ## Customer Quote ##
   > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
+  I love that I can quickly grab a group of friends and our phones, and go around and explore. We can see what other teams are doing and see how we are doing.
 
 ## Closing and Call to Action ##
   > Wrap it up and give pointers where the reader should go next.
+  Head to www.XYZ.com and get started!
