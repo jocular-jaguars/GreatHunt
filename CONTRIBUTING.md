@@ -86,8 +86,12 @@ your code merged into the main repo. Step 1 is to rebase upstream
 changes to the master branch into yours by running this command
 from your branch:
 
+
 ```bash
+checkout master
 git pull --rebase upstream master
+checkout (feature branch)
+git rebase master
 ```
 
 This will start the rebase process. You must commit all of your changes
@@ -165,17 +169,3 @@ This is just to help you organize your process
 
 If you follow all of these guidelines and make good changes, you should have
 no problem getting your changes merged in.
-
-
-<!-- Links -->
-[style guide]: https://github.com/hackreactor-labs/style-guide
-[n-queens]: https://github.com/hackreactor-labs/n-queens
-[Underbar]: https://github.com/hackreactor-labs/underbar
-[curriculum workflow diagram]: http://i.imgur.com/p0e4tQK.png
-[cons of merge]: https://f.cloud.github.com/assets/1577682/1458274/1391ac28-435e-11e3-88b6-69c85029c978.png
-[Bookstrap]: https://github.com/hackreactor/bookstrap
-[Taser]: https://github.com/hackreactor/bookstrap
-[tools workflow diagram]: http://i.imgur.com/kzlrDj7.png
-[Git Flow]: http://nvie.com/posts/a-successful-git-branching-model/
-[GitHub Flow]: http://scottchacon.com/2011/08/31/github-flow.html
-[Squash]: http://gitready.com/advanced/2009/02/10/squashing-commits-with-rebase.html
