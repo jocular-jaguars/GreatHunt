@@ -1,0 +1,26 @@
+{
+  "name": "scavenger-hunt",
+  "version": "0.0.1",
+  "description": "scavenger hunt app",
+  "main": "server/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jocular-jaguars/Thesis.git"
+  },
+  "author": "Jocular Jaguars",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jocular-jaguars/Thesis/issues"
+  },
+  "homepage": "https://github.com/jocular-jaguars/Thesis#readme",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "bower": "^1.6.2",
+    "express": "^4.13.3",
+    "mongod": "^1.3.0",
+    "mongoose": "^4.1.11"
+  }
+}
