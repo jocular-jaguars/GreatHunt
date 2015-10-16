@@ -8,7 +8,7 @@ var port = process.env.PORT || 8000;
 app.use(parser.json());
 
 // Serve static files in our client folder
-app.use(express.static(__dirname + '/../client'));
+app.use(express.static(__dirname + '/../scavengerHunt'));
 
 //Routes go here
 app.get('/', function(req, res) {
