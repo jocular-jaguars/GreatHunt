@@ -1,5 +1,5 @@
-var express = require('../node_modules/express');
-var parser = require('../node_modules/body-parser');
+var express = require('express');
+var parser = require('body-parser');
 var db = require('./db.js');
 
 var app = express();
@@ -7,7 +7,8 @@ var port = process.env.PORT || 8000;
 
 app.use(parser.json());
 
-app.use(express.static('client'));
+// Serve static files in our client folder
+app.use(express.static(__dirname + '/../client'));
 
 //Routes go here
 app.get('/', function(req, res) {
@@ -18,4 +19,4 @@ app.listen(port, function() {
   console.log('Listening on port: ', port);
 });
 
-exports.app = app; 
+exports.app = app;
