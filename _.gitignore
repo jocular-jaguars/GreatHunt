@@ -27,3 +27,18 @@ dist/
 # see https://npmjs.org/doc/faq.html#Should-I-check-my-node_modules-folder-into-git
 node_modules/
 bower_components/
+
+# Ionic Files
+client/platforms
+client/config.xml
+client/gulpfile.js
+client/hooks
+client/ionic.project
+client/platforms
+client/plugins
+client/README.md
+client/resources
+client/scss
+
+
+
