@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var Challenge = require('./challengeModel.js');
 var Schema = mongoose.Schema;
 
 var huntSchema = new Schema({
@@ -15,10 +16,9 @@ var huntSchema = new Schema({
     required: true
   },
   //challenges are an array of the database "challenge"
-  challenges: {
-    type: [challenge],
-    required: true
-  },
+  challenges: [{
+    type: Schema.Types.ObjectId, ref: 'Challenge'
+  }],
   creator: {
     type: String
   },
@@ -28,4 +28,4 @@ var huntSchema = new Schema({
   }
 });
 
-module.exports = mongoose('hunts', huntSchema);
+module.exports = mongoose.model('Hunt', huntSchema);
