@@ -50,8 +50,9 @@ View the project roadmap [here](https://github.com/jocular-jaguars/Thesis/issues
 
 1. Run "ionic start hunt"
 1. Move all files **except www folder** from hunt to client
-1. Run node server/server.js
 1. cd client
+1. Run npm install (for client's package.json)
+1. Run node server/server.js
 1. ionic platform add ios
 1. ionic build
 1. ionic emulate ios
