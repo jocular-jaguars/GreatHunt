@@ -48,7 +48,7 @@ View the project roadmap [here](https://github.com/jocular-jaguars/Thesis/issues
 
 ### Adding Ionic to Files
 
-1. Run "npm install -g cordova ionic"
+1. Run "sudo npm install -g cordova ionic"
 1. Run "ionic start hunt"
 1. Hit n to avoid push notifications for ionic account
 1. Move all files **except www folder** from hunt to client
