@@ -17,7 +17,7 @@ var findHunt = function (huntId, callback) {
 
 
 var allHunts = function (callback) {
-  Hunt.find(function(err, hunts) {
+  Hunt.find({}, function(err, hunts) {
     if(err) console.log("There was an error retriving the hunts: ", err);
     callback(hunts);
   });

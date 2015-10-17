@@ -1,7 +1,7 @@
 var expect = require('chai').expect;
 var mongoose = require('mongoose');
 var Hunt = require('../db/huntModel.js');
-var Challenge = require('../db/challengeModel.js')
+var HuntController = require('../db/HuntController.js');
 
 
 var dbURI = 'mongodb://localhost/hunt'
@@ -36,15 +36,14 @@ describe('Hunt Model', function() {
           creator: "Jocular Jaguars",
           private: false
         }
-      ]
-
+      ];
       Hunt.create(hunts, done);
     });
   });
 
+//hunt controller tests
   it("should put the hunt in the database", function(done) {
-    console.log(Challenge,"<--challenge ", Hunt.schema, "I am in the test! :D");
-    var hunt = Hunt.createHunt({
+    HuntController.createHunt({
       name: "hunt3",
       location: "Golden Gate Park",
       description: "Explore Golden Gate Park",
@@ -55,6 +54,7 @@ describe('Hunt Model', function() {
 
     Hunt.findOne({name: "hunt3"})
       .exec(function(err, hunt) {
+        console.log("I am in the test", hunt);
         expect(hunt).to.exist;
         expect(hunt.name).to.equal('hunt3');
         expect(hunt.location).to.equal('Golden Gate Park');
@@ -67,19 +67,24 @@ describe('Hunt Model', function() {
   });
 
   it("should find the hunt in the database", function(done) {
-    Hunt.findHunt({_id: 1}, function(err, hunt) {
-      console.log(hunt);
-      expect(hunt._id).to.equal(1);
-      expect(hunt.name).to.equal("hunt2");
-      done();
+    HuntController.allHunts(function(hunts) {
+      var firstHuntId = hunts[0]._id;
+      console.log("hunts: ", hunts);
+      console.log("firstHuntId: ", firstHuntId);
+      HuntController.findHunt({_id: firstHuntId}, function(hunt) {
+        console.log('hunt: ', hunt);
+        expect(hunt._id).to.equal(firstHuntId);
+        expect(hunt.name).to.equal("hunt1");
+        done();
+      });
     });
   });
 
   it("should return all the hunts in the database", function(done) {
-    Hunt.allHunts(function(err, hunts) {
-      console.log(hunts);
+    HuntController.allHunts(function(hunts) {
+      expect(hunts.length).to.equal(2);
+      //console.log("In third test, findAll hunts ", hunts);
       done();
     });
   });
-
 });
