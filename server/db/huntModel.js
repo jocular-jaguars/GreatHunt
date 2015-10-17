@@ -16,7 +16,6 @@ var huntSchema = new Schema({
     required: true
   },
   //challenges are an array of the database "challenge"
-
   challenges: [{
     type: Schema.Types.ObjectId, ref: 'Challenge'
   }],
