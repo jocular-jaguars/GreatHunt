@@ -36,6 +36,10 @@ angular.module('app.controllers', [])
 
 })
 
+.controller('creatorInGameCtrl', function($scope) {
+
+})
+
 .controller('aboutCtrl', function($scope) {
 
 })
