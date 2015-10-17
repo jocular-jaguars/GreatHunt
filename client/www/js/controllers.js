@@ -1,42 +1,41 @@
 angular.module('app.controllers', [])
-  
+
 .controller('welcomeCtrl', function($scope) {
 
 })
-   
-.controller('waitingForUsersCtrl', function($scope) {
+
+.controller('lobbyCtrl', function($scope) {
 
 })
-   
-.controller('startGameCtrl', function($scope) {
+
+.controller('creatorLobbyCtrl', function($scope) {
 
 })
-   
-.controller('startGamePopUp1Ctrl', function($scope) {
+
+.controller('creatorParticipationCtrl', function($scope) {
 
 })
-   
-.controller('startGamePopUp2Ctrl', function($scope) {
+
+.controller('teamFormCtrl', function($scope) {
 
 })
-   
-.controller('clueScreenCtrl', function($scope) {
+
+.controller('challengeCtrl', function($scope) {
 
 })
-   
-.controller('correct:NextClueCtrl', function($scope) {
+
+.controller('challengeCorrectCtrl', function($scope) {
 
 })
-   
-.controller('incorrectCtrl', function($scope) {
+
+.controller('challengeIncorrectCtrl', function($scope) {
 
 })
-   
+
 .controller('endGameCtrl', function($scope) {
 
 })
-      
-.controller('about/ContactCtrl', function($scope) {
+
+.controller('aboutCtrl', function($scope) {
 
 })
- 
