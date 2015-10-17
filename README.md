@@ -48,14 +48,17 @@ View the project roadmap [here](https://github.com/jocular-jaguars/Thesis/issues
 
 ### Adding Ionic to Files
 
+1. Run "npm install -g cordova ionic"
 1. Run "ionic start hunt"
+1. Hit n to avoid push notifications for ionic account
 1. Move all files **except www folder** from hunt to client
-1. Run bower install
-1. Run node server/server.js
+1. Delete hunt folder
+1. Run "bower install"
+1. Run "node server/server.js"
 1. cd client
-1. ionic platform add ios
-1. ionic build
-1. ionic emulate ios
+1. Run "ionic platform add ios"
+1. Run "ionic build"
+1. Run "ionic emulate ios"
 
 ## Contributing
 
