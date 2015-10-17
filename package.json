@@ -19,7 +19,9 @@
   "dependencies": {
     "body-parser": "^1.14.1",
     "bower": "^1.6.2",
+    "cordova": "^5.3.3",
     "express": "^4.13.3",
+    "ionic": "^1.7.6",
     "mongod": "^1.3.0",
     "mongoose": "^4.1.11"
   }
