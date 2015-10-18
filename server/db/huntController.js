@@ -7,8 +7,7 @@ var createHunt = function(hunt) {
   })
 };
 
-
-var findHunt = function (huntId, callback) {
+var findHunt = function(huntId, callback) {
   Hunt.findOne({_id: huntId}, function(err, hunt) {
     if(err) console.log("There was an error finding the hunt: ", err);
     callback(hunt);
@@ -16,7 +15,7 @@ var findHunt = function (huntId, callback) {
 };
 
 
-var allHunts = function (callback) {
+var allHunts = function(callback) {
   Hunt.find({}, function(err, hunts) {
     if(err) console.log("There was an error retriving the hunts: ", err);
     callback(hunts);
