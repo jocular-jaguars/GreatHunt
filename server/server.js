@@ -1,9 +1,13 @@
 var express = require('express');
 var parser = require('body-parser');
-var db = require('./db.js');
+var mongoose = require('mongoose');
 
 var app = express();
 var port = process.env.PORT || 8000;
+var mongoURI = process.env.MONGOLAB_URI || 'mongodb://localhost/hunt';
+
+console.log(mongoURI);
+mongoose.connect(mongoURI);
 
 app.use(parser.json());
 
