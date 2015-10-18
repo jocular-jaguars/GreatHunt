@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 var Hunt = require('../db/huntModel.js');
 var Challenge = require('../db/challengeModel.js')
 
+
 var dbURI = 'mongodb://localhost/hunt'
 
 var clearDB = function(done) {
