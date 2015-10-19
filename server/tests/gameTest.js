@@ -1,6 +1,8 @@
 var expect = require('chai').expect;
 var mongoose = require('mongoose');
 var Game = require('../game/Game.js');
+var Team = require('../game/Team.js');
+
 
 
 
@@ -22,9 +24,10 @@ describe('Game ', function() {
   });
 
   it('should add team to a game', function(done) {
+    var team = new Team('Jocular Jaguars')
     expect(game.addTeam).to.exist;
     expect(game.teams.length).to.equal(0);
-    game.addTeam('1234');
+    game.addTeam(team);
     expect(game.teams.length).to.equal(1);
     done();
   });

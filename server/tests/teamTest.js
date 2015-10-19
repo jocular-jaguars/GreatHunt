@@ -8,7 +8,7 @@ describe('Team ', function() {
   beforeEach(function(done) {
     team = new Team({
       name: 'teamName',
-      currentChallenge; 0 
+      currentChallenge: 0 
     });
     done();
   });

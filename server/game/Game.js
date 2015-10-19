@@ -20,8 +20,8 @@ Game.prototype.makeGameCode = function() {
 };
 
 // Should this take an id?
-Game.prototype.addTeam = function(teamName) {
-  this.teams.push(teamName);
+Game.prototype.addTeam = function(team) {
+  this.teams.push(team);
 };
 
 Game.prototype.startGame = function() {
