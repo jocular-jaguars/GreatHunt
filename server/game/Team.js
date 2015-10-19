@@ -6,3 +6,5 @@ var Team = function(name) {
 Team.prototype.nextChallenge = function() {
   this.currentChallenge++;
 };
+
+module.exports = Team;
