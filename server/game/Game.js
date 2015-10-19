@@ -1,10 +1,10 @@
 var Game = function(hunt) {
-  this.name: hunt.name,
-  this.description: hunt.description,
-  this.challenges: hunt.challenges,
-  this.teams: [],
-  this.started: false,
-  this.finished: false
+  this.name = hunt.name;
+  this.description = hunt.description;
+  this.challenges = hunt.challenges;
+  this.teams = [];
+  this.started = false;
+  this.finished = false;
   this.gameCode = this.makeGameCode();
 }
 
@@ -31,3 +31,5 @@ Game.prototype.startGame = function() {
 Game.prototype.endGame = function() {
   this.finished = true;
 };
+
+module.exports = Game;
