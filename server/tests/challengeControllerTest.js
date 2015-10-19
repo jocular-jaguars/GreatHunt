@@ -66,8 +66,23 @@ describe('Challenge Model', function() {
       });
   });
 
+  it("should return all the challenges from the database", function(done) {
+    ChallengeController.allChallenges(function(challenges) {
+      expect(challenges.length).to.equal(3);
+      done();
+    });
+  });
 
-  xit("should find a challenge, when given a challenge id", function(done) {
-
+  it("should find a challenge, when given a challenge id", function(done) {
+    ChallengeController.allChallenges(function(challenges) {
+      var firstChallengeID = challenges[0]._id;
+      console.log("first challenge id: ", firstChallengeID);
+      ChallengeController.findChallenge({_id: firstChallengeID}, function(challenge) {
+        console.log("challenge is: ", challenge);
+        //expect(challenge._id).to.equal(firstChallengeID);
+        expect(challenge.question).to.equal("What is this?");
+        done();
+      });
+    });
   });
 });

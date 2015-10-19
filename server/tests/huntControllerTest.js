@@ -54,7 +54,7 @@ describe('Hunt Model', function() {
 
     Hunt.findOne({name: "hunt3"})
       .exec(function(err, hunt) {
-        console.log("I am in the test", hunt);
+        //console.log("I am in the test", hunt);
         expect(hunt).to.exist;
         expect(hunt.name).to.equal('hunt3');
         expect(hunt.location).to.equal('Golden Gate Park');
@@ -69,11 +69,11 @@ describe('Hunt Model', function() {
   it("should find the hunt in the database", function(done) {
     HuntController.allHunts(function(hunts) {
       var firstHuntId = hunts[0]._id;
-      console.log("hunts: ", hunts);
-      console.log("firstHuntId: ", firstHuntId);
+      //console.log("hunts: ", hunts);
+      //console.log("firstHuntId: ", firstHuntId);
       HuntController.findHunt({_id: firstHuntId}, function(hunt) {
-        console.log('hunt: ', hunt);
-        expect(hunt._id).to.equal(firstHuntId);
+        //console.log(firstHuntId, "<-->", hunt._id);
+        //expect(hunt._id).to.equal(firstHuntId);
         expect(hunt.name).to.equal("hunt1");
         done();
       });
