@@ -1,15 +1,21 @@
 
 //enter "karma start unit-tests.conf.js" in tests folder to run this!
 
-describe('welcomeCtrl', function() {
+describe('app.services', function() {
 
-  describe('#addingForNoReason', function() {
-    var bool = true;
+  beforeEach(module('app.services'));
 
-      it('should add two numbers', function() {
-        // expect(welcomeCtrl.addingForNoReason(1,2)).to.equal(3);
-        expect(bool).toBe(true);
-      });
+  describe('game', function() {
+    var game;
+    // beforeEach(inject(function(_game_) {
+    //   game = _game_;
+    // }));
+
+    it('should create a new game', function(){
+      expect(true).toBe(true);
+    })
 
   });
-})
+
+
+});
