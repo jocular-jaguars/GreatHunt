@@ -48,7 +48,7 @@ app.post('/api/game', function(req, res) {
   huntController.findHunt(req.body.huntId, function(hunt) {
     var newGame = new Game(hunt);
     games[newGame.gameCode] = newGame;
-    res.send(newGame);
+    res.send(newGame.gameCode);
   });
 });
 //update team status in the game.
