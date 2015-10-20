@@ -9,7 +9,13 @@ angular.module('app.routes', [])
   // Templates are injected into <ion-nav-view> in index.html
   $stateProvider
 
-    .state('tabsController.welcome', {
+    .state('tabs', {
+      url: '/page10',
+      abstract:true,
+      templateUrl: 'templates/tabs.html'
+    })
+
+    .state('tabs.welcome', {
       url: '/page1',
       views: {
         'tab1': {
@@ -19,68 +25,62 @@ angular.module('app.routes', [])
       }
     })
 
-    .state('waitingForUsers', {
+    .state('tabs.about', {
+      url: '/page14',
+      views: {
+        'tab2': {
+          templateUrl: 'templates/about.html',
+          controller: 'aboutCtrl'
+        }
+      }
+    })
+
+    .state('lobby', {
       url: '/page2',
-      templateUrl: 'templates/waitingForUsers.html',
-      controller: 'waitingForUsersCtrl'
+      templateUrl: 'templates/lobby.html',
+      controller: 'lobbyCtrl'
     })
 
-    .state('startGame', {
+    .state('creatorLobby', {
       url: '/page3',
-      templateUrl: 'templates/startGame.html',
-      controller: 'startGameCtrl'
+      templateUrl: 'templates/creatorLobby.html',
+      controller: 'creatorLobbyCtrl'
     })
 
-    .state('startGamePopUp1', {
+    .state('creatorParticipation', {
       url: '/page4',
-      templateUrl: 'templates/startGamePopUp1.html',
-      controller: 'startGamePopUp1Ctrl'
+      templateUrl: 'templates/creatorParticipation.html',
+      controller: 'creatorParticipationCtrl'
     })
 
-    .state('startGamePopUp2', {
+    .state('teamForm', {
       url: '/page5',
-      templateUrl: 'templates/startGamePopUp2.html',
-      controller: 'startGamePopUp2Ctrl'
+      templateUrl: 'templates/teamForm.html',
+      controller: 'teamFormCtrl'
     })
 
-    .state('clueScreen', {
+    .state('challenge', {
       url: '/page6',
-      templateUrl: 'templates/clueScreen.html',
-      controller: 'clueScreenCtrl'
+      templateUrl: 'templates/challenge.html',
+      controller: 'challengeCtrl'
     })
 
-    .state('correct:NextClue', {
+    .state('challengeCorrect', {
       url: '/page7',
-      templateUrl: 'templates/correct:NextClue.html',
-      controller: 'correct:NextClueCtrl'
+      templateUrl: 'templates/challengeCorrect.html',
+      controller: 'challengeCorrectCtrl'
     })
 
-    .state('incorrect', {
+    .state('challengeIncorrect', {
       url: '/page8',
-      templateUrl: 'templates/incorrect.html',
-      controller: 'incorrectCtrl'
+      templateUrl: 'templates/challengeIncorrect.html',
+      controller: 'challengeIncorrectCtrl'
     })
 
     .state('endGame', {
       url: '/page9',
       templateUrl: 'templates/endGame.html',
       controller: 'endGameCtrl'
-    })
-
-    .state('tabsController', {
-      url: '/page10',
-      abstract:true,
-      templateUrl: 'templates/tabsController.html'
-    })
-
-    .state('tabsController.about/Contact', {
-      url: '/page14',
-      views: {
-        'tab2': {
-          templateUrl: 'templates/about/Contact.html',
-          controller: 'about/ContactCtrl'
-        }
-      }
     });
 
   // if none of the above states are matched, use this as the fallback
