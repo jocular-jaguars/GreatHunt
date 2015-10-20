@@ -2,7 +2,7 @@ angular.module('app.services', ['ngResource'])
 
 .factory('game', [function($resource){
   return $resource(
-    'api/game:id',
+    '/api/game:id',
     {id: '@id'},
     {
       'update' : {method: 'PUT'},
@@ -13,7 +13,7 @@ angular.module('app.services', ['ngResource'])
 
 .factory('team', [function($resource){
   return $resource(
-    'api/team:id',
+    '/api/team:id',
     {id: '@id'},
     {
       'make' : {method: 'POST'}
@@ -23,6 +23,6 @@ angular.module('app.services', ['ngResource'])
 
 .factory('hunts', [function($resource){
   return $resource(
-    'api/hunts'
+    '/api/hunts'
   );
 }]);
