@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 //Requirements for backend routes
 var huntController = require('./db/huntController.js');
 var Game = require('./game/Game.js');
+var Team = require('./game/Team.js');
 var helpers = require('./helpers/routeHelpers.js');
 
 
@@ -53,25 +54,25 @@ app.post('/api/game', function(req, res) {
 //update team status in the game.
 app.put('/api/game:gameCode', function(req, res) {
   var game = req.params.gameCode;
-  var team = req.body.team;
+  var team = req.body.teamIndex;
   games[game].teams[team].nextChallenge();
 });
 
-app.put('/api/nextChallenge:id', function(req, res) {
-  req.params.gameId;
-  req.body.teamNumber;
-});
-//delete game when game is over
-app.delete('/api/game:id', function(req, res) {
-  req.params.gameCode;
-  [game].endGame();
-  res.send('go to the end page, yo');
-});
+//TODO: delete game when game is over (not for MVP yo!)
+// app.delete('/api/game:id', function(req, res) {
+//   req.params.gameCode;
+//   [game].endGame();
+//   res.send('go to the end page, yo');
+// });
 
-//team route
-//set the team name
-app.post('/api/team:id', function(req, res) {
-  req.params.teamId;
+//We need the game code so we can accurately assign teams to the game
+app.post('/api/team:gameCode', function(req, res) {
+  var game = req.params.gameCode;
+  var team = new Team(req.body.teamName);
+  var teams = games[gameCode].teams;
+  var teamIndex = teams.length;
+  teams.push(team);
+  res.send(teamIndex);
 });
 
 //hunt route
@@ -79,6 +80,7 @@ app.post('/api/team:id', function(req, res) {
 app.get('/api/hunts', function(req, res) {
   huntController.allHunts(function(hunts) {
     console.log("weeeee!", hunts);
+    res.send(hunts);
   });
 });
 
