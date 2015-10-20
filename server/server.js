@@ -3,8 +3,9 @@ var parser = require('body-parser');
 var mongoose = require('mongoose');
 //Requirements for backend routes
 var huntController = require('./db/huntController.js');
-var game = require('./game/Game.js');
+var Game = require('./game/Game.js');
 var helpers = require('./helpers/routeHelpers.js');
+
 
 var app = express();
 var port = process.env.PORT || 8000;
@@ -20,6 +21,10 @@ app.use(express.static(__dirname + '/../client'));
 
 //The game instance to store the games being played.
 var games = {};
+//game code
+//update team route (they let us know if they passed the challenge)
+//game state
+//challenges (all of them)
 
 //Routes go here
 app.get('/', function(req, res) {
@@ -27,8 +32,15 @@ app.get('/', function(req, res) {
 });
 
 //get 1 game object
-app.get('/api/game:id', function(req, res) {
-
+app.get('/api/game:gameCode', function(req, res) {
+  var gameCode = req.params.gameCode;
+  if(games[gameCode].startGame()) {
+    var gameData = {};
+    res.send(gameData);
+  } else {
+    var teams = {teams: games[gameCode].teams};
+    res.send(teams);
+  }
 });
 //create the game
 app.post('/api/game', function(req, res) {
@@ -38,9 +50,11 @@ app.post('/api/game', function(req, res) {
     res.send(newGame);
   });
 });
-//update game state. "id"===gameCode
-app.put('/api/game:id', function(req, res) {
-  req.params.gameCode;
+//update team status in the game.
+app.put('/api/game:gameCode', function(req, res) {
+  var game = req.params.gameCode;
+  var team = req.body.team;
+  games[game].teams[team].nextChallenge();
 });
 
 app.put('/api/nextChallenge:id', function(req, res) {
@@ -57,7 +71,7 @@ app.delete('/api/game:id', function(req, res) {
 //team route
 //set the team name
 app.post('/api/team:id', function(req, res) {
-  req.params.id; 
+  req.params.teamId;
 });
 
 //hunt route
