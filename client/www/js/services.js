@@ -1,4 +1,4 @@
-angular.module('app.services', ['ngResource'])
+angular.module('app.services', [])
 
 .factory('game', [function($resource){
   return $resource(
