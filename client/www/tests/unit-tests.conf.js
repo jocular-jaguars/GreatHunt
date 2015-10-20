@@ -7,23 +7,21 @@ module.exports = function(config) {
     // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: '',
 
-
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine'],
+    frameworks: ['jasmine', 'mocha', 'chai'],
 
 
     // list of files / patterns to load in the browser
     files: [
       '../lib/angular/angular.js',
       '../lib/angular-mocks/angular-mocks.js',
-      'js/app.js',
-      'www/js/app.js',
+      '../lib/angular-resource/angular-resource.js',
       '../js/app.js',
+      '../js/services.js',
       '../js/controllers.js',
       '../js/directives.js',
       '../js/routes.js',
-      '../js/services.js',
       'controllersTest.js',
     ],
 
