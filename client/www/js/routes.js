@@ -69,18 +69,6 @@ angular.module('app.routes', [])
       url: '/dashboard',
       templateUrl: 'templates/dashboard.html',
       controller: 'dashboardCtrl'
-    })
-
-    .state('correct', {
-      url: '/correct',
-      templateUrl: 'templates/correct.html',
-      controller: 'correctCtrl'
-    })
-
-    .state('incorrect', {
-      url: '/incorrect',
-      templateUrl: 'templates/incorrect.html',
-      controller: 'incorrectCtrl'
     });
 
   // if none of the above states are matched, use this as the fallback
