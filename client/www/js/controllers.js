@@ -4,10 +4,6 @@ angular.module('app.controllers', [])
 
 })
 
-.controller('aboutCtrl', function($scope) {
-
-})
-
 .controller('lobbyCtrl', function($scope) {
 
 })
@@ -30,13 +26,5 @@ angular.module('app.controllers', [])
 
 .controller('dashboardCtrl', function($scope) {
 
-})
-
-.controller('correctCtrl', function($scope) {
-
-})
-
-.controller('incorrectCtrl', function($scope) {
-
-})
+});
 
