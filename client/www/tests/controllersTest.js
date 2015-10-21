@@ -29,7 +29,18 @@ describe('app.controllers', function() {
 
   describe('lobbyCtrl', function() {
 
-    // beforeEach(module('app.controllers'));
+    beforeEach(module('app.controllers'));
+    it('should have an array of the teams in $scope', function() {
+      inject(function($controller, $rootScope) {
+        var scope = $rootScope.$new()
+        controller = $controller('lobbyCtrl', {
+          $scope : scope
+        });
+
+        (scope.teams).should.be.a("array");
+      })
+    });
+
     // beforeEach(inject(function($controller, $rootScope) {
     //   controller = $controller('lobbyCtrl', {
     //     $scope : $rootScope.$new()
@@ -37,9 +48,6 @@ describe('app.controllers', function() {
     //   console.log('The controller is', controller);
     // }));
 
-    // it('should have an array of the teams in $scope', function() {
-
-    // });
 
     // it('should only show the start button to server', function() {
 
@@ -47,7 +55,6 @@ describe('app.controllers', function() {
   });
 
   describe('challengeCtrl', function() {
-
     beforeEach(module('app.controllers'));
 
     it('should have a description and question for user', function() {
