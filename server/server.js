@@ -1,11 +1,13 @@
 var express = require('express');
 var parser = require('body-parser');
 var mongoose = require('mongoose');
+var ObjectId = require('mongoose').Types.ObjectId;
 //Requirements for backend routes
 var huntController = require('./db/huntController.js');
 var Game = require('./game/Game.js');
 var Team = require('./game/Team.js');
-var helpers = require('./helpers/routeHelpers.js');
+//deleted the following file (unnecessary):
+// var helpers = require('./helpers/routeHelpers.js');
 
 
 var app = express();
@@ -34,6 +36,7 @@ app.get('/', function(req, res) {
 
 //get 1 game object
 app.get('/api/game:gameCode', function(req, res) {
+  console.log("test", req.body);
   var gameCode = req.params.gameCode;
   if(games[gameCode].startGame()) {
     var gameData = {};
@@ -45,7 +48,11 @@ app.get('/api/game:gameCode', function(req, res) {
 });
 //create the game
 app.post('/api/game', function(req, res) {
-  huntController.findHunt(req.body.huntId, function(hunt) {
+  console.log(req.body, "~~req.body~~");
+  console.log("~~before~~", req.body.huntName);
+  huntController.findHunt(req.body.huntName, function(err, hunt) {
+  //huntController.findHunt({_id: req.body.huntId}, function(hunt) {
+    console.log(req.body.huntName, "~~~~~~", hunt);
     var newGame = new Game(hunt);
     games[newGame.gameCode] = newGame;
     res.send(newGame.gameCode);
