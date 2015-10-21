@@ -63,13 +63,14 @@ describe('app.controllers', function() {
     });
 
     it('should display to user whether answer is correct or incorrect', function() {
-      //will check background color, assuming that's how we're displaying this
+      //will check background color, assuming that's how we're displaying thiss
     });
 
     it('should display photo from url', function() {
       //not sure how to test this yet. Maybe file type?
     });
   });
+
 
   // describe('createTeamCtrl', function() {
   //   it('should call team factory\'s make function with team id', function() {
