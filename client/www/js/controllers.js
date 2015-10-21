@@ -4,11 +4,10 @@ angular.module('app.controllers', [])
 
 })
 
-.controller('aboutCtrl', function($scope) {
-
-})
-
 .controller('lobbyCtrl', function($scope) {
+
+  //fake data until we've made server call
+  $scope.teams = ['Jocular Jags', 'Losers', 'Major Losers'];
 
 })
 
@@ -22,6 +21,10 @@ angular.module('app.controllers', [])
 
 .controller('challengeCtrl', function($scope) {
 
+    //fake data until we've made server call
+    $scope.description = "Don't forget your towel!";
+    $scope.question = '123';
+
 })
 
 .controller('endGameCtrl', function($scope) {
@@ -30,13 +33,4 @@ angular.module('app.controllers', [])
 
 .controller('dashboardCtrl', function($scope) {
 
-})
-
-.controller('correctCtrl', function($scope) {
-
-})
-
-.controller('incorrectCtrl', function($scope) {
-
-})
-
+});
