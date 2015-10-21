@@ -51,7 +51,7 @@ View the project roadmap [here](https://github.com/jocular-jaguars/Thesis/issues
 1. Run "sudo npm install -g cordova ionic"
 1. Run "ionic start hunt"
 1. Hit n to avoid push notifications for ionic account
-1. Move all files **except www folder** from hunt to client
+1. Move all files **except www folder, bower.json, and package.json** from hunt to client
 1. Delete hunt folder
 1. Run "bower install"
 1. Run "node server/server.js"

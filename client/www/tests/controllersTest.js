@@ -21,24 +21,4 @@ describe('app.controllers', function() {
     // });
 
   })
-
 });
-
-// describe('app.services', function() {
-
-//   beforeEach(module('app.services'));
-
-//   // Will $httpBackend to mock sample data
-
-//   describe('game', function() {
-//     var game;
-//     // beforeEach(inject(function(_game_) {
-//     //   game = _game_;
-//     // }));
-
-//     it('should create a new game', function(){
-//       expect(true).to.be(true);
-//     })
-
-//   });
-// });
