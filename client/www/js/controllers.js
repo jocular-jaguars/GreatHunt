@@ -4,19 +4,19 @@ angular.module('app.controllers', [])
 
 })
 
+.controller('aboutCtrl', function($scope) {
+
+})
+
 .controller('lobbyCtrl', function($scope) {
 
 })
 
-.controller('creatorLobbyCtrl', function($scope) {
+.controller('creatorJoinCtrl', function($scope) {
 
 })
 
-.controller('creatorParticipationCtrl', function($scope) {
-
-})
-
-.controller('teamFormCtrl', function($scope) {
+.controller('createTeamCtrl', function($scope) {
 
 })
 
@@ -24,22 +24,19 @@ angular.module('app.controllers', [])
 
 })
 
-.controller('challengeCorrectCtrl', function($scope) {
-
-})
-
-.controller('challengeIncorrectCtrl', function($scope) {
-
-})
-
 .controller('endGameCtrl', function($scope) {
 
 })
 
-.controller('creatorInGameCtrl', function($scope) {
+.controller('dashboardCtrl', function($scope) {
 
 })
 
-.controller('aboutCtrl', function($scope) {
+.controller('correctCtrl', function($scope) {
 
 })
+
+.controller('incorrectCtrl', function($scope) {
+
+})
+

@@ -9,81 +9,81 @@ angular.module('app.routes', [])
   // Templates are injected into <ion-nav-view> in index.html
   $stateProvider
 
-    .state('tabsController.welcome', {
-      url: '/page1',
+    .state('tabs', {
+      url: '/home',
+      abstract:true,
+      templateUrl: 'templates/tabs.html'
+    })
+
+    .state('tabs.welcome', {
+      url: '/welcome',
       views: {
-        'tab1': {
+        'welcome': {
           templateUrl: 'templates/welcome.html',
           controller: 'welcomeCtrl'
         }
       }
     })
 
-    .state('waitingForUsers', {
-      url: '/page2',
-      templateUrl: 'templates/waitingForUsers.html',
-      controller: 'waitingForUsersCtrl'
+    .state('tabs.about', {
+      url: '/about',
+      views: {
+        'about': {
+          templateUrl: 'templates/about.html',
+          controller: 'aboutCtrl'
+        }
+      }
     })
 
-    .state('startGame', {
-      url: '/page3',
-      templateUrl: 'templates/startGame.html',
-      controller: 'startGameCtrl'
+    .state('lobby', {
+      url: '/lobby',
+      templateUrl: 'templates/lobby.html',
+      controller: 'lobbyCtrl'
     })
 
-    .state('startGamePopUp1', {
-      url: '/page4',
-      templateUrl: 'templates/startGamePopUp1.html',
-      controller: 'startGamePopUp1Ctrl'
+    .state('creatorJoin', {
+      url: '/creatorjoin',
+      templateUrl: 'templates/creatorJoin.html',
+      controller: 'creatorJoinCtrl'
     })
 
-    .state('startGamePopUp2', {
-      url: '/page5',
-      templateUrl: 'templates/startGamePopUp2.html',
-      controller: 'startGamePopUp2Ctrl'
+    .state('createTeam', {
+      url: '/createteam',
+      templateUrl: 'templates/createTeam.html',
+      controller: 'createTeamCtrl'
     })
 
-    .state('clueScreen', {
-      url: '/page6',
-      templateUrl: 'templates/clueScreen.html',
-      controller: 'clueScreenCtrl'
-    })
-
-    .state('correct:NextClue', {
-      url: '/page7',
-      templateUrl: 'templates/correct:NextClue.html',
-      controller: 'correct:NextClueCtrl'
-    })
-
-    .state('incorrect', {
-      url: '/page8',
-      templateUrl: 'templates/incorrect.html',
-      controller: 'incorrectCtrl'
+    .state('challenge', {
+      url: '/challenge',
+      templateUrl: 'templates/challenge.html',
+      controller: 'challengeCtrl'
     })
 
     .state('endGame', {
-      url: '/page9',
+      url: '/end',
       templateUrl: 'templates/endGame.html',
       controller: 'endGameCtrl'
     })
 
-    .state('tabsController', {
-      url: '/page10',
-      abstract:true,
-      templateUrl: 'templates/tabsController.html'
+    .state('dashboard', {
+      url: '/dashboard',
+      templateUrl: 'templates/dashboard.html',
+      controller: 'dashboardCtrl'
     })
 
-    .state('tabsController.about/Contact', {
-      url: '/page14',
-      views: {
-        'tab2': {
-          templateUrl: 'templates/about/Contact.html',
-          controller: 'about/ContactCtrl'
-        }
-      }
+    .state('correct', {
+      url: '/correct',
+      templateUrl: 'templates/correct.html',
+      controller: 'correctCtrl'
+    })
+
+    .state('incorrect', {
+      url: '/incorrect',
+      templateUrl: 'templates/incorrect.html',
+      controller: 'incorrectCtrl'
     });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/page10/page1');
+  $urlRouterProvider.otherwise('/home/welcome');
 
 });
