@@ -13,14 +13,12 @@ describe('app.controllers', function() {
   }));
 
   describe('welcomeCtrl', function() {
-    // angular.mock.inject(function GetDependencies(welcomeCtrl) {
-    //   $controller = welcomeCtrl;
-    // });
 
-    it('should be able to add two numbers', function(){
-      expect(controller.add).to.be.instanceof(Function);
-      expect(controller.add(2,3)).to.equal(5);
-    });
+    //this was when I made an add function in the welcomeCtrl
+    // it('should be able to add two numbers', function(){
+    //   expect(controller.add).to.be.instanceof(Function);
+    //   expect(controller.add(2,3)).to.equal(5);
+    // });
 
   })
 
