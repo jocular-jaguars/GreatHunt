@@ -45,9 +45,9 @@ angular.module('app.controllers', ['app.services', 'ngResource'])
 
 .controller('dashboardCtrl', function($scope, $interval, team) {
   //fake data until we've made server call
-  $scope.teams = [{team:'Jocular Jags', challenge: 'Challenge 7'},
-                  {team:'Marty', challenge: 'Challenge 3'},
-                  {team:'Even Bigger Losers', challenge: 'Challenge 4'}];
+  $scope.teams = [{name:'Jocular Jags', currentChallenge: 'Challenge 7'},
+                  {name:'Marty', currentChallenge: 'Challenge 3'},
+                  {name:'Even Bigger Losers', currentChallenge: 'Challenge 4'}];
 
   $interval(function(){
     //instead we will be calling server for information, but
@@ -55,10 +55,10 @@ angular.module('app.controllers', ['app.services', 'ngResource'])
     $scope.teams.push('Fourth Team!')
   }, 750);
 
-  // $interval(function(){
-  //   var teams = team.get();
-  //   // don't know what this is called yet (something like...)
-  //   // $scope.teams = teams.teamNames
-  //   // $scope.challenges = teams.challenges
-  // }, 500);
+  $interval(function(){
+    //This will work as soon as we can access the gameCode
+    // $scope.teams = team.get(gameCode);
+
+  }, 500);
+
 });
