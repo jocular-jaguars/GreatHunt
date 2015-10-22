@@ -93,19 +93,6 @@ describe('app.controllers', function() {
     beforeEach(module('app.controllers'));
     beforeEach(module('app.services'));
 
-    it('should update with team list Challenge from server', function() {
-      //need to make fake update and then check scope's team list
-      inject(function($controller, $rootScope, $interval, $resource) {
-        var scope = $rootScope.$new()
-        controller = $controller('dashboardCtrl', {
-          $scope : scope
-        });
-        expect(scope.teams).to.have.length(3);
-        $interval.flush(1000);
-        expect(scope.teams).to.have.length(4);
-      })
-    });
-
     it('should have an equal number of teams and challenges', function() {
        inject(function($controller, $rootScope, $interval, $resource) {
         var scope = $rootScope.$new()

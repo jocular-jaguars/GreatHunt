@@ -16,11 +16,16 @@ angular.module('app.controllers', ['app.services', 'ngResource'])
   $scope.hunt = hunt;
 })
 
-.controller('lobbyCtrl', function($scope) {
-
+.controller('lobbyCtrl', function($scope, $interval) {
   //fake data until we've made server call
-  $scope.teams = ['Jocular Jags', 'Losers', 'Major Losers'];
+  $scope.teams = [{name:'Jocular Jags', currentChallenge: 'Challenge 7'},
+                  {name:'Marty McFly', currentChallenge: 'Challenge 3'},
+                  {name:'Even Bigger Losers', currentChallenge: 'Challenge 4'}];
 
+  $interval(function(){
+    //This will work as soon as we can access the gameCode
+    // $scope.teams = team.get(gameCode);
+  }, 500);
 })
 
 .controller('creatorJoinCtrl', function($scope) {
@@ -50,15 +55,8 @@ angular.module('app.controllers', ['app.services', 'ngResource'])
                   {name:'Even Bigger Losers', currentChallenge: 'Challenge 4'}];
 
   $interval(function(){
-    //instead we will be calling server for information, but
-    //this is just for testing for now
-    $scope.teams.push('Fourth Team!')
-  }, 750);
-
-  $interval(function(){
     //This will work as soon as we can access the gameCode
     // $scope.teams = team.get(gameCode);
 
   }, 500);
-
 });
