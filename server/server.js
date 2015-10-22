@@ -30,9 +30,8 @@ app.get('/', function(req, res) {
   res.send('helllllooooooooo woooorld! :D');
 });
 
-//get 1 game object
+//get one game object
 app.get('/api/game/:gameCode', function(req, res) {
-  console.log("test", req.body);
   var gameCode = req.params.gameCode;
   if(games[gameCode].startGame()) {
     var gameData = {};
@@ -41,49 +40,6 @@ app.get('/api/game/:gameCode', function(req, res) {
     var teams = {teams: games[gameCode].teams};
     res.send(teams);
   }
-});
-//create the game
-app.post('/api/game', function(req, res) {
-  console.log(req.body, "~~req.body~~");
-  console.log("~~before~~", req.body.huntName);
-  huntController.findHunt(req.body.huntName, function(err, hunt) {
-    console.log(req.body.huntName, "~~~~~~", hunt);
-    var newGame = new Game(hunt);
-    console.log("games: ", games);
-    console.log("new Game: ", newGame);
-    games[newGame.gameCode] = newGame;
-    res.send(newGame.gameCode);
-  });
-});
-
-//update team status in the game.
-//insert / before : for all params routes
-app.put('/api/game/:gameCode', function(req, res) {
-  var gameCode = req.params.gameCode;
-  var team = req.body.teamIndex;
-  console.log("games: ", games, " team: ", team, " gameCode: ", gameCode);
-  games[gameCode].teams[team].nextChallenge();
-});
-
-//TODO: delete game when game is over (not for MVP yo!)
-// app.delete('/api/game:id', function(req, res) {
-//   req.params.gameCode;
-//   [game].endGame();
-//   res.send('go to the end page, yo');
-// });
-
-//We need the game code so we can accurately assign teams to the game
-app.post('/api/team/:gameCode', function(req, res) {
-  var gameCode = req.params.gameCode;
-  console.log('gameCode: ', gameCode);
-  var team = new Team(req.body.teamName);
-  var teams = games[gameCode].teams;
-  var teamIndex = teams.length;
-  var teamIndexObj = {teamIndex: teamIndex};
-  teams.push(team);
-  console.log("team: ", team);
-  console.log("games: ", games);
-  res.send(JSON.stringify(teamIndexObj));
 });
 
 // send the teams to the front end
@@ -95,12 +51,49 @@ app.get('/api/team/:gameCode', function(req, res) {
 //hunt route
 //get all the hunts from the database
 app.get('/api/hunts', function(req, res) {
-  huntController.allHunts(function(hunts) {
+  huntController.allHunts(function(err, hunts) {
     console.log("weeeee!", hunts);
     res.send(hunts);
   });
 });
 
+//create the game
+app.post('/api/game', function(req, res) {
+  huntController.findHunt(req.body.huntName, function(err, hunt) {
+    var newGame = new Game(hunt);
+    games[newGame.gameCode] = newGame;
+    res.send(newGame.gameCode);
+  });
+});
+
+//update team status in the game; send team to next challenge.
+app.put('/api/game/:gameCode', function(req, res) {
+  var gameCode = req.params.gameCode;
+  var teamIndex = req.body.teamIndex;
+  games[gameCode].teams[teamIndex].nextChallenge();
+  res.end();
+});
+
+//We need the game code so we can accurately assign teams to the game
+app.post('/api/team/:gameCode', function(req, res) {
+  var gameCode = req.params.gameCode;
+  console.log('gameCode: ', gameCode);
+  var team = new Team(req.body.teamName);
+  var teams = games[gameCode].teams;
+  var teamIndex = teams.length;
+  var teamIndexObj = {teamIndex: teamIndex};
+  teams.push(team);
+  //console.log("team: ", team, "teams: ", teams);
+  //console.log("games: ", games);
+  res.send(JSON.stringify(teamIndexObj)); //instead of teamIndexObj, teamIndex also works.
+});
+
+//TODO: delete game when game is over (not for MVP yo!)
+// app.delete('/api/game:id', function(req, res) {
+//   req.params.gameCode;
+//   [game].endGame();
+//   res.send('go to the end page, yo');
+// });
 
 app.listen(port, function() {
   console.log('Listening on port: ', port);
