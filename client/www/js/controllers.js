@@ -16,11 +16,16 @@ angular.module('app.controllers', ['app.services', 'ngResource'])
   $scope.hunt = hunt;
 })
 
-.controller('lobbyCtrl', function($scope) {
-
+.controller('lobbyCtrl', function($scope, $interval) {
   //fake data until we've made server call
-  $scope.teams = ['Jocular Jags', 'Losers', 'Major Losers'];
+  $scope.teams = [{name:'Jocular Jags', currentChallenge: '7'},
+                  {name:'Marty McFly', currentChallenge: '3'},
+                  {name:'Even Bigger Losers', currentChallenge: '4'}];
 
+  $interval(function(){
+    //This will work as soon as we can access the gameCode
+    // $scope.teams = team.get(gameCode);
+  }, 500);
 })
 
 .controller('creatorJoinCtrl', function($scope) {
@@ -45,19 +50,13 @@ angular.module('app.controllers', ['app.services', 'ngResource'])
 
 .controller('dashboardCtrl', function($scope, $interval, team) {
   //fake data until we've made server call
-  $scope.teams = ['Jocular Jags', 'Losers', 'Major Losers'];
-  $scope.challenges = ['Challenge 7', 'Challenge 3', 'Challenge 4'];
+  $scope.teams = [{name:'Jocular Jags', currentChallenge: '7'},
+                  {name:'Marty', currentChallenge: '3'},
+                  {name:'Even Bigger Losers', currentChallenge: '4'}];
 
   $interval(function(){
-    //instead we will be calling server for information, but
-    //this is just for testing for now
-    $scope.teams.push('Fourth Team!')
-  }, 750);
+    //This will work as soon as we can access the gameCode
+    // $scope.teams = team.get(gameCode);
 
-  // $interval(function(){
-  //   var teams = team.get();
-  //   // don't know what this is called yet (something like...)
-  //   // $scope.teams = teams.teamNames
-  //   // $scope.challenges = teams.challenges
-  // }, 500);
+  }, 500);
 });
