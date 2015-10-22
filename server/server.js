@@ -82,6 +82,12 @@ app.post('/api/team:gameCode', function(req, res) {
   res.send(teamIndex);
 });
 
+// send the teams to the front end
+app.get('/api/team:gameCode', function(req, res) {
+  var game = req.params.gameCode;
+  req.send(games[game].teams);
+});
+
 //hunt route
 //get all the hunts from the database
 app.get('/api/hunts', function(req, res) {
