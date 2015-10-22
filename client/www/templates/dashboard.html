@@ -3,18 +3,22 @@
     <div class="spacer" style="width: 300px; height: 43px;"></div>
     <ion-list></ion-list>
     <ion-list>
-      <ion-item class="item-thumbnail-left">
-        <h2>Jocular Jaguars</h2>
-        <p>Challege 7</p>
+      <ion-item class="item-thumbnail-left" ng-repeat="n in teams">
+      <!-- <div ng-repeat="team in teams"> -->
+        <h2>{{n.team}}</h2>
+        <p>{{n.challenge}}</p>
+<!--         <h2>Jocular Jaguars</h2>
+        <p>Challege 7</p> -->
       </ion-item>
-      <ion-item class="item-thumbnail-left">
+<!--       <ion-item class="item-thumbnail-left">
         <h2>Team That Will Lose</h2>
         <p>Challege 4</p>
       </ion-item>
       <ion-item class="item-thumbnail-left">
         <h2>Even Bigger Losers</h2>
         <p>Challenge 1</p>
-      </ion-item>
+      </ion-item> -->
+      <!-- </div> -->
     </ion-list>
     <button class="button button-stable button-block ">End Game</button>
   </ion-content>

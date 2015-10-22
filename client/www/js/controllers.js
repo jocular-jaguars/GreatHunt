@@ -45,8 +45,9 @@ angular.module('app.controllers', ['app.services', 'ngResource'])
 
 .controller('dashboardCtrl', function($scope, $interval, team) {
   //fake data until we've made server call
-  $scope.teams = ['Jocular Jags', 'Losers', 'Major Losers'];
-  $scope.challenges = ['Challenge 7', 'Challenge 3', 'Challenge 4'];
+  $scope.teams = [{team:'Jocular Jags', challenge: 'Challenge 7'},
+                  {team:'Marty', challenge: 'Challenge 3'},
+                  {team:'Even Bigger Losers', challenge: 'Challenge 4'}];
 
   $interval(function(){
     //instead we will be calling server for information, but
