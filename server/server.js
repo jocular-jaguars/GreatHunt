@@ -18,6 +18,7 @@ console.log(mongoURI);
 mongoose.connect(mongoURI);
 
 app.use(parser.json());
+app.use(cors());
 
 // Serve static files in our client folder
 app.use(express.static(__dirname + '/../client'));
