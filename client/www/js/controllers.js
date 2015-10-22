@@ -4,6 +4,18 @@ angular.module('app.controllers', ['app.services', 'ngResource'])
 
 })
 
+.controller('aboutCtrl', function($scope) {
+
+})
+
+.controller('huntsCtrl', function($scope, hunts) {
+  $scope.hunts = hunts;
+})
+
+.controller('huntDetailCtrl', function($scope, hunt) {
+  $scope.hunt = hunt;
+})
+
 .controller('lobbyCtrl', function($scope) {
 
   //fake data until we've made server call

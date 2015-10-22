@@ -1,0 +1,12 @@
+<ion-view title="Hunts">
+  <ion-content>
+    <ion-list>
+      <!-- ui-sref passes a hunt's array index as a param to the
+        the hunts.detail state -->
+      <ion-item ng-repeat="hunt in hunts" class="item item-icon-right"
+        ui-sref="hunts.detail({hunt: $index})">
+        {{hunt.name}}
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>
