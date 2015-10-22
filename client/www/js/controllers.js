@@ -18,9 +18,9 @@ angular.module('app.controllers', ['app.services', 'ngResource'])
 
 .controller('lobbyCtrl', function($scope, $interval) {
   //fake data until we've made server call
-  $scope.teams = [{name:'Jocular Jags', currentChallenge: 'Challenge 7'},
-                  {name:'Marty McFly', currentChallenge: 'Challenge 3'},
-                  {name:'Even Bigger Losers', currentChallenge: 'Challenge 4'}];
+  $scope.teams = [{name:'Jocular Jags', currentChallenge: '7'},
+                  {name:'Marty McFly', currentChallenge: '3'},
+                  {name:'Even Bigger Losers', currentChallenge: '4'}];
 
   $interval(function(){
     //This will work as soon as we can access the gameCode
@@ -50,9 +50,9 @@ angular.module('app.controllers', ['app.services', 'ngResource'])
 
 .controller('dashboardCtrl', function($scope, $interval, team) {
   //fake data until we've made server call
-  $scope.teams = [{name:'Jocular Jags', currentChallenge: 'Challenge 7'},
-                  {name:'Marty', currentChallenge: 'Challenge 3'},
-                  {name:'Even Bigger Losers', currentChallenge: 'Challenge 4'}];
+  $scope.teams = [{name:'Jocular Jags', currentChallenge: '7'},
+                  {name:'Marty', currentChallenge: '3'},
+                  {name:'Even Bigger Losers', currentChallenge: '4'}];
 
   $interval(function(){
     //This will work as soon as we can access the gameCode
