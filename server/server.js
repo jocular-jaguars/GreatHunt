@@ -24,19 +24,14 @@ app.use(express.static(__dirname + '/../client'));
 
 //The game instance to store the games being played.
 var games = {};
-//game code
-//update team route (they let us know if they passed the challenge)
-//game state
-//challenges (all of them)
 
 //Routes go here
 app.get('/', function(req, res) {
   res.send('helllllooooooooo woooorld! :D');
 });
 
-//get 1 game object
-app.get('/api/game:gameCode', function(req, res) {
-  console.log("test", req.body);
+//get one game object
+app.get('/api/game/:gameCode', function(req, res) {
   var gameCode = req.params.gameCode;
   if(games[gameCode].startGame()) {
     var gameData = {};
@@ -46,23 +41,51 @@ app.get('/api/game:gameCode', function(req, res) {
     res.send(teams);
   }
 });
+
+// send the teams to the front end
+app.get('/api/team/:gameCode', function(req, res) {
+  var gameCode = req.params.gameCode;
+  res.send(JSON.stringify(games[gameCode].teams));
+});
+
+//hunt route
+//get all the hunts from the database
+app.get('/api/hunts', function(req, res) {
+  huntController.allHunts(function(err, hunts) {
+    console.log("weeeee!", hunts);
+    res.send(hunts);
+  });
+});
+
 //create the game
 app.post('/api/game', function(req, res) {
-  console.log(req.body, "~~req.body~~");
-  console.log("~~before~~", req.body.huntName);
   huntController.findHunt(req.body.huntName, function(err, hunt) {
-  //huntController.findHunt({_id: req.body.huntId}, function(hunt) {
-    console.log(req.body.huntName, "~~~~~~", hunt);
     var newGame = new Game(hunt);
     games[newGame.gameCode] = newGame;
     res.send(newGame.gameCode);
   });
 });
-//update team status in the game.
-app.put('/api/game:gameCode', function(req, res) {
-  var game = req.params.gameCode;
-  var team = req.body.teamIndex;
-  games[game].teams[team].nextChallenge();
+
+//update team status in the game; send team to next challenge.
+app.put('/api/game/:gameCode', function(req, res) {
+  var gameCode = req.params.gameCode;
+  var teamIndex = req.body.teamIndex;
+  games[gameCode].teams[teamIndex].nextChallenge();
+  res.end();
+});
+
+//We need the game code so we can accurately assign teams to the game
+app.post('/api/team/:gameCode', function(req, res) {
+  var gameCode = req.params.gameCode;
+  console.log('gameCode: ', gameCode);
+  var team = new Team(req.body.teamName);
+  var teams = games[gameCode].teams;
+  var teamIndex = teams.length;
+  var teamIndexObj = {teamIndex: teamIndex};
+  teams.push(team);
+  //console.log("team: ", team, "teams: ", teams);
+  //console.log("games: ", games);
+  res.send(JSON.stringify(teamIndexObj)); //instead of teamIndexObj, teamIndex also works.
 });
 
 //TODO: delete game when game is over (not for MVP yo!)
@@ -71,32 +94,6 @@ app.put('/api/game:gameCode', function(req, res) {
 //   [game].endGame();
 //   res.send('go to the end page, yo');
 // });
-
-//We need the game code so we can accurately assign teams to the game
-app.post('/api/team:gameCode', function(req, res) {
-  var game = req.params.gameCode;
-  var team = new Team(req.body.teamName);
-  var teams = games[gameCode].teams;
-  var teamIndex = teams.length;
-  teams.push(team);
-  res.send(teamIndex);
-});
-
-// send the teams to the front end
-app.get('/api/team:gameCode', function(req, res) {
-  var game = req.params.gameCode;
-  req.send(games[game].teams);
-});
-
-//hunt route
-//get all the hunts from the database
-app.get('/api/hunts', function(req, res) {
-  huntController.allHunts(function(hunts) {
-    console.log("weeeee!", hunts);
-    res.send(hunts);
-  });
-});
-
 
 app.listen(port, function() {
   console.log('Listening on port: ', port);
