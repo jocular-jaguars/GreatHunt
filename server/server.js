@@ -24,10 +24,6 @@ app.use(express.static(__dirname + '/../client'));
 
 //The game instance to store the games being played.
 var games = {};
-//game code
-//update team route (they let us know if they passed the challenge)
-//game state
-//challenges (all of them)
 
 //Routes go here
 app.get('/', function(req, res) {
@@ -35,7 +31,7 @@ app.get('/', function(req, res) {
 });
 
 //get 1 game object
-app.get('/api/game:gameCode', function(req, res) {
+app.get('/api/game/:gameCode', function(req, res) {
   console.log("test", req.body);
   var gameCode = req.params.gameCode;
   if(games[gameCode].startGame()) {
@@ -51,18 +47,22 @@ app.post('/api/game', function(req, res) {
   console.log(req.body, "~~req.body~~");
   console.log("~~before~~", req.body.huntName);
   huntController.findHunt(req.body.huntName, function(err, hunt) {
-  //huntController.findHunt({_id: req.body.huntId}, function(hunt) {
     console.log(req.body.huntName, "~~~~~~", hunt);
     var newGame = new Game(hunt);
+    console.log("games: ", games);
+    console.log("new Game: ", newGame);
     games[newGame.gameCode] = newGame;
     res.send(newGame.gameCode);
   });
 });
+
 //update team status in the game.
-app.put('/api/game:gameCode', function(req, res) {
-  var game = req.params.gameCode;
+//insert / before : for all params routes
+app.put('/api/game/:gameCode', function(req, res) {
+  var gameCode = req.params.gameCode;
   var team = req.body.teamIndex;
-  games[game].teams[team].nextChallenge();
+  console.log("games: ", games, " team: ", team, " gameCode: ", gameCode);
+  games[gameCode].teams[team].nextChallenge();
 });
 
 //TODO: delete game when game is over (not for MVP yo!)
@@ -73,19 +73,23 @@ app.put('/api/game:gameCode', function(req, res) {
 // });
 
 //We need the game code so we can accurately assign teams to the game
-app.post('/api/team:gameCode', function(req, res) {
-  var game = req.params.gameCode;
+app.post('/api/team/:gameCode', function(req, res) {
+  var gameCode = req.params.gameCode;
+  console.log('gameCode: ', gameCode);
   var team = new Team(req.body.teamName);
   var teams = games[gameCode].teams;
   var teamIndex = teams.length;
+  var teamIndexObj = {teamIndex: teamIndex};
   teams.push(team);
-  res.send(teamIndex);
+  console.log("team: ", team);
+  console.log("games: ", games);
+  res.send(JSON.stringify(teamIndexObj));
 });
 
 // send the teams to the front end
-app.get('/api/team:gameCode', function(req, res) {
-  var game = req.params.gameCode;
-  req.send(games[game].teams);
+app.get('/api/team/:gameCode', function(req, res) {
+  var gameCode = req.params.gameCode;
+  res.send(JSON.stringify(games[gameCode].teams));
 });
 
 //hunt route
