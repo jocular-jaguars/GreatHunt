@@ -5,6 +5,7 @@ var Schema = mongoose.Schema;
 var huntSchema = new Schema({
   name: {
     type: String,
+    unique: true,
     required: true
   },
   location: {

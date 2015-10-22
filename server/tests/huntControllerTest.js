@@ -67,13 +67,9 @@ describe('Hunt Model', function() {
   });
 
   it("should find the hunt in the database", function(done) {
-    HuntController.allHunts(function(hunts) {
-      var firstHuntId = hunts[0]._id;
-      //console.log("hunts: ", hunts);
-      //console.log("firstHuntId: ", firstHuntId);
-      HuntController.findHunt({_id: firstHuntId}, function(hunt) {
-        //console.log(firstHuntId, "<-->", hunt._id);
-        //expect(hunt._id).to.equal(firstHuntId);
+    HuntController.allHunts(function(err, hunts) {
+      var firstHuntName = hunts[0].name;
+      HuntController.findHunt(firstHuntName, function(err, hunt) {
         expect(hunt.name).to.equal("hunt1");
         done();
       });
@@ -81,10 +77,19 @@ describe('Hunt Model', function() {
   });
 
   it("should return all the hunts in the database", function(done) {
-    HuntController.allHunts(function(hunts) {
+    HuntController.allHunts(function(err, hunts) {
       expect(hunts.length).to.equal(2);
       //console.log("In third test, findAll hunts ", hunts);
       done();
     });
   });
+
+  it("should return only the name, and description of all the hunts in the database", function(done) {
+    HuntController.allHuntsClient(function(err, hunts) {
+      //console.log(hunts, "~~client side hunts info~~");
+      expect(hunts.length).to.equal(2);
+      done();
+    });
+  });
+
 });
