@@ -30,7 +30,7 @@ describe('app.controllers', function() {
   describe('lobbyCtrl', function() {
 
     beforeEach(module('app.controllers'));
-    it('should have an array of the teams in $scope', function() {
+    it('should have teams info in $scope', function() {
       inject(function($controller, $rootScope) {
         var scope = $rootScope.$new()
         controller = $controller('lobbyCtrl', {
@@ -38,6 +38,7 @@ describe('app.controllers', function() {
         });
 
         (scope.teams).should.be.a("array");
+        (scope.teams[0]).should.be.a("object");
       })
     });
 
@@ -93,15 +94,15 @@ describe('app.controllers', function() {
     beforeEach(module('app.controllers'));
     beforeEach(module('app.services'));
 
-    it('should have an equal number of teams and challenges', function() {
+    it('should have an teams array with teams and challenges', function() {
        inject(function($controller, $rootScope, $interval, $resource) {
         var scope = $rootScope.$new()
         controller = $controller('dashboardCtrl', {
           $scope : scope
         });
 
-        var length = scope.teams.length;
-        expect(scope.challenges.length).to.equal(length);
+        expect(scope.teams[0]).to.have.property("name");
+        expect(scope.teams[0]).to.have.property("currentChallenge");
       })
     });
 
