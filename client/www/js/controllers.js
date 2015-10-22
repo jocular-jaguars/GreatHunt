@@ -1,4 +1,4 @@
-angular.module('app.controllers', [])
+angular.module('app.controllers', ['app.services', 'ngResource'])
 
 .controller('welcomeCtrl', function($scope) {
 
@@ -21,9 +21,9 @@ angular.module('app.controllers', [])
 
 .controller('challengeCtrl', function($scope) {
 
-    //fake data until we've made server call
-    $scope.description = "Don't forget your towel!";
-    $scope.question = '123';
+  //fake data until we've made server call
+  $scope.description = "Don't forget your towel!";
+  $scope.question = '123';
 
 })
 
@@ -31,6 +31,21 @@ angular.module('app.controllers', [])
 
 })
 
-.controller('dashboardCtrl', function($scope) {
+.controller('dashboardCtrl', function($scope, $interval, team) {
+  //fake data until we've made server call
+  $scope.teams = ['Jocular Jags', 'Losers', 'Major Losers'];
+  $scope.challenges = ['Challenge 7', 'Challenge 3', 'Challenge 4'];
 
+  $interval(function(){
+    //instead we will be calling server for information, but
+    //this is just for testing for now
+    $scope.teams.push('Fourth Team!')
+  }, 750);
+
+  // $interval(function(){
+  //   var teams = team.get();
+  //   // don't know what this is called yet (something like...)
+  //   // $scope.teams = teams.teamNames
+  //   // $scope.challenges = teams.challenges
+  // }, 500);
 });

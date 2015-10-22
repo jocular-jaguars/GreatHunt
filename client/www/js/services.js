@@ -1,6 +1,6 @@
 angular.module('app.services', ['ngResource'])
 
-.factory('game', [function($resource){
+.factory('game', function($resource){
   return $resource(
     '/api/game:id',
     {id: '@id'},
@@ -9,9 +9,9 @@ angular.module('app.services', ['ngResource'])
       'create' : {method: 'POST'}
     }
   );
-}])
+})
 
-.factory('team', [function($resource){
+.factory('team', function($resource){
   return $resource(
     '/api/team:id',
     {id: '@id'},
@@ -19,10 +19,10 @@ angular.module('app.services', ['ngResource'])
       'make' : {method: 'POST'}
     }
   );
-}])
+})
 
-.factory('hunts', [function($resource){
+.factory('hunts', function($resource){
   return $resource(
     '/api/hunts'
   );
-}]);
+});

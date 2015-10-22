@@ -70,7 +70,8 @@ describe('app.controllers', function() {
     });
 
     it('should display to user whether answer is correct or incorrect', function() {
-      //will check background color, assuming that's how we're displaying thiss
+      //use ngClass to change background color
+      //will have to write a directive test, I believe
     });
 
     it('should display photo from url', function() {
@@ -79,25 +80,50 @@ describe('app.controllers', function() {
   });
 
 
-  // describe('createTeamCtrl', function() {
-  //   it('should call team factory\'s make function with team id', function() {
+  describe('createTeamCtrl', function() {
+    it('should call team factory\'s make function with team id', function() {
+      //think I might need a sinon spy to check if called
+    });
+    it('should reroute to lobby', function() {
+      //need to find out how to test rerouting
+    });
+  });
 
-  //   });
-  //   it('should reroute to lobby', function() {
+  describe('dashboardCtrl', function() {
+    beforeEach(module('app.controllers'));
+    beforeEach(module('app.services'));
 
-  //   });
-  // });
+    it('should update with team list Challenge from server', function() {
+      //need to make fake update and then check scope's team list
+      inject(function($controller, $rootScope, $interval, $resource) {
+        var scope = $rootScope.$new()
+        controller = $controller('dashboardCtrl', {
+          $scope : scope
+        });
+        expect(scope.teams).to.have.length(3);
+        $interval.flush(1000);
+        expect(scope.teams).to.have.length(4);
+      })
+    });
 
-  // describe('dashboardCtrl', function() {
-  //   it('should update with team list Challenge from server', function() {
+    it('should have an equal number of teams and challenges', function() {
+       inject(function($controller, $rootScope, $interval, $resource) {
+        var scope = $rootScope.$new()
+        controller = $controller('dashboardCtrl', {
+          $scope : scope
+        });
 
-  //   });
-  // });
+        var length = scope.teams.length;
+        expect(scope.challenges.length).to.equal(length);
+      })
+    });
 
-  // describe('endGameCtrl', function() {
-  //   it('should be able to reroute to welcome page', function() {
+  });
 
-  //   });
-  // });
+  describe('endGameCtrl', function() {
+    it('should be able to reroute to welcome page', function() {
+      // need to find out how to test rerouting
+    });
+  });
 
 });
