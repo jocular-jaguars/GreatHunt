@@ -25,7 +25,14 @@ app.use(cors());
 app.use(express.static(__dirname + '/../client'));
 
 //The game instance to store the games being played.
-var games = {};
+var games = {
+  'ahkr' : {
+    teams: [{name: "Jocular Jaguars", currentChallenge: 7},
+            {name: "Wesley Crushers", currentChallenge: 2},
+            {name: "Charlie Chaplins", currentChallenge: 4}],
+    startGame: false
+  }
+};
 
 //Routes go here
 app.get('/', function(req, res) {
