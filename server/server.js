@@ -30,7 +30,7 @@ var games = {
     teams: [{name: "Jocular Jaguars", currentChallenge: 7},
             {name: "Wesley Crushers", currentChallenge: 2},
             {name: "Charlie Chaplins", currentChallenge: 4}],
-    startGame: false
+    started: false
   }
 };
 
