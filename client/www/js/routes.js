@@ -1,5 +1,18 @@
 angular.module('app.routes', ['app.preGameControllers', 'app.inGameControllers', 'app.services'])
 
+// Test local storage
+// .run(function(LocalStorageService) {
+
+//   LocalStorageService.set('name', 'Max');
+//   console.log(LocalStorageService.get('name'));
+//   LocalStorageService.setObject('post', {
+//     name: 'Thoughts',
+//     text: 'Today was a good day'
+//   });
+//   var post = LocalStorageService.getObject('post');
+//   console.log(post);
+// })
+
 .config(function($stateProvider, $urlRouterProvider) {
 
   // Ionic uses AngularUI Router which uses the concept of states
