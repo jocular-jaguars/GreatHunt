@@ -35,7 +35,7 @@ app.get('/', function(req, res) {
 //get one game object
 app.get('/api/game/:gameCode', function(req, res) {
   var gameCode = req.params.gameCode;
-  if(games[gameCode].startGame()) {
+  if(games[gameCode].started) {
     var gameData = {};
     res.send(gameData);
   } else {
