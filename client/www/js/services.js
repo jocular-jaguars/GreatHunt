@@ -1,6 +1,6 @@
 angular.module('app.services', ['ngResource'])
 
-.factory('game', function($resource){
+.factory('GameService', function($resource){
   return $resource(
     '/api/game:id',
     {id: '@id'},
@@ -11,14 +11,20 @@ angular.module('app.services', ['ngResource'])
   );
 })
 
-.factory('team', function($resource){
-  return $resource(
-    '/api/team:id',
-    {id: '@id'},
-    {
-      'make' : {method: 'POST'}
-    }
+.factory('TeamService', function($resource){
+
+  var data = $resource(
+    'http://localhost:8000/api/team/:ahkr'
   );
+
+  //calls every second
+  var teams = data.query();
+
+  return {
+    getTeams: function() {
+      return teams;
+    }
+  }
 })
 
 .factory('HuntService', function($resource) {

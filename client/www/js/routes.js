@@ -1,4 +1,4 @@
-angular.module('app.routes', ['app.controllers', 'app.services'])
+angular.module('app.routes', ['app.preGameControllers', 'app.inGameControllers', 'app.services'])
 
 .config(function($stateProvider, $urlRouterProvider) {
 
@@ -78,7 +78,8 @@ angular.module('app.routes', ['app.controllers', 'app.services'])
 
     .state('joinGame', {
       url: '/join',
-      templateUrl: 'templates/joinGame.html'
+      templateUrl: 'templates/joinGame.html',
+      controller: 'joinCtrl'
     })
 
     .state('lobby', {
@@ -114,7 +115,12 @@ angular.module('app.routes', ['app.controllers', 'app.services'])
     .state('dashboard', {
       url: '/dashboard',
       templateUrl: 'templates/dashboard.html',
-      controller: 'dashboardCtrl'
+      controller: 'dashboardCtrl',
+      resolve: {
+        teams: function($stateParams, TeamService) {
+          return TeamService.getTeams($stateParams.teams)
+        }
+      }
     });
 
   // if none of the above states are matched, use this as the fallback
