@@ -12,6 +12,7 @@ angular.module('app.controllers', ['app.services', 'ngResource'])
   $scope.hunts = hunts;
 })
 
+
 .controller('huntDetailCtrl', function($scope, hunt) {
   $scope.hunt = hunt;
 })

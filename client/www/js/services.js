@@ -21,26 +21,18 @@ angular.module('app.services', ['ngResource'])
   );
 })
 
-.factory('hunts', function($resource){
-  return $resource(
-    '/api/hunts'
-  );
-})
+.factory('HuntService', function($resource) {
 
-.factory('HuntService', function() {
-  var hunts = [
-    { name: "SF Hunt", location: "San Francisco", description: "Best one ever!" },
-    { name: "Halloween Hunt", location: "Spooky Place", description: "Don't die!" },
-    { name: "NY Hunt", location: "New York", description: "Who's that lady with the torch?" },
-  ];
+  var data = $resource(
+    'http://localhost:8000/api/hunts'
+  );
+
+  var hunts = data.query();
 
   return {
-    hunts: hunts,
-
     getHunts: function() {
-      return this.hunts;
+      return hunts;
     },
-
     getHunt: function(index) {
       return hunts[index];
     }

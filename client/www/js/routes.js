@@ -9,14 +9,16 @@ angular.module('app.routes', ['app.controllers', 'app.services'])
   // Templates are injected into <ion-nav-view> in index.html
   $stateProvider
 
+    // parent state
     .state('tabs', {
       url: '/home',
       abstract:true,
       templateUrl: 'templates/tabs.html'  // substates of tabs need labeled views
     })
 
+    // substate of tabs
     .state('tabs.welcome', {
-      url: '/welcome',
+      url: '/welcome', // relative to parent
       views: {
         'welcome': {
           templateUrl: 'templates/welcome.html',
@@ -25,6 +27,7 @@ angular.module('app.routes', ['app.controllers', 'app.services'])
       }
     })
 
+    // substate of tabs
     .state('tabs.about', {
       url: '/about',
       views: {
@@ -35,26 +38,27 @@ angular.module('app.routes', ['app.controllers', 'app.services'])
       }
     })
 
-    // An abstract state
+    // Parent state
     .state('hunts', {
       abstract: true,
       url: '/hunts',
       template: '<ion-nav-view></ion-nav-view>'
     })
 
-    // Substates of hunts state
+    // Substate of hunts
     .state('hunts.index', {
       url: '',  // relative to the hunts state URL
       templateUrl: 'templates/hunts.html',
       controller: 'huntsCtrl',
       resolve: {
+        // injects hunts into controller, which puts it into $scope
         hunts: function(HuntService) {
           return HuntService.getHunts();
         }
       }
     })
 
-    // Show the details of one hunt
+    // Substate of hunts, show the details of one hunt
     .state('hunts.detail', {
       url: '/:hunt',   // :hunt is a param injected during ng-repeat in hunts.html
       templateUrl: 'templates/huntDetail.html',
@@ -63,7 +67,7 @@ angular.module('app.routes', ['app.controllers', 'app.services'])
       // key is the variable name that is injected into the controller
       // value is a value or promise that gets returned
       resolve: {
-        // hunt function gets hunt URL with help of $stateParams,
+        // hunt function gets hunt URL using $stateParams,
         // calls getHunt with that params, and injects the value returned from getHunt
         // into the HuntDetailCtrl, so the controller can be linked to a specific hunt
         hunt: function($stateParams, HuntService) {

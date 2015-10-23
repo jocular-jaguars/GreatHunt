@@ -6,6 +6,7 @@ var ObjectId = require('mongoose').Types.ObjectId;
 var huntController = require('./db/huntController.js');
 var Game = require('./game/Game.js');
 var Team = require('./game/Team.js');
+var cors = require('cors');
 //deleted the following file (unnecessary):
 // var helpers = require('./helpers/routeHelpers.js');
 
