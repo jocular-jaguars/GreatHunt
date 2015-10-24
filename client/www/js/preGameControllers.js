@@ -40,11 +40,18 @@ angular.module('app.preGameControllers', ['app.services', 'ngResource'])
   }, 3000);
 })
 
-.controller('creatorJoinCtrl', function($scope) {
+.controller('creatorJoinCtrl', function($scope, $state) {
+  $scope.redirectToCreateTeam = function() {
+    $state.go('createTeam');
+  };
 
+  $scope.redirectToDashboard = function() {
+    $state.go('dashboard');
+  };
 })
 
 .controller('joinCtrl', function($scope) {
+
 
 })
 
