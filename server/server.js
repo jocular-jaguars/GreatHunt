@@ -41,11 +41,15 @@ app.get('/', function(req, res) {
 //get one game object
 app.get('/api/game/:gameCode', function(req, res) {
   var gameCode = req.params.gameCode;
-  if(games[gameCode].started) {
-    res.send(JSON.stringify(games[gameCode]));
+  if(!(gameCode in games)) {
+    res.send({gameNotFound: true});
   } else {
-    var teams = {teams: games[gameCode].teams};
-    res.send(teams);
+    if(games[gameCode].started) {
+      res.send(JSON.stringify(games[gameCode]));
+    } else {
+      var teams = {teams: games[gameCode].teams};
+      res.send(teams);
+    }
   }
 });
 
