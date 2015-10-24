@@ -33,7 +33,24 @@ angular.module('app.services', ['ngResource'])
     });
   };
 
-  return { getGame: getGame };
+  // Tell server to make a new game based on the hunt name
+  var postGame = function(huntName) {
+
+    var data = { huntName: huntName };
+
+    var resource = $resource(
+      'http://localhost:8000/api/game'
+    );
+
+    return resource.save(JSON.stringify(data)).$promise.then(function(data) {
+      return data.gameCode;
+    });
+  };
+
+  return {
+    getGame: getGame,
+    postGame: postGame
+  };
 })
 
 .factory('TeamService', function($resource) {

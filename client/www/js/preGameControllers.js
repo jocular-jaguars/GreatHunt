@@ -3,7 +3,6 @@ angular.module('app.preGameControllers', ['app.services', 'ngResource'])
 
 .controller('welcomeCtrl', function($scope, $rootScope) {
   $scope.create = function() {
-    $rootScope.creator = true;
     $rootScope.redirect('hunts.index');
   };
 
@@ -18,11 +17,20 @@ angular.module('app.preGameControllers', ['app.services', 'ngResource'])
 })
 
 
-.controller('huntDetailCtrl', function($scope, hunt) {
+.controller('huntDetailCtrl', function($scope, hunt, GameService, $rootScope) {
   $scope.hunt = hunt;
+
+  $scope.makeGame = function() {
+    GameService.postGame(hunt.name).then(function(gameCode) {
+      // save to local storage later
+      $rootScope.gameCode = gameCode;
+      $rootScope.creator = true;
+      $rootScope.redirect('creatorJoin');
+    })
+  }
 })
 
-.controller('lobbyCtrl', function ($scope, $interval, $state, GameService) {
+.controller('lobbyCtrl', function ($scope, $interval, $state, GameService, $rootScope) {
 
   var timer = $interval(function() {
     GameService.getGame().then(function(data) {
