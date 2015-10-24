@@ -1,6 +1,11 @@
 angular.module('app.preGameControllers', ['app.services', 'ngResource'])
+//routes for the redirect MUST be in single quotes
 
-.controller('welcomeCtrl', function($scope) {
+.controller('welcomeCtrl', function($scope, $rootScope) {
+  $scope.create = function() {
+    $rootScope.creator = true;
+    $rootScope.redirect('hunts.index');
+  };
 
 })
 
@@ -32,6 +37,11 @@ angular.module('app.preGameControllers', ['app.services', 'ngResource'])
       }
     })
   }, 3000);
+
+  $scope.isCreator = function() {
+    return $rootScope.creator;
+  }
+
 })
 
 .controller('creatorJoinCtrl', function($scope) {
@@ -43,6 +53,8 @@ angular.module('app.preGameControllers', ['app.services', 'ngResource'])
 })
 
 .controller('createTeamCtrl', function($scope) {
+  //needs to push info to server
+
 
 });
 

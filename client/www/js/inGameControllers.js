@@ -8,7 +8,7 @@ angular.module('app.inGameControllers', ['app.services', 'ngResource'])
 
 })
 
-.controller('endGameCtrl', function($scope) {
+.controller('endGameCtrl', function($scope, $rootScope) {
 
 })
 
