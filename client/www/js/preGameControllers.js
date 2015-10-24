@@ -1,10 +1,10 @@
 angular.module('app.preGameControllers', ['app.services', 'ngResource'])
 //routes for the redirect MUST be in single quotes
 
-.controller('welcomeCtrl', function($rootScope, $scope) {
+.controller('welcomeCtrl', function($scope, $rootScope) {
   $scope.create = function() {
     $rootScope.creator = true;
-    $rootScope.redirect('creatorJoin');
+    $rootScope.redirect('hunts.index');
   };
 
 })
@@ -22,7 +22,7 @@ angular.module('app.preGameControllers', ['app.services', 'ngResource'])
   $scope.hunt = hunt;
 })
 
-.controller('lobbyCtrl', function ($scope, $interval, $state, GameService, $rootScope) {
+.controller('lobbyCtrl', function ($scope, $interval, $state, GameService) {
 
   var timer = $interval(function() {
     GameService.getGame().then(function(data) {
@@ -44,7 +44,7 @@ angular.module('app.preGameControllers', ['app.services', 'ngResource'])
 
 })
 
-.controller('creatorJoinCtrl', function($scope, $rootScope) {
+.controller('creatorJoinCtrl', function($scope) {
 
 })
 
@@ -52,7 +52,7 @@ angular.module('app.preGameControllers', ['app.services', 'ngResource'])
 
 })
 
-.controller('createTeamCtrl', function($scope, $rootScope) {
+.controller('createTeamCtrl', function($scope) {
   //needs to push info to server
 
 
