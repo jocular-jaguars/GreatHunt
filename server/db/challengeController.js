@@ -5,7 +5,7 @@ var createChallenge = function(challenge, callback) {
   var challenge = new Challenge(challenge);
   challenge.save(function(err) {
     if(err) console.log("oh no, error: ", err);
-    callback(challenge);
+    callback(err, challenge);
   })
 };
 

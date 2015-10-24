@@ -1,10 +1,11 @@
 var Hunt = require('./huntModel.js');
 //var ObjectId = require('mongoose').Types.ObjectId;
 
-var createHunt = function(hunt) {
+var createHunt = function(hunt, callback) {
   var hunt = new Hunt(hunt);
   hunt.save(function(err) {
     if(err) console.log("There was an error adding the hunt: ", err);
+    callback(err, hunt);
   })
 };
 
