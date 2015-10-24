@@ -1,13 +1,8 @@
 angular.module('app.preGameControllers', ['app.services', 'ngResource'])
+//routes for the redirect MUST be in single quotes
 
-.controller('welcomeCtrl', function($scope, $state) {
-  $scope.redirectToCreatorJoin = function() {
-    $state.go('creatorJoin');
-  };
+.controller('welcomeCtrl', function($rootScope, $scope) {
 
-  $scope.redirectToCreateTeam = function() {
-    $state.go('createTeam');
-  };
 })
 
 .controller('aboutCtrl', function($scope) {
@@ -40,22 +35,16 @@ angular.module('app.preGameControllers', ['app.services', 'ngResource'])
   }, 3000);
 })
 
-.controller('creatorJoinCtrl', function($scope, $state) {
-  $scope.redirectToCreateTeam = function() {
-    $state.go('createTeam');
-  };
+.controller('creatorJoinCtrl', function($scope, $rootScope) {
 
-  $scope.redirectToDashboard = function() {
-    $state.go('dashboard');
-  };
 })
 
 .controller('joinCtrl', function($scope) {
 
-
 })
 
-.controller('createTeamCtrl', function($scope) {
+.controller('createTeamCtrl', function($scope, $rootScope) {
+  //needs to push info to server
 
 
 });

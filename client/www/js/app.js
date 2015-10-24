@@ -1,6 +1,10 @@
 angular.module('app', ['ionic', 'app.routes', 'app.directives'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $rootScope, $state) {
+  $rootScope.redirect = function(route) {
+    $state.go(route);
+  };
+
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
