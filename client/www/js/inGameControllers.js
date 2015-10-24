@@ -12,7 +12,19 @@ angular.module('app.inGameControllers', ['app.services', 'ngResource'])
 
 })
 
-.controller('dashboardCtrl', function($scope, teams) {
-  //fake data until we've made server call
-  // $scope.teams = teams;
+.controller('dashboardCtrl', function ($scope, $interval, $state, TeamService) {
+
+  var timer = $interval(function() {
+    TeamService.getTeams().then(function(teams) {
+      $scope.teams = teams;
+    })
+  }, 3000);
+
+  // if the future, may be better to stop timer upon page redirect so new
+  // timers are not created every time the dashboard is loaded
+  $scope.stopGameUpdate = function() {
+    $interval.cancel(timer);
+    $state.go('tabs.welcome');
+  }
+
 });

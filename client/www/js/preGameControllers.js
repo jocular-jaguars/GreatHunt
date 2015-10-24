@@ -17,16 +17,21 @@ angular.module('app.preGameControllers', ['app.services', 'ngResource'])
   $scope.hunt = hunt;
 })
 
-.controller('lobbyCtrl', function($scope, $interval) {
-  //fake data until we've made server call
-  $scope.teams = [{name:'Jocular Jags', currentChallenge: '7'},
-                  {name:'Marty McFly', currentChallenge: '3'},
-                  {name:'Even Bigger Losers', currentChallenge: '4'}];
+.controller('lobbyCtrl', function ($scope, $interval, $state, GameService) {
 
-  $interval(function(){
-    //This will work as soon as we can access the gameCode
-    // $scope.teams = team.get(gameCode);
-  }, 500);
+  var timer = $interval(function() {
+    GameService.getGame().then(function(data) {
+      if (data.started) {
+        $scope.game = data;   // object with all game data
+        console.log("game object: " + JSON.stringify($scope.game));
+        // if game has started, then cancel timer and redirect to challenge state
+        $interval.cancel(timer);
+        $state.go('challenge');
+      } else {
+        $scope.teams = data.teams;  // this is an array
+      }
+    })
+  }, 3000);
 })
 
 .controller('creatorJoinCtrl', function($scope) {

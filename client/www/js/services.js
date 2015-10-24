@@ -18,31 +18,40 @@ angular.module('app.services', ['ngResource'])
   }
 }])
 
-.factory('GameService', function($resource){
-  return $resource(
-    '/api/game:id',
-    {id: '@id'},
-    {
-      'update' : {method: 'PUT'},
-      'create' : {method: 'POST'}
-    }
-  );
+.factory('GameService', function($resource) {
+
+  var getGame = function() {
+
+    // gameCode is currently hard-coded. need to get gameCode from localStorage
+    // when it's been set up
+    var data = $resource(
+      'http://localhost:8000/api/game/ahkr'
+    );
+
+    return data.get().$promise.then(function(game) {
+      return game;
+    });
+  };
+
+  return { getGame: getGame };
 })
 
-.factory('TeamService', function($resource){
+.factory('TeamService', function($resource) {
 
-  var data = $resource(
-    'http://localhost:8000/api/team/:ahkr'
-  );
+  var getTeams = function() {
 
-  //calls every second
-  var teams = data.query();
+    // gameCode is currently hard-coded. need to get gameCode from localStorage
+    // when it's been set up
+    var data = $resource(
+      'http://localhost:8000/api/team/ahkr'
+    );
 
-  return {
-    getTeams: function() {
-      return teams;
-    }
-  }
+    return data.query().$promise.then(function(newTeams) {
+      return newTeams;
+    });
+  };
+
+  return { getTeams: getTeams };
 })
 
 .factory('HuntService', function($resource) {
