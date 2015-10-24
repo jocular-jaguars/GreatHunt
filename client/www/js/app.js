@@ -5,6 +5,8 @@ angular.module('app', ['ionic', 'app.routes', 'app.directives'])
     $state.go(route);
   };
 
+  $rootScope.creator = false;
+
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
