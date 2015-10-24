@@ -4,11 +4,10 @@ var mongoose = require('mongoose');
 var ObjectId = require('mongoose').Types.ObjectId;
 //Requirements for backend routes
 var huntController = require('./db/huntController.js');
+var challengeController = require('./db/challengeController.js');
 var Game = require('./game/Game.js');
 var Team = require('./game/Team.js');
 var cors = require('cors');
-//deleted the following file (unnecessary):
-// var helpers = require('./helpers/routeHelpers.js');
 
 
 var app = express();
@@ -70,7 +69,7 @@ app.post('/api/game', function(req, res) {
   huntController.findHunt(req.body.huntName, function(err, hunt) {
     var newGame = new Game(hunt);
     games[newGame.gameCode] = newGame;
-    res.send(newGame.gameCode);
+    res.send({gameCode: newGame.gameCode});
   });
 });
 
@@ -91,9 +90,34 @@ app.post('/api/team/:gameCode', function(req, res) {
   var teamIndex = teams.length;
   var teamIndexObj = {teamIndex: teamIndex};
   teams.push(team);
-  //console.log("team: ", team, "teams: ", teams);
-  //console.log("games: ", games);
-  res.send(JSON.stringify(teamIndexObj)); //instead of teamIndexObj, teamIndex also works.
+  res.send(JSON.stringify(teamIndexObj));
+});
+
+//For the form input
+
+//Post challenges to database
+//Don't forget to return the new challenge id from database
+app.post('/api/challenge', function(req, res) {
+  challengeController.createChallenge(req.body.challenge, function(err, challenge) {
+    if(err) {
+      var str = "There was an error processing your challenge: "+err;
+      res.send(str);
+    } else {
+      var challengeId = challenge._id;
+      res.send(JSON.stringify(challengeId));
+    }
+  });
+});
+
+app.post('/api/hunt', function(req, res) {
+  huntController.createHunt(req.body.hunt, function(err, hunt) {
+    if(err){
+      var str = "There was an error processing your hunt: "+err
+      res.send(str);
+    } else {
+      res.send("hunt received");
+    }
+  });
 });
 
 //TODO: delete game when game is over (not for MVP yo!)
