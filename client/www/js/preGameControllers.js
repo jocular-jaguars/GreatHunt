@@ -1,7 +1,13 @@
 angular.module('app.preGameControllers', ['app.services', 'ngResource'])
 
-.controller('welcomeCtrl', function($scope) {
+.controller('welcomeCtrl', function($scope, $state) {
+  $scope.redirectToCreatorJoin = function() {
+    $state.go('creatorJoin');
+  };
 
+  $scope.redirectToCreateTeam = function() {
+    $state.go('createTeam');
+  };
 })
 
 .controller('aboutCtrl', function($scope) {
@@ -43,6 +49,7 @@ angular.module('app.preGameControllers', ['app.services', 'ngResource'])
 })
 
 .controller('createTeamCtrl', function($scope) {
+
 
 });
 
