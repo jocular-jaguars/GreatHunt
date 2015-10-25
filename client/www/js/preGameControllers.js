@@ -33,7 +33,7 @@ angular.module('app.preGameControllers', ['app.services', 'ngResource'])
 .controller('lobbyCtrl', function ($scope, $interval, $state, GameService, $rootScope) {
 
   var timer = $interval(function() {
-    GameService.getGame().then(function(data) {
+    GameService.getGame($rootScope.gameCode).then(function(data) {
       if (data.started) {
         $scope.game = data;   // object with all game data
         console.log("game object: " + JSON.stringify($scope.game));
@@ -56,8 +56,22 @@ angular.module('app.preGameControllers', ['app.services', 'ngResource'])
 
 })
 
-.controller('joinCtrl', function($scope) {
+.controller('joinCtrl', function($scope, GameService, $rootScope) {
+  $scope.data = {};
+  $scope.invalid = false; // game code is considered valid at the beginning
 
+  $scope.joinGame = function() {
+    GameService.getGame($scope.data.gameCode).then(function(data) {
+      if (data.gameNotFound) {
+        $scope.invalid = true;  // server says game code is invalid
+        $scope.data.gameCode = '';  // clear the input field
+      } else {
+        $scope.invalid = false;
+        $rootScope.gameCode = $scope.data.gameCode;
+        $rootScope.redirect('createTeam');
+      }
+    });
+  }
 })
 
 .controller('createTeamCtrl', function($scope) {

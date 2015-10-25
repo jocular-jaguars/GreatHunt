@@ -4,10 +4,14 @@
 
     <form class="list">
       <label class="item item-input">
-        <input type="text">
+        <input type="text" ng-model="data.gameCode">
       </label>
     </form>
 
-    <button class="button button-stable button-block " ng-click="redirect('createTeam')">JOIN</button>
+    <div ng-show="invalid">
+      <h2>Not a valid game code. Please try again.</h2>
+    </div>
+
+    <button class="button button-stable button-block " ng-click="joinGame()">JOIN</button>
   </ion-content>
 </ion-view>

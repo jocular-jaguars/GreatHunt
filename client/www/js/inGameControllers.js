@@ -12,7 +12,7 @@ angular.module('app.inGameControllers', ['app.services', 'ngResource'])
 
 })
 
-.controller('dashboardCtrl', function ($scope, $interval, $state, TeamService) {
+.controller('dashboardCtrl', function ($scope, $rootScope, $interval, $state, TeamService) {
 
   var timer = $interval(function() {
     TeamService.getTeams().then(function(teams) {
@@ -24,6 +24,7 @@ angular.module('app.inGameControllers', ['app.services', 'ngResource'])
   // timers are not created every time the dashboard is loaded
   $scope.stopGameUpdate = function() {
     $interval.cancel(timer);
+    $rootScope.creator = false;
     $state.go('tabs.welcome');
   }
 

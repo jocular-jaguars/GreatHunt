@@ -20,12 +20,12 @@ angular.module('app.services', ['ngResource'])
 
 .factory('GameService', function($resource) {
 
-  var getGame = function() {
+  var getGame = function(gameCode) {
 
     // gameCode is currently hard-coded. need to get gameCode from localStorage
     // when it's been set up
     var data = $resource(
-      'http://localhost:8000/api/game/ahkr'
+      'http://localhost:8000/api/game/' + gameCode
     );
 
     return data.get().$promise.then(function(game) {
