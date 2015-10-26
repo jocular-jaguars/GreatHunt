@@ -1,4 +1,4 @@
-angular.module('app.createGameControllers', [])
+angular.module('app.createGameControllers', ['app.services', 'ngResource'])
 
 .controller('createChallengeCtrl', function($scope) {
   $scope.addChallenge = function(challenge) {
@@ -29,11 +29,13 @@ angular.module('app.createGameControllers', [])
 
 })
 
-.controller('createHuntCtrl', function($scope) {
+.controller('createHuntCtrl', function($scope, HuntService, $state) {
   $scope.createHunt = function(hunt) {
+    $scope.hunt = hunt;
     HuntService.createHunt(hunt);
     //now redirect to createChallenge page
-    $location.path('/createChallenge');
+    $state.go('createChallenge');
+    // $location.path('/createChallenge');
   }
 
 })

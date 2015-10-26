@@ -4,21 +4,21 @@
         <form class="list">
             <h4>Hunt Name</h4>
             <label class="item item-input">
-                <input type="text" placeholder="Hunt Name">
+                <input type="text" ng-model="hunt.name" placeholder="Hunt Name">
             </label>
             <h4>Hunt Location</h4>
             <label class="item item-input">
-                <input type="text" placeholder="Hunt Location">
+                <input type="text" ng-model="hunt.location" placeholder="Hunt Location">
             </label>
             <h4>Hunt Description</h4>
             <label class="item item-input">
-                <input type="text" placeholder="Hunt Description">
+                <input type="text" ng-model="hunt.description" placeholder="Hunt Description">
             </label>
         </form>
         <form class="list">
-            <ion-toggle toggle-class="toggle-positive">Private Hunt?</ion-toggle>
+            <ion-toggle toggle-class="toggle-positive" ng-model="hunt.private" >Private Hunt?</ion-toggle>
         </form>
         <form class="list"></form>
-        <button class="button button-stable button-block ">Add a Challenge!</button>
+        <button class="button button-stable button-block " ng-click="createHunt(hunt)">Add a Challenge!</button>
     </ion-content>
 </ion-view>
