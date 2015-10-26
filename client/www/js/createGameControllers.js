@@ -6,6 +6,24 @@ angular.module('app.createGameControllers', [])
     $location.path('/previewHunt');
   };
 
+  
+  Parse.initialize(parse_app_id, parse_javascript_id);
+
+  $scope.imageUrl;
+
+  $scope.uploadPhoto = function() {
+    var file = document.getElementById("photo").files[0];
+    var name = file.name;
+    var parseFile = new Parse.File(name, file);
+    parseFile.save().then(function() {
+      console.log(parseFile.url());
+      $scope.imageUrl = parseFile.url();
+      $scope.$apply();
+    }, function(err) {
+      console.log(err);
+    });
+  }
+
 })
 
 .controller('createHuntCtrl', function($scope) {
