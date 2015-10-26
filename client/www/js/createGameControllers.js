@@ -6,7 +6,10 @@ angular.module('app.createGameControllers', [])
     $location.path('/previewHunt');
   };
 
-  
+  // temporary API keys for testing, actual keys are different in deployment
+  var parse_app_id = "JCeUbGW5rVcjhAHE2j48bLIitQ9jimFyYWiCXWdm";
+  var parse_javascript_id = "nIIm7tUA6XGnBq3GIMj9DMxgHqiUQMRlKM2zR8Lk";
+
   Parse.initialize(parse_app_id, parse_javascript_id);
 
   $scope.imageUrl;
@@ -18,7 +21,7 @@ angular.module('app.createGameControllers', [])
     parseFile.save().then(function() {
       console.log(parseFile.url());
       $scope.imageUrl = parseFile.url();
-      $scope.$apply();
+      $scope.$apply()
     }, function(err) {
       console.log(err);
     });
