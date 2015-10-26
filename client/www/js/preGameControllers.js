@@ -74,9 +74,16 @@ angular.module('app.preGameControllers', ['app.services', 'ngResource'])
   }
 })
 
-.controller('createTeamCtrl', function($scope) {
+.controller('createTeamCtrl', function($scope, $rootScope, TeamService) {
+  $scope.data = {};
   //needs to push info to server
 
-
+  $scope.sendTeam = function() {
+    TeamService.makeTeam($scope.data.teamName, $rootScope.gameCode).then(function(teamIndexObj) {
+      $rootScope.teamIndex = teamIndexObj.teamIndex;
+      console.log($rootScope.teamIndex);
+      $rootScope.redirect('lobby');
+    });
+  }
 });
 

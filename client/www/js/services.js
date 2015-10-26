@@ -55,6 +55,21 @@ angular.module('app.services', ['ngResource'])
 
 .factory('TeamService', function($resource) {
 
+  //future goal: name sure team name is unique!
+  var makeTeam = function(name, gameCode) {
+
+    var teamName = {teamName: name};
+
+    var data = $resource(
+      'http://localhost:8000/api/team/' + gameCode
+    );
+
+    return data.save(teamName).$promise.then(function(teamIndexObj) {
+      return teamIndexObj;
+    })
+
+  };
+
   var getTeams = function() {
 
     // gameCode is currently hard-coded. need to get gameCode from localStorage
@@ -68,7 +83,8 @@ angular.module('app.services', ['ngResource'])
     });
   };
 
-  return { getTeams: getTeams };
+  return { getTeams: getTeams,
+           makeTeam: makeTeam };
 })
 
 .factory('HuntService', function($resource) {

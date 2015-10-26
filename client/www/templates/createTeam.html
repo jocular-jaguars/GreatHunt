@@ -3,11 +3,11 @@
     <div class="spacer" style="width: 300px; height: 122px;"></div>
     <form class="list">
       <label class="item item-input">
-        <input type="text" placeholder="Enter team name">
+        <input type="text" placeholder="Enter team name" ng-model="data.teamName">
       </label>
     </form>
     <div class="button-bar">
-      <button class="button button-positive button-block " ng-click="redirect('lobby')">Join!</button>
+      <button class="button button-positive button-block " ng-click="sendTeam()">Join!</button>
       <ion-nav-back-button class="button-clear">
         <i class="ion-arrow-left-c"></i> Back
       </ion-nav-back-button>
