@@ -35,7 +35,6 @@ angular.module('app.services', ['ngResource'])
 
   // Tell server to make a new game based on the hunt name
   var postGame = function(huntName) {
-
     var data = { huntName: huntName };
 
     var resource = $resource(
@@ -46,6 +45,12 @@ angular.module('app.services', ['ngResource'])
       return data.gameCode;
     });
   };
+
+  var startGame = function() {
+
+    //NEED SERVER FUNCTION TO UPDATE GAME.STARTED
+
+  }
 
   return {
     getGame: getGame,
