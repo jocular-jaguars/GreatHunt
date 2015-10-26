@@ -52,7 +52,11 @@ angular.module('app.preGameControllers', ['app.services', 'ngResource'])
 
   $scope.startGame = function() {
     //add update to server when server-side function available
-    $rootScope.redirect('challenge');
+    GameService.startGame($rootScope.gameCode).then(function(started){
+      if (!started) {
+        console.log('No response from server');
+      }
+    });
   }
 
 })

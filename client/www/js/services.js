@@ -46,15 +46,25 @@ angular.module('app.services', ['ngResource'])
     });
   };
 
-  var startGame = function() {
+  var startGame = function(gameCode) {
 
-    //NEED SERVER FUNCTION TO UPDATE GAME.STARTED
+    var resource = $resource(
+      'http://localhost:8000/api/gameStart/' + gameCode,
+      null,
+      {
+        'update': {method: 'PUT'}
+      });
 
-  }
+    return resource.update().$promise.then(function(){
+      //need to add success confirmation.
+      return true;
+    });
+  };
 
   return {
     getGame: getGame,
-    postGame: postGame
+    postGame: postGame,
+    startGame: startGame
   };
 })
 
