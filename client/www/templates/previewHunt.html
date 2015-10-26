@@ -1,0 +1,15 @@
+<ion-view title="Preview Hunt">
+    <ion-content padding="true" class="has-header">
+        <h3>(Hunt Name)</h3>
+        <ion-list>
+            <ion-item class="item-thumbnail-left"
+            ng-repeat="challenge in challenges">
+                <img {{challenge.pictureURL}}>
+                <h2>{{challenge.question}}</h2>
+                <p>{{challenge.description}}</p>
+            </ion-item>
+        </ion-list>
+        <button class="button button-stable button-block " ng-click="newChallenge()">Add Next Challenge</button>
+        <button class="button button-stable button-block " ng-click="addHunt(HuntService.newHunt)">Submit Hunt</button>
+    </ion-content>
+</ion-view>
