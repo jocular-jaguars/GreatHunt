@@ -1,4 +1,4 @@
-angular.module('app.controllers', [])
+angular.module('app.createGameControllers', [])
 
 .controller('createChallengeCtrl', function($scope) {
   $scope.addChallenge = function(challenge) {
