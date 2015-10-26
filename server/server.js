@@ -85,6 +85,13 @@ app.put('/api/game/:gameCode', function(req, res) {
   res.end();
 });
 
+// start the game from the game creator
+app.put('/api/gameStart/:gameCode', function(req, res) {
+  var gameCode = req.params.gameCode;
+  games[gameCode].started = true;
+  res.end();
+});
+
 //We need the game code so we can accurately assign teams to the game
 app.post('/api/team/:gameCode', function(req, res) {
   var gameCode = req.params.gameCode;
