@@ -35,7 +35,6 @@ angular.module('app.services', ['ngResource'])
 
   // Tell server to make a new game based on the hunt name
   var postGame = function(huntName) {
-
     var data = { huntName: huntName };
 
     var resource = $resource(
@@ -47,13 +46,44 @@ angular.module('app.services', ['ngResource'])
     });
   };
 
+  var startGame = function(gameCode) {
+
+    var resource = $resource(
+      'http://localhost:8000/api/gameStart/' + gameCode,
+      null,
+      {
+        'update': {method: 'PUT'}
+      });
+
+    return resource.update().$promise.then(function(){
+      //need to add success confirmation.
+      return true;
+    });
+  };
+
   return {
     getGame: getGame,
-    postGame: postGame
+    postGame: postGame,
+    startGame: startGame
   };
 })
 
 .factory('TeamService', function($resource) {
+
+  //future goal: name sure team name is unique!
+  var makeTeam = function(name, gameCode) {
+
+    var teamName = {teamName: name};
+
+    var data = $resource(
+      'http://localhost:8000/api/team/' + gameCode
+    );
+
+    return data.save(teamName).$promise.then(function(teamIndexObj) {
+      return teamIndexObj;
+    })
+
+  };
 
   var getTeams = function() {
 
@@ -68,7 +98,8 @@ angular.module('app.services', ['ngResource'])
     });
   };
 
-  return { getTeams: getTeams };
+  return { getTeams: getTeams,
+           makeTeam: makeTeam };
 })
 
 .factory('HuntService', function($resource) {

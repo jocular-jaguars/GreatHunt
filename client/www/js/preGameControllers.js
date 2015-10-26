@@ -50,6 +50,15 @@ angular.module('app.preGameControllers', ['app.services', 'ngResource'])
     return $rootScope.creator;
   }
 
+  $scope.startGame = function() {
+    //add update to server when server-side function available
+    GameService.startGame($rootScope.gameCode).then(function(started){
+      if (!started) {
+        console.log('No response from server');
+      }
+    });
+  }
+
 })
 
 .controller('creatorJoinCtrl', function($scope) {
@@ -74,9 +83,15 @@ angular.module('app.preGameControllers', ['app.services', 'ngResource'])
   }
 })
 
-.controller('createTeamCtrl', function($scope) {
+.controller('createTeamCtrl', function($scope, $rootScope, TeamService) {
+  $scope.data = {};
   //needs to push info to server
 
-
+  $scope.sendTeam = function() {
+    TeamService.makeTeam($scope.data.teamName, $rootScope.gameCode).then(function(teamIndexObj) {
+      $rootScope.teamIndex = teamIndexObj.teamIndex;
+      $rootScope.redirect('lobby');
+    });
+  }
 });
 
