@@ -5,7 +5,7 @@ angular.module('app.controllers', [])
 })
 
 .controller('createHuntCtrl', function($scope) {
-  $scope.createFirstChallenge = function(hunt, challengeId) {
+  $scope.goToChallenges = function(someRoute) {
 
   }
 
