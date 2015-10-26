@@ -29,7 +29,7 @@ angular.module('app.routes', [])
 
 
 
-
+//This is not necessary for MVP
     .state('previewChallenge', {
       url: '/previewChallenge',
       templateUrl: 'templates/previewChallenge.html',

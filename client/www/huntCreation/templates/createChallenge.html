@@ -5,19 +5,19 @@
             <form class="list">
                 <h4>Challenge Description</h4>
                 <label class="item item-input">
-                    <input type="text" placeholder="Challenge Description">
+                    <input type="text" ng-model="challenge.description" placeholder="Challenge Description">
                 </label>
                 <h4>Challenge Question</h4>
                 <label class="item item-input">
-                    <input type="text" placeholder="Challenge Question">
+                    <input type="text" ng-model="challenge.question" placeholder="Challenge Question">
                 </label>
                 <h4>Challenge Answer</h4>
                 <label class="item item-input">
-                    <input type="text" placeholder="Challenge Answer">
+                    <input type="text" ng-model="challenge.answer" placeholder="Challenge Answer">
                 </label>
             </form>
         </form>
-        <button class="button button-stable button-block "ng-controller = "" ng-click="">Upload Photo</button>
-        <button class="button button-stable button-block ">Preview and Submit</button>
+        <button class="button button-stable button-block " >Upload Photo</button>
+        <button class="button button-stable button-block " ng-click="addChallenge(challenge)">Submit</button>
     </ion-content>
 </ion-view>
