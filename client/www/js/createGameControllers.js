@@ -1,9 +1,11 @@
 angular.module('app.createGameControllers', ['app.services', 'ngResource'])
 
-.controller('createChallengeCtrl', function($scope) {
+.controller('createChallengeCtrl', function($scope, $state, HuntService, $http) {
+  $scope.challenge = {};
+
   $scope.addChallenge = function(challenge) {
-    HuntService.createChallenge(challenge);
-    $location.path('/previewHunt');
+    HuntService.addChallenge(challenge);
+    $state.go('previewHunt');
   };
 
   // temporary API keys for testing, actual keys are different in deployment
@@ -12,15 +14,12 @@ angular.module('app.createGameControllers', ['app.services', 'ngResource'])
 
   Parse.initialize(parse_app_id, parse_javascript_id);
 
-  $scope.imageUrl;
-
   $scope.uploadPhoto = function() {
     var file = document.getElementById("photo").files[0];
     var name = file.name;
     var parseFile = new Parse.File(name, file);
     parseFile.save().then(function() {
-      console.log(parseFile.url());
-      $scope.imageUrl = parseFile.url();
+      $scope.challenge.pictureURL = parseFile.url();
       $scope.$apply()
     }, function(err) {
       console.log(err);
@@ -29,13 +28,11 @@ angular.module('app.createGameControllers', ['app.services', 'ngResource'])
 
 })
 
-.controller('createHuntCtrl', function($scope, HuntService, $state) {
+.controller('createHuntCtrl', function($scope, HuntService, $state, $http) {
   $scope.createHunt = function(hunt) {
-    $scope.hunt = hunt;
     HuntService.createHunt(hunt);
     //now redirect to createChallenge page
     $state.go('createChallenge');
-    // $location.path('/createChallenge');
   }
 
 })
@@ -45,12 +42,12 @@ angular.module('app.createGameControllers', ['app.services', 'ngResource'])
 
 })
 
-.controller('previewHuntCtrl', function($scope) {
+.controller('previewHuntCtrl', function($scope, $state, HuntService) {
   $scope.addHunt = function(hunt) {
-    HuntService.addHunt(hunt);
-    $location.path('/hunts');
+    HuntService.addHuntToDatabase();
+    $state.go('hunts.index');
   }
   $scope.newChallenge = function() {
-    $location.path('/createChallenge');
+    $state.go('createChallenge'); 
   }
 })

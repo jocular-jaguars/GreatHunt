@@ -1,4 +1,4 @@
-angular.module('app.services', ['ngResource'])
+  angular.module('app.services', ['ngResource'])
 
 // Store and retrieve from local serveice
 .factory('LocalStorageService', ['$window', function($window) {
@@ -97,7 +97,7 @@ angular.module('app.services', ['ngResource'])
            makeTeam: makeTeam };
 })
 
-.factory('HuntService', function($resource) {
+.factory('HuntService', function($resource, $http, $state) {
 
   var data = $resource(
     'http://localhost:8000/api/hunts'
@@ -115,8 +115,11 @@ angular.module('app.services', ['ngResource'])
       data: {challenge: challenge}
     })
       .then(function(challengeId) {
-        addChallengeToHunt(challengeId);
-        $location.path('/previewHunt');
+        addChallengeToHunt(challengeId.data);
+        console.log('challengeId: ', challengeId);
+        console.log('newHunt: ', newHunt);
+        console.log('challengeId.data: ', challengeId.data);
+        $state.go('previewHunt');
       })
   };
 
@@ -129,25 +132,23 @@ angular.module('app.services', ['ngResource'])
       challenges: [],
       private: false
     }
+    return newHunt;
   };
 
   var addChallengeToHunt = function(challengeId) {
     newHunt.challenges.push(challengeId);
   };
 
-  var addHunt = function(hunt) {
-    //post method TODO: add new backend api route
-    //TODO: use $resource, and if I use $resource,
-    //I must use $promise.then(...) for promises
+  var addHuntToDatabase = function() {
     return $http({
       method: 'POST',
-      url: 'http://localhost:8000/api/hunts',
-      data: {hunt: hunt}
+      url: 'http://localhost:8000/api/hunt',
+      data: {hunt: newHunt}
     })
     .then(function(res) {
       //TODO: figure out the path here.
       //Also, use $state.go('/pathName');
-      $location.path('/');
+      // $state.go('home/welcome');
       return res;
     })
   }
@@ -160,7 +161,7 @@ angular.module('app.services', ['ngResource'])
     getHunt: function(index) {
       return hunts[index];
     },
-    addHunt: addHunt,
+    addHuntToDatabase: addHuntToDatabase,
     addChallenge: addChallenge,
     createHunt: createHunt,
     addChallengeToHunt: addChallengeToHunt,
