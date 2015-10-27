@@ -7,14 +7,17 @@
       <i class="icon ion-image" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;"></i>
     </div>
 
-    <h4>Riddle Me This (description)</h4>
-    <h2>What is the third word on the plaque?</h2>
+    <h4 ng-model="current.description">Riddle Me This (description)</h4>
+    <h2 ng-model="current.question">What is the third word on the plaque?</h2>
 
-    <form class="list">
+    <form name="challenge" ng-submit='submitAnswer()' novalidate>
       <label class="item item-input">
-        <input type="text" placeholder="Enter answer">
+        <input type="text" name="input" ng-model="current.input"
+          ng-class="{ 'error': isWrong() && challenge.input.$dirty }"
+          placeholder="Enter answer">
       </label>
-      <button class="button button-stable button-block ">Submit</button>
+      <button type="submit" class="button button-stable button-block"
+        ng-disabled="isWrong()">Submit</button>
     </form>
   </ion-content>
 </ion-view>
