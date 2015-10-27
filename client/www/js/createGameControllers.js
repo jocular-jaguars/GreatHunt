@@ -5,7 +5,6 @@ angular.module('app.createGameControllers', ['app.services', 'ngResource'])
 
   $scope.addChallenge = function(challenge) {
     HuntService.addChallenge(challenge);
-    $state.go('previewHunt');
   };
 
   // temporary API keys for testing, actual keys are different in deployment
