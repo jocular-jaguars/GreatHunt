@@ -99,14 +99,26 @@
 
 .factory('HuntService', function($resource, $http, $state) {
 
-  var data = $resource(
-    'http://localhost:8000/api/hunts'
-  );
+  // var data = $resource(
+  //   'http://localhost:8000/api/hunts'
+  // );
 
-  var hunts = data.query();
+  var hunts;
 
   //Factory variable to hold new hunt data before it is sent to database
   var newHunt = {};
+
+  var getHunts = function() {
+    var data = $resource(
+      'http://localhost:8000/api/hunts'
+    );
+    hunts = data.query();
+    return hunts;
+  };
+
+  var getHunt = function(index) {
+      return hunts[index];
+  };
 
   var addChallenge = function(challenge) {
     return $http({
@@ -153,41 +165,11 @@
         console.log('response in addHuntToDatabase service: ', res);
         return res;
       })
-
-    // return $http({
-    //   method: 'POST',
-    //   url: 'http://localhost:8000/api/hunt',
-    //   data: {hunt: newHunt}
-    // })
-    // .then(function(res) {
-    //   //TODO: figure out the path here.
-    //   //Also, use $state.go('/pathName');
-    //   // $state.go('home/welcome');
-    //   return res;
-    // })
-  }
-  //};
-  // var makeTeam = function(name, gameCode) {
-
-  //   var teamName = {teamName: name};
-
-  //   var data = $resource(
-  //     'http://localhost:8000/api/team/' + gameCode
-  //   );
-
-  //   return data.save(teamName).$promise.then(function(teamIndexObj) {
-  //     return teamIndexObj;
-  //   })
-
-  // };
+  };
  
   return {
-    getHunts: function() {
-      return hunts;
-    },
-    getHunt: function(index) {
-      return hunts[index];
-    },
+    getHunts: getHunts,
+    getHunt: getHunt,
     addHuntToDatabase: addHuntToDatabase,
     addChallenge: addChallenge,
     createHunt: createHunt,
