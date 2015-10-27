@@ -2,9 +2,11 @@ var Challenge = require('./challengeModel.js');
 var mongoose = require('mongoose');
 
 var createChallenge = function(challenge, callback) {
+  challenge.answers = challenge.answers.split(', ');
   var challenge = new Challenge(challenge);
+
   challenge.save(function(err) {
-    if(err) console.log("oh no, error: ", err);
+    if(err) console.log("From createChallenge in challenge controller: ", err);
     callback(err, challenge);
   })
 };

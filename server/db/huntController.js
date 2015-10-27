@@ -11,11 +11,13 @@ var createHunt = function(hunt, callback) {
 
 var findHunt = function(huntName, callback) {
   Hunt.findOne({name: huntName})
+    .populate('challenges')
     .exec(callback);
 };
 
 var allHunts = function(callback) {
   Hunt.find({})
+    .populate('challenges')
     .exec(callback);
 };
 

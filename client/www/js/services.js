@@ -1,4 +1,4 @@
-angular.module('app.services', ['ngResource'])
+  angular.module('app.services', ['ngResource'])
 
 // Store and retrieve from local serveice
 .factory('LocalStorageService', ['$window', function($window) {
@@ -97,16 +97,28 @@ angular.module('app.services', ['ngResource'])
            makeTeam: makeTeam };
 })
 
-.factory('HuntService', function($resource) {
+.factory('HuntService', function($resource, $http, $state) {
 
-  var data = $resource(
-    'http://localhost:8000/api/hunts'
-  );
+  // var data = $resource(
+  //   'http://localhost:8000/api/hunts'
+  // );
 
-  var hunts = data.query();
+  var hunts;
 
   //Factory variable to hold new hunt data before it is sent to database
   var newHunt = {};
+
+  var getHunts = function() {
+    var data = $resource(
+      'http://localhost:8000/api/hunts'
+    );
+    hunts = data.query();
+    return hunts;
+  };
+
+  var getHunt = function(index) {
+      return hunts[index];
+  };
 
   var addChallenge = function(challenge) {
     return $http({
@@ -115,8 +127,11 @@ angular.module('app.services', ['ngResource'])
       data: {challenge: challenge}
     })
       .then(function(challengeId) {
-        addChallengeToHunt(challengeId);
-        $location.path('/previewHunt');
+        addChallengeToHunt(challengeId.data);
+        console.log('challengeId: ', challengeId);
+        console.log('newHunt: ', newHunt);
+        console.log('challengeId.data: ', challengeId.data);
+        $state.go('previewHunt');
       })
   };
 
@@ -129,38 +144,33 @@ angular.module('app.services', ['ngResource'])
       challenges: [],
       private: false
     }
+    return newHunt;
   };
 
   var addChallengeToHunt = function(challengeId) {
     newHunt.challenges.push(challengeId);
   };
 
-  var addHunt = function(hunt) {
-    //post method TODO: add new backend api route
-    //TODO: use $resource, and if I use $resource,
-    //I must use $promise.then(...) for promises
-    return $http({
-      method: 'POST',
-      url: 'http://localhost:8000/api/hunts',
-      data: {hunt: hunt}
-    })
-    .then(function(res) {
-      //TODO: figure out the path here.
-      //Also, use $state.go('/pathName');
-      $location.path('/');
-      return res;
-    })
-  }
-  //};
+  var addHuntToDatabase = function() {
 
+    var hunt = {hunt: newHunt};
+
+    var data = $resource(
+        'http://localhost:8000/api/hunt'
+      )
+
+    return data.save(hunt)
+      .$promise
+      .then(function(res) {
+        console.log('response in addHuntToDatabase service: ', res);
+        return res;
+      })
+  };
+ 
   return {
-    getHunts: function() {
-      return hunts;
-    },
-    getHunt: function(index) {
-      return hunts[index];
-    },
-    addHunt: addHunt,
+    getHunts: getHunts,
+    getHunt: getHunt,
+    addHuntToDatabase: addHuntToDatabase,
     addChallenge: addChallenge,
     createHunt: createHunt,
     addChallengeToHunt: addChallengeToHunt,

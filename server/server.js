@@ -63,7 +63,6 @@ app.get('/api/team/:gameCode', function(req, res) {
 //get all the hunts from the database
 app.get('/api/hunts', function(req, res) {
   huntController.allHunts(function(err, hunts) {
-    console.log("weeeee!", hunts);
     res.send(hunts);
   });
 });
@@ -115,12 +114,13 @@ app.post('/api/challenge', function(req, res) {
       res.send(str);
     } else {
       var challengeId = challenge._id;
-      res.send(JSON.stringify(challengeId));
+      res.send(challengeId);
     }
   });
 });
 
 app.post('/api/hunt', function(req, res) {
+  console.log('hunt in app.post: ', req.body.hunt);
   huntController.createHunt(req.body.hunt, function(err, hunt) {
     if(err){
       var str = "There was an error processing your hunt: "+err
