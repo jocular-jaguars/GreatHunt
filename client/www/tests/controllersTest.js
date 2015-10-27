@@ -1,35 +1,38 @@
 
 //enter "karma start unit-tests.conf.js" in tests folder to run this!
 
-describe('app.controllers', function() {
+describe('app.preGameControllers', function() {
   var controller;
 
   describe('welcomeCtrl', function() {
+    var controller;
 
-    //this shows that this test is running
+    beforeEach(module('app'));
+    beforeEach(module('app.preGameControllers'));
+
+    //For now, this shows that this test is running
     it('should be true', function() {
       expect(true).to.equal(true);
     });
 
-    // beforeEach(module('app.controllers'));
-    // beforeEach(inject(function($controller, $rootScope) {
-    //   controller = $controller('welcomeCtrl', {
-    //     $scope : $rootScope.$new()
-    //   });
-    //   console.log('The controller is', controller);
-    // }));
+    it('should have a function create which redirects when called', function() {
+      inject(function($rootScope, $controller, _$rootScope_, $state) {
+        var scope = _$rootScope_;
+        $rootScope = scope;
+        scope.create = function() {
+          $rootScope.redirect('hunts.index');
+        };
+        var redirect = sinon.spy($rootScope, "redirect");
 
-    // it('should call game factory\'s create function', function() {
-    //   //think I might need a sinon spy to check if called
-    // });
+        controller = $controller('welcomeCtrl', {
+          $scope : scope
+        });
 
-    // it('should call game factory\'s get function', function() {
-    //   //think I might need a sinon spy to check if called
-    // });
+        scope.create()
+        assert(redirect.calledOnce);
+      });
+    });
 
-    // it('should only reroute to createTeam if gameCode is valid', function() {
-    //   //currently automatically reroutes
-    // });
   });
 
   // describe('lobbyCtrl', function() {

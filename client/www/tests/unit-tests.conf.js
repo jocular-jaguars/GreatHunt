@@ -9,11 +9,16 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['mocha', 'chai'],
+    frameworks: ['mocha', 'chai', 'sinon'],
 
+    plugins: ['karma-mocha',
+    'karma-chai',
+    'karma-sinon',
+    'karma-chrome-launcher'],
 
     // list of files / patterns to load in the browser
     files: [
+      '../lib/ionic/js/ionic.bundle.js',
       '../lib/angular/angular.js',
       '../lib/angular-mocks/angular-mocks.js',
       '../lib/angular-resource/angular-resource.js',
@@ -21,6 +26,7 @@ module.exports = function(config) {
       '../js/services.js',
       '../js/preGameControllers.js',
       '../js/inGameControllers.js',
+      '../js/createGameControllers.js',
       '../js/directives.js',
       '../js/routes.js',
       'controllersTest.js',
