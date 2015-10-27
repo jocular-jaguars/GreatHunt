@@ -24,28 +24,28 @@ describe('Hunt Model', function() {
         pictureURL: 'http://www.pawderosa.com/images/puppies.jpg',
         description: 'CUTE',
         question: 'What is this?',
-        answers: ['puppy', 'doggy']
+        answers: 'puppy, doggy'
       });
 
       var challenge2 = new Challenge({
         pictureURL: 'http://images2.fanpop.com/image/photos/9400000/Aaaaaawwwwwwwwww-Sweet-puppies-9415255-1600-1200.jpg',
         description: 'So many puppies!',
         question: 'How many puppies?',
-        answers: ['10', 'ten']
+        answers: '10, ten'
       });
 
       var challenge3 = new Challenge({
         pictureURL: 'http://cdn2.hellogiggles.com/wp-content/uploads/2013/12/09/a-cutest-puppies-11.jpg',
         description: 'OH MY GOD WHAT IS THAT',
         question: 'What is scaring the puppy?',
-        answers: ['creepy toy', 'teddy bear']
+        answers: 'creepy toy, teddy bear'
       });
 
       var challenge4 = new Challenge({
         pictureURL: 'http://www.melodytent.org/files/2015/03/Cute-Kittens-and-Puppies-Together-HD-Wallpaper-For-Desktop-Background.jpg',
         description: 'Frenimies??',
         question: 'What are the cat and dog doing?',
-        answers: ['sleeping', 'cuddling']
+        answers: 'sleeping, cuddling'
       });
 
       challenge1.save();
@@ -88,7 +88,7 @@ describe('Hunt Model', function() {
 
     Hunt.findOne({name: "hunt6"})
       .exec(function(err, hunt) {
-        //console.log("I am in the test", hunt);
+        console.log("I am in the test", hunt);
         expect(hunt).to.exist;
         expect(hunt.name).to.equal('hunt6');
         expect(hunt.location).to.equal('Golden Gate Park');
@@ -127,9 +127,9 @@ describe('Hunt Model', function() {
 
   it("should find the challenge info when given the index of the challege in the hunt", function(done) {
     HuntController.findHunt("hunt5", function(err, hunt) {
-      var challengeId1 = hunt.challenges[0];
+      var challengeId1 = hunt.challenges[0]._id;
       ChallengeController.findChallenge({_id: challengeId1}, function(challenge) {
-        console.log("the challenge is: ", challenge);
+        console.log("the challenge question is: ", challenge.question, " challenge: ", challenge);
         expect(challenge.question).to.equal("How many puppies?");
         done();
       });
