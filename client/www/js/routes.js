@@ -131,12 +131,12 @@ angular.module('app.routes', ['app.preGameControllers',
     .state('dashboard', {
       url: '/dashboard',
       templateUrl: 'templates/dashboard.html',
-      controller: 'dashboardCtrl',
-      resolve: {
-        teams: function($stateParams, TeamService) {
-          return TeamService.getTeams($stateParams.teams)
-        }
-      }
+      controller: 'dashboardCtrl'
+      // resolve: {
+      //   teams: function($stateParams, TeamService) {
+      //     return TeamService.getTeams($stateParams.teams)
+      //   }
+      // }
     })
 
     .state('createChallenge', {
