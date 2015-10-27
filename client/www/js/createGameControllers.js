@@ -5,10 +5,10 @@ angular.module('app.createGameControllers', ['app.services', 'ngResource'])
 
   $scope.isValidChallenge = function() {
 
-    return !($scope.challenge.description !== ''
+    return $scope.challenge.description !== ''
       && $scope.challenge.question !== ''
       && $scope.challenge.answers !== ''
-      && $scope.challenge.pictureURL !== undefined);
+      && $scope.challenge.pictureURL !== undefined;
   }
 
   $scope.addChallenge = function(challenge) {
