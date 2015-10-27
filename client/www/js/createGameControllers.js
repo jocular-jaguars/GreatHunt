@@ -3,9 +3,19 @@ angular.module('app.createGameControllers', ['app.services', 'ngResource'])
 .controller('createChallengeCtrl', function($scope, $state, HuntService, $http) {
   $scope.challenge = {};
 
+  $scope.isValidChallenge = function() {
+
+    return $scope.challenge.description !== ''
+      && $scope.challenge.question !== ''
+      && $scope.challenge.answers !== ''
+      && $scope.challenge.pictureURL !== undefined;
+  }
+
   $scope.addChallenge = function(challenge) {
     HuntService.addChallenge(challenge);
   };
+
+
 
   // temporary API keys for testing, actual keys are different in deployment
   var parse_app_id = "JCeUbGW5rVcjhAHE2j48bLIitQ9jimFyYWiCXWdm";
