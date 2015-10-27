@@ -140,20 +140,47 @@
   };
 
   var addHuntToDatabase = function() {
-    return $http({
-      method: 'POST',
-      url: 'http://localhost:8000/api/hunt',
-      data: {hunt: newHunt}
-    })
-    .then(function(res) {
-      //TODO: figure out the path here.
-      //Also, use $state.go('/pathName');
-      // $state.go('home/welcome');
-      return res;
-    })
+
+    var hunt = {hunt: newHunt};
+
+    var data = $resource(
+        'http://localhost:8000/api/hunt'
+      )
+
+    return data.save(hunt)
+      .$promise
+      .then(function(res) {
+        console.log('response in addHuntToDatabase service: ', res);
+        return res;
+      })
+
+    // return $http({
+    //   method: 'POST',
+    //   url: 'http://localhost:8000/api/hunt',
+    //   data: {hunt: newHunt}
+    // })
+    // .then(function(res) {
+    //   //TODO: figure out the path here.
+    //   //Also, use $state.go('/pathName');
+    //   // $state.go('home/welcome');
+    //   return res;
+    // })
   }
   //};
+  // var makeTeam = function(name, gameCode) {
 
+  //   var teamName = {teamName: name};
+
+  //   var data = $resource(
+  //     'http://localhost:8000/api/team/' + gameCode
+  //   );
+
+  //   return data.save(teamName).$promise.then(function(teamIndexObj) {
+  //     return teamIndexObj;
+  //   })
+
+  // };
+ 
   return {
     getHunts: function() {
       return hunts;

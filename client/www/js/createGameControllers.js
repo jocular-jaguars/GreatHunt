@@ -42,9 +42,12 @@ angular.module('app.createGameControllers', ['app.services', 'ngResource'])
 })
 
 .controller('previewHuntCtrl', function($scope, $state, HuntService) {
-  $scope.addHunt = function(hunt) {
-    HuntService.addHuntToDatabase();
-    $state.go('hunts.index');
+  $scope.addHunt = function() {
+    HuntService.addHuntToDatabase()
+      .then(function(res) {
+        console.log('res in createGameControllers: ', res);
+        $state.go('hunts.index');
+      });
   }
   $scope.newChallenge = function() {
     $state.go('createChallenge'); 
