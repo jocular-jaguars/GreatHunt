@@ -50,7 +50,7 @@ describe('Hunt Model', function() {
       challenges: [],
       creator: "Jocular Jaguars",
       private: false
-    });
+    }, function(hunt) {console.log(hunt)});
 
     Hunt.findOne({name: "hunt3"})
       .exec(function(err, hunt) {
