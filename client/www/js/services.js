@@ -3,17 +3,17 @@ angular.module('app.services', ['ngResource'])
 // Store and retrieve from local serveice
 .factory('LocalStorageService', ['$window', function($window) {
   return {
+    // setString: function(key, value) {
+    //   $window.localStorage[key] = value;
+    // },
+    // getString: function(key, defaultValue) {
+    //   return $window.localStorage[key] || defaultValue;
+    // },
     set: function(key, value) {
-      $window.localStorage[key] = value;
-    },
-    get: function(key, defaultValue) {
-      return $window.localStorage[key] || defaultValue;
-    },
-    setObject: function(key, value) {
       $window.localStorage[key] = JSON.stringify(value);
     },
-    getObject: function(key) {
-      return JSON.parse($window.localStorage[key] || '{}');
+    get: function(key) {
+      return JSON.parse($window.localStorage[key] || null);
     }
   }
 }])
@@ -22,8 +22,6 @@ angular.module('app.services', ['ngResource'])
 
   var getGame = function(gameCode) {
 
-    // gameCode is currently hard-coded. need to get gameCode from localStorage
-    // when it's been set up
     var data = $resource(
       'http://localhost:8000/api/game/' + gameCode
     );
@@ -85,12 +83,9 @@ angular.module('app.services', ['ngResource'])
 
   };
 
-  var getTeams = function() {
-
-    // gameCode is currently hard-coded. need to get gameCode from localStorage
-    // when it's been set up
+  var getTeams = function(gameCode) {
     var data = $resource(
-      'http://localhost:8000/api/team/ahkr'
+      'http://localhost:8000/api/team/' + gameCode
     );
 
     return data.query().$promise.then(function(newTeams) {
