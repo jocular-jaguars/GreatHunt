@@ -1,10 +1,17 @@
 angular.module('app.preGameControllers', ['app.services', 'ngResource'])
 //routes for the redirect MUST be in single quotes
 
-.controller('welcomeCtrl', function($scope, $rootScope) {
+.controller('welcomeCtrl', function($scope, $rootScope, LocalStorageService) {
   $scope.create = function() {
     $rootScope.redirect('hunts.index');
   };
+
+  // Reset the game if player is no longer playing
+  if (LocalStorageService.get('finished')) {
+    // TODO: make a function in local storage service to delete stuff
+    console.log("clearing the local Storage");
+  }
+
 })
 
 .controller('aboutCtrl', function($scope) {
@@ -106,7 +113,6 @@ angular.module('app.preGameControllers', ['app.services', 'ngResource'])
 .controller('createTeamCtrl', function($scope, $rootScope, TeamService,
   LocalStorageService) {
   $scope.data = {};
-  //needs to push info to server
 
   $scope.sendTeam = function() {
     var gameCode = LocalStorageService.get('gameCode');

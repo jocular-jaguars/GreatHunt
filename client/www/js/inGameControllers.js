@@ -57,8 +57,16 @@ angular.module('app.inGameControllers', ['app.services', 'ngResource'])
   }
 })
 
-.controller('endGameCtrl', function($scope) {
-  // TODO: CLEAR THE GAME FROM LOCAL STORAGE???
+.controller('endGameCtrl', function($scope, $rootScope, LocalStorageService) {
+
+  LocalStorageService.set("finished", true);
+
+  // When user hits the end game button
+  $scope.endGame = function() {
+    console.log("clearing the local Storage");
+    $rootScope.redirect('tabs.welcome');
+  }
+
 })
 
 .controller('dashboardCtrl', function ($scope, $rootScope, $interval, $state,
