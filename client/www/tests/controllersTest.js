@@ -4,19 +4,14 @@
 describe('app.preGameControllers', function() {
   var controller;
 
-  describe('welcomeCtrl', function() {
+  xdescribe('welcomeCtrl', function() {
     var controller;
 
     beforeEach(module('app'));
     beforeEach(module('app.preGameControllers'));
 
-    //For now, this shows that this test is running
-    it('should be true', function() {
-      expect(true).to.equal(true);
-    });
-
     it('should have a function "create" which redirects when called', function() {
-      inject(function($rootScope, $controller, _$rootScope_, $state) {
+      inject(function($controller, _$rootScope_, $state) {
         var scope = _$rootScope_;
         $rootScope = scope;
         scope.create = function() {
@@ -35,31 +30,66 @@ describe('app.preGameControllers', function() {
 
   });
 
-  xdescribe('lobbyCtrl', function() {
+  describe('lobbyCtrl', function() {
 
-    beforeEach(module('app.controllers'));
-    it('should have teams info in $scope', function() {
-      inject(function($controller, $rootScope) {
-        var scope = $rootScope.$new()
-        controller = $controller('lobbyCtrl', {
-          $scope : scope
+    beforeEach(module('app'));
+    beforeEach(module('app.services'));
+    beforeEach(module('app.preGameControllers'));
+
+    it('should have "startGame" funcion which calls GameService\'s startGame',
+        function() {
+        inject(function($controller, $rootScope, $state, GameService) {
+          var scope = $rootScope.$new();
+          controller = $controller('lobbyCtrl', {
+            $scope : scope
         });
 
-        (scope.teams).should.be.a("array");
-        (scope.teams[0]).should.be.a("object");
+        var startSpy = sinon.spy(GameService, "startGame");
+
+        scope.startGame();
+        assert(startSpy.calledOnce);
       })
     });
 
-    beforeEach(inject(function($controller, $rootScope) {
-      controller = $controller('lobbyCtrl', {
-        $scope : $rootScope.$new()
+    it('should have "isCreator" which calls LocalStorage and returns a boolean',
+      function() {
+        inject(function($controller, $rootScope, LocalStorageService) {
+          var scope = $rootScope.$new();
+          controller = $controller('lobbyCtrl', {
+            $scope: scope
+          });
+
+        var storageSpy = sinon.spy(LocalStorageService, "get");
+
+        assert.isBoolean(scope.isCreator());
+        assert(storageSpy.calledOnce);
       });
-      console.log('The controller is', controller);
-    }));
+    });
 
+    it('should have gameCode on the local scope', function() {
+        inject(function($controller, $rootScope, LocalStorageService) {
+          LocalStorageService.set('gameCode', 'abcd');
+          var scope = $rootScope.$new();
+          controller = $controller('lobbyCtrl', {
+            $scope: scope
+        });
 
-    it('should only show the start button to server', function() {
+        assert.isString(scope.gameCode);
+      });
+    });
 
+    it('should have an array called "teams" on the local scope', function(){
+      inject(function($controller, $rootScope, $interval) {
+        var scope = $rootScope.$new();
+        controller = $controller('lobbyCtrl', {
+          $scope: scope
+        });
+
+        $interval(function() {
+          console.log('scope.teams:  ', scope.teams);
+          assert.isArray(scope.teams);
+        }, 4000);
+      })
     });
   });
 
