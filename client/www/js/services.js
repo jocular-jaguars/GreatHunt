@@ -1,4 +1,12 @@
-  angular.module('app.services', ['ngResource'])
+// comment out the version you aren't using
+
+// local
+//var root = 'http://localhost:8000';
+// deploy
+var root = 'https://thegreathunt.herokuapp.com';
+
+
+angular.module('app.services', ['ngResource'])
 
 // Store and retrieve from local serveice
 .factory('LocalStorageService', ['$window', function($window) {
@@ -17,8 +25,7 @@
   var getGame = function(gameCode) {
 
     var data = $resource(
-      'http://localhost:8000/api/game/' + gameCode ||
-      'https://thegreathunt.herokuapp.com/api/game/' + gameCode
+      root + '/api/game/' + gameCode
     );
 
     return data.get().$promise.then(function(game) {
@@ -31,8 +38,7 @@
     var data = { huntName: huntName };
 
     var resource = $resource(
-      'http://localhost:8000/api/game/' ||
-      'https://thegreathunt.herokuapp.com/api/game'
+      root + '/api/game/'
     );
 
     return resource.save(JSON.stringify(data)).$promise.then(function(data) {
@@ -43,8 +49,7 @@
   var startGame = function(gameCode) {
 
     var resource = $resource(
-      'http://localhost:8000/api/gameStart/' + gameCode ||
-      'https://thegreathunt.herokuapp.com/api/gameStart/' + gameCode,
+      root + '/api/gameStart/' + gameCode,
       null,
       {
         'update': {method: 'PUT'}
@@ -71,8 +76,7 @@
     var teamName = {teamName: name};
 
     var data = $resource(
-      'http://localhost:8000/api/team/' + gameCode ||
-      'https://thegreathunt.herokuapp.com/api/team/' + gameCode
+       root + '/api/team/' + gameCode
     );
 
     return data.save(teamName).$promise.then(function(teamIndexObj) {
@@ -83,8 +87,7 @@
 
   var getTeams = function(gameCode) {
     var data = $resource(
-      'http://localhost:8000/api/team/' + gameCode ||
-      'https://thegreathunt.herokuapp.com/api/team/' + gameCode
+      root + '/api/team/' + gameCode
     );
 
     return data.query().$promise.then(function(newTeams) {
@@ -96,7 +99,7 @@
     var teamUpdate = {teamIndex: teamIndex};
 
     var resource = $resource(
-      'http://localhost:8000/api/game/' + gameCode,
+      root + '/api/game/' + gameCode,
       null,
       {
         'update': {method: 'PUT'}
@@ -122,8 +125,7 @@
 
   var getHunts = function() {
     var data = $resource(
-      'http://localhost:8000/api/hunts'
-      || 'https://thegreathunt.herokuapp.com/api/hunts'
+      root +'/api/hunts'
     );
     hunts = data.query();
     return hunts;
@@ -136,8 +138,7 @@
   var addChallenge = function(challenge) {
     return $http({
       method: 'POST',
-      url: 'http://localhost:8000/api/challenge'
-        || 'https://thegreathunt.herokuapp.com/api/challenge',
+      url: root + '/api/challenge',
       data: {challenge: challenge}
     })
       .then(function(challengeId) {
@@ -170,8 +171,7 @@
     var hunt = {hunt: newHunt};
 
     var data = $resource(
-        'http://localhost:8000/api/hunt' ||
-        'https://thegreathunt.herokuapp.com/api/hunt'
+        root + '/api/hunt'
       )
 
     return data.save(hunt)
