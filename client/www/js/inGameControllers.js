@@ -1,8 +1,11 @@
 angular.module('app.inGameControllers', ['app.services', 'ngResource'])
 
-.controller('challengeCtrl', function($scope, $rootScope, LocalStorageService) {
+.controller('challengeCtrl', function($scope, $rootScope, LocalStorageService,
+  TeamService) {
 
   $scope.huntName = LocalStorageService.get("huntName");
+  $scope.gameCode = LocalStorageService.get("gameCode");
+  $scope.teamIndex = LocalStorageService.get("teamIndex");
 
   // Index of the current challenge (zero-based)
   $scope.currentIndex = LocalStorageService.get("currentChallenge");
@@ -19,6 +22,12 @@ angular.module('app.inGameControllers', ['app.services', 'ngResource'])
     // Clear user input on the form
     $scope.user.answer = "";
     // Update server on the player's current challenge
+    TeamService.updateTeam($scope.teamIndex, $scope.gameCode).then(function(updated){
+      if (!updated) {
+        console.log('No response from server');
+      }
+    });
+
     console.log("updated the server!");
 
     // Send user to end game view if completed last challenge
