@@ -93,15 +93,28 @@
     });
   };
 
+  var updateTeam = function(teamIndex, gameCode) {
+    var teamUpdate = {teamIndex: teamIndex};
+
+    var resource = $resource(
+      'http://localhost:8000/api/game/' + gameCode,
+      null,
+      {
+        'update': {method: 'PUT'}
+      }
+    );
+
+    return resource.update(teamUpdate).$promise.then(function() {
+      return true;
+    });
+  };
+
   return { getTeams: getTeams,
-           makeTeam: makeTeam };
+           makeTeam: makeTeam,
+           updateTeam: updateTeam };
 })
 
 .factory('HuntService', function($resource, $http, $state) {
-
-  // var data = $resource(
-  //   'http://localhost:8000/api/hunts'
-  // );
 
   var hunts;
 
@@ -166,7 +179,7 @@
         return res;
       })
   };
- 
+
   return {
     getHunts: getHunts,
     getHunt: getHunt,
