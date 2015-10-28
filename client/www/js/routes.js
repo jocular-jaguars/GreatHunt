@@ -116,6 +116,12 @@ angular.module('app.routes', ['app.preGameControllers',
       controller: 'createTeamCtrl'
     })
 
+    .state('dashboard', {
+      url: '/dashboard',
+      templateUrl: 'templates/dashboard.html',
+      controller: 'dashboardCtrl'
+    })
+
     .state('challenge', {
       url: '/challenge',
       templateUrl: 'templates/challenge.html',
@@ -126,17 +132,6 @@ angular.module('app.routes', ['app.preGameControllers',
       url: '/end',
       templateUrl: 'templates/endGame.html',
       controller: 'endGameCtrl'
-    })
-
-    .state('dashboard', {
-      url: '/dashboard',
-      templateUrl: 'templates/dashboard.html',
-      controller: 'dashboardCtrl'
-      // resolve: {
-      //   teams: function($stateParams, TeamService) {
-      //     return TeamService.getTeams($stateParams.teams)
-      //   }
-      // }
     })
 
     .state('createChallenge', {
@@ -151,7 +146,6 @@ angular.module('app.routes', ['app.preGameControllers',
       controller: 'createHuntCtrl'
     })
 
-//This is not necessary for MVP
     .state('previewChallenge', {
       url: '/previewChallenge',
       templateUrl: 'templates/previewChallenge.html',

@@ -5,7 +5,6 @@ angular.module('app.preGameControllers', ['app.services', 'ngResource'])
   $scope.create = function() {
     $rootScope.redirect('hunts.index');
   };
-
 })
 
 .controller('aboutCtrl', function($scope) {
@@ -23,55 +22,62 @@ angular.module('app.preGameControllers', ['app.services', 'ngResource'])
 
   $scope.makeGame = function() {
     GameService.postGame(hunt.name).then(function(gameCode) {
-      // $rootScope.gameCode = gameCode;
       LocalStorageService.set('gameCode', gameCode);
-      // $rootScope.creator = true;
       LocalStorageService.set('creator', true);
       $rootScope.redirect('creatorJoin');
     })
   }
 })
 
-.controller('lobbyCtrl', function ($scope, $interval, $state, GameService,
-   LocalStorageService, $rootScope) {
+.controller('lobbyCtrl', function ($scope, $rootScope, $interval, $state,
+  GameService, LocalStorageService) {
 
   $scope.gameCode = LocalStorageService.get('gameCode');
 
+  // Keep checking server for game start
   var timer = $interval(function() {
-    var gameCode = LocalStorageService.get('gameCode');
-    GameService.getGame(gameCode).then(function(data) {
+    GameService.getGame($scope.gameCode).then(function(data) {
       // If server says game code is invalid
       if (data.gameNotFound) {
         // TODO: display this message on the lobby view
         console.log("Oops the game is not found. Restart the app");
       // If server says game has started
       } else if (data.started) {
-        $scope.game = data;   // object with all game data
-        console.log("game object: " + JSON.stringify($scope.game));
-        // if game has started, then cancel timer and redirect to challenge state
+        // Save game to localStorage
+        $scope.saveGameToLocal(data);
+        // Cancel timer and redirect to challenge state
         $interval.cancel(timer);
         $state.go('challenge');
       // If server says game has not started
       } else {
-        $scope.teams = data.teams;  // this is an array
+        $scope.teams = data.teams;  // array of all the teams
       }
     })
-  }, 3000);
+  }, 1000);
 
   $scope.isCreator = function() {
     return LocalStorageService.get('creator') || false;
   }
 
+  // Saves the game object from server to localStorage
+  $scope.saveGameToLocal = function(gameObj) {
+    LocalStorageService.set('huntName', gameObj.name);
+    LocalStorageService.set('huntDescription', gameObj.description);
+    LocalStorageService.set('started', gameObj.started);
+    LocalStorageService.set('finished', gameObj.finished);
+    LocalStorageService.set('challenges', gameObj.challenges); // array
+    LocalStorageService.set('currentChallenge', 0) // new game starts at 0
+  }
+
+  // Creator tells server to start game
   $scope.startGame = function() {
-    var gameCode = LocalStorageService.get('gameCode');
     //add update to server when server-side function available
-    GameService.startGame(gameCode).then(function(started){
+    GameService.startGame($scope.gameCode).then(function(started){
       if (!started) {
         console.log('No response from server');
       }
     });
   }
-
 })
 
 .controller('creatorJoinCtrl', function($scope, LocalStorageService) {
@@ -91,7 +97,6 @@ angular.module('app.preGameControllers', ['app.services', 'ngResource'])
       } else {
         $scope.invalid = false;
         LocalStorageService.set('gameCode', $scope.data.gameCode)
-        // $rootScope.gameCode = $scope.data.gameCode;
         $rootScope.redirect('createTeam');
       }
     });
@@ -107,7 +112,6 @@ angular.module('app.preGameControllers', ['app.services', 'ngResource'])
     var gameCode = LocalStorageService.get('gameCode');
     TeamService.makeTeam($scope.data.teamName, gameCode).then(function(teamIndexObj) {
       LocalStorageService.set('teamIndex', teamIndexObj.teamIndex);
-      // $rootScope.teamIndex = teamIndexObj.teamIndex;
       $rootScope.redirect('lobby');
     });
   }

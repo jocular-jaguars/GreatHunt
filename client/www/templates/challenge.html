@@ -3,17 +3,17 @@
     <div>
       <p>Time Remaining: 42 mins 36 seconds</p>
     </div>
-    <div style="line-height: 250px; border: 1px solid rgb(238, 238, 238); border-radius: 3px; text-align: center; width: 100%; height: 185px; background-color: rgb(255, 255, 255);">
-      <i class="icon ion-image" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;"></i>
+    <div>
+      <img ng-src={{challenge.pictureURL}}>
     </div>
 
-    <h4 ng-model="current.description">Riddle Me This (description)</h4>
-    <h2 ng-model="current.question">What is the third word on the plaque?</h2>
+    <h4>Description:  {{challenge.description}}</h4>
+    <h4>Question: {{challenge.question}}</h4>
 
-    <form name="challenge" ng-submit='submitAnswer()' novalidate>
+    <form name="challengeForm" ng-submit='moveToNext()' novalidate>
       <label class="item item-input">
-        <input type="text" name="input" ng-model="current.input"
-          ng-class="{ 'error': isWrong() && challenge.input.$dirty }"
+        <input type="text" name="input" ng-model="user.answer"
+          ng-class="{ 'error': isWrong() && challengeForm.input.$dirty }"
           placeholder="Enter answer">
       </label>
       <button type="submit" class="button button-stable button-block"
