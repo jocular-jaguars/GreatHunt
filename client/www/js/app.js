@@ -4,9 +4,6 @@ angular.module('app', ['ionic', 'app.routes', 'app.directives', 'app.services'])
   $rootScope.redirect = function(route) {
     $state.go(route);
   };
-
-  // $rootScope.creator = false;
-
   // When app starts, set creator flag to false if it's absent (which means
   // this is a new game)
   if (LocalStorageService.get('creator') === null) {
