@@ -94,7 +94,7 @@
   };
 
   var updateTeam = function(teamIndex, gameCode) {
-    var teamUpdate = { teamIndex: teamIndex};
+    var teamUpdate = {teamIndex: teamIndex};
 
     var resource = $resource(
       'http://localhost:8000/api/game/' + gameCode,
