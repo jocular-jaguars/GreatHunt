@@ -56,7 +56,8 @@ angular.module('app.createGameControllers', ['app.services', 'ngResource'])
     HuntService.addHuntToDatabase()
       .then(function(res) {
         console.log('res in createGameControllers: ', res);
-        $state.go('hunts.index'); 
+        //$state.go('hunts.index'); //different routing idea for UI/UX
+        $state.go('tabs.welcome'); 
       });
   }
   $scope.newChallenge = function() {
