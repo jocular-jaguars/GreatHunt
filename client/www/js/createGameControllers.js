@@ -18,7 +18,7 @@ angular.module('app.createGameControllers', ['app.services', 'ngResource'])
     //will be an array of challenge objects
     var challengeArray = [];
     var storedChallenges = LocalStorageService.get('newChallenges')
-    if (storedChallenges === null || storedChallenges === undefined) {
+    if (storedChallenges === null) {
       challengeArray.push(challenge);
       LocalStorageService.set('newChallenges', challengeArray);
     } else {
