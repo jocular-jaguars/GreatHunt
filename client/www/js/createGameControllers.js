@@ -1,6 +1,6 @@
 angular.module('app.createGameControllers', ['app.services', 'ngResource'])
 
-.controller('createChallengeCtrl', function($scope, $state, HuntService, $http) {
+.controller('createChallengeCtrl', function($scope, $state, HuntService, $http, LocalStorageService) {
   $scope.challenge = {};
 
   $scope.isValidChallenge = function() {
@@ -12,10 +12,21 @@ angular.module('app.createGameControllers', ['app.services', 'ngResource'])
   }
 
   $scope.addChallenge = function(challenge) {
+    console.log('add challenge is getting input: ', challenge);
     HuntService.addChallenge(challenge);
+
+    //will be an array of challenge objects
+    var challengeArray = [];
+    var storedChallenges = LocalStorageService.get('newChallenges')
+    if (storedChallenges === null || storedChallenges === undefined) {
+      challengeArray.push(challenge);
+      LocalStorageService.set('newChallenges', challengeArray);
+    } else {
+      challengeArray = storedChallenges;
+      challengeArray.push(challenge);
+      LocalStorageService.set('newChallenges', challengeArray);
+    }
   };
-
-
 
   // temporary API keys for testing, actual keys are different in deployment
   var parse_app_id = "JCeUbGW5rVcjhAHE2j48bLIitQ9jimFyYWiCXWdm";
@@ -37,27 +48,30 @@ angular.module('app.createGameControllers', ['app.services', 'ngResource'])
 
 })
 
-.controller('createHuntCtrl', function($scope, HuntService, $state, $http) {
+.controller('createHuntCtrl', function($scope, HuntService, $state, $http, LocalStorageService) {
   $scope.createHunt = function(hunt) {
     HuntService.createHunt(hunt);
+    //need to save the newHuntName on LocalStorage
+    LocalStorageService.set('newHuntName', hunt);
     //now redirect to createChallenge page
     $state.go('createChallenge');
   }
 
 })
 
-//Not necessary for MVP
-.controller('previewChallengeCtrl', function($scope) {
+.controller('previewChallengeCtrl', function($scope, LocalStorageService) {
 
 })
 
-.controller('previewHuntCtrl', function($scope, $state, HuntService) {
+.controller('previewHuntCtrl', function($scope, $state, HuntService, LocalStorageService) {
+  $scope.hunt = LocalStorageService.get('newHuntName');
+  $scope.challenges = LocalStorageService.get('newChallenges');
   $scope.addHunt = function() {
     HuntService.addHuntToDatabase()
       .then(function(res) {
         console.log('res in createGameControllers: ', res);
         //$state.go('hunts.index'); //different routing idea for UI/UX
-        $state.go('tabs.welcome'); 
+        $state.go('tabs.welcome');
       });
   }
   $scope.newChallenge = function() {
