@@ -83,8 +83,8 @@
 
   var getTeams = function(gameCode) {
     var data = $resource(
-      'http://localhost:8000/team/' + gameCode ||
-      'https://thegreathunt.herokuapp.com/team/' + gameCode
+      'http://localhost:8000/api/team/' + gameCode ||
+      'https://thegreathunt.herokuapp.com/api/team/' + gameCode
     );
 
     return data.query().$promise.then(function(newTeams) {
