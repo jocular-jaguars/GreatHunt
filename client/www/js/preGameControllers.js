@@ -3,8 +3,8 @@ angular.module('app.preGameControllers', ['app.services', 'ngResource'])
 
 .controller('welcomeCtrl', function($scope, $rootScope, LocalStorageService) {
 
-  // Reset the game if player is no longer playing
-  if (LocalStorageService.get('finished')) {
+  // Reset the game if player has not registered yet or is finished
+  if (!LocalStorageService.get('registered') || LocalStorageService.get('finished')) {
     LocalStorageService.deleteAll();
   }
 
@@ -39,6 +39,7 @@ angular.module('app.preGameControllers', ['app.services', 'ngResource'])
 .controller('lobbyCtrl', function ($scope, $rootScope, $interval, $state,
   GameService, LocalStorageService) {
 
+  LocalStorageService.set('registered', true);
   $scope.gameCode = LocalStorageService.get('gameCode');
 
   // Keep checking server for game start

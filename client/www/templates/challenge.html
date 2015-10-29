@@ -10,14 +10,15 @@
     <h4>Description:  {{challenge.description}}</h4>
     <h4>Question: {{challenge.question}}</h4>
 
-    <form name="challengeForm" ng-submit='moveToNext()' novalidate>
+    <form name="challengeForm" novalidate>
       <label class="item item-input">
         <input type="text" name="input" ng-model="user.answer"
           ng-class="{ 'error': isWrong() && challengeForm.input.$dirty }"
           placeholder="Enter answer">
       </label>
-      <button type="submit" class="button button-stable button-block"
-        ng-disabled="isWrong()">Submit</button>
+      <button class="button button-stable button-block"
+        ng-disabled="isWrong()" ng-click="moveToNext()">Submit</button>
+      <button class="button button-stable button-block" ng-click="endGame()">Leave Game</button>
     </form>
   </ion-content>
 </ion-view>
