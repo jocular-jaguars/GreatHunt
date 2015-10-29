@@ -17,13 +17,16 @@ angular.module('app.createGameControllers', ['app.services', 'ngResource'])
 
     //will be an array of challenge objects
     var challengeArray = [];
-    var storedChallenges = LocalStorageService.get('newChallenges')
+    var huntName = LocalStorageService.get('newHuntName');
+    var challengeObject = { huntName: huntName.name, challenge: challenge };
+    var storedChallenges = LocalStorageService.get('newChallenges');
+
     if (storedChallenges === null) {
-      challengeArray.push(challenge);
+      challengeArray.push(challengeObject);
       LocalStorageService.set('newChallenges', challengeArray);
     } else {
       challengeArray = storedChallenges;
-      challengeArray.push(challenge);
+      challengeArray.push(challengeObject);
       LocalStorageService.set('newChallenges', challengeArray);
     }
   };
@@ -45,7 +48,6 @@ angular.module('app.createGameControllers', ['app.services', 'ngResource'])
       console.log(err);
     });
   }
-
 })
 
 .controller('createHuntCtrl', function($scope, HuntService, $state, $http, LocalStorageService) {
@@ -65,7 +67,21 @@ angular.module('app.createGameControllers', ['app.services', 'ngResource'])
 
 .controller('previewHuntCtrl', function($scope, $state, HuntService, LocalStorageService) {
   $scope.hunt = LocalStorageService.get('newHuntName');
-  $scope.challenges = LocalStorageService.get('newChallenges');
+
+  var setChallenges = function() {
+    var allChallenges = LocalStorageService.get('newChallenges');
+    var displayChallenges = [];
+    for (var i=0; i<allChallenges.length; i++) {
+      if (allChallenges[i].huntName === $scope.hunt.name) {
+        console.log("Looping through allChallenges: ",allChallenges[i]);
+        displayChallenges.push(allChallenges[i].challenge);
+      }
+    };
+    $scope.challenges = displayChallenges;
+  }();
+
+  console.log("The scope challenges are: ",$scope.challenges);
+
   $scope.addHunt = function() {
     LocalStorageService.set('newChallenges', null);
     HuntService.addHuntToDatabase()
@@ -74,7 +90,8 @@ angular.module('app.createGameControllers', ['app.services', 'ngResource'])
         //$state.go('hunts.index'); //different routing idea for UI/UX
         $state.go('tabs.welcome');
       });
-  }
+  };
+
   $scope.newChallenge = function() {
     $state.go('createChallenge');
   }
