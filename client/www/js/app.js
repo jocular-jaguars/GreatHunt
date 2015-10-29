@@ -1,9 +1,14 @@
 angular.module('app', ['ionic', 'app.routes', 'app.directives', 'app.services'])
 
-.run(function($ionicPlatform, $rootScope, $state) {
+.run(function($ionicPlatform, $rootScope, $state, LocalStorageService) {
   $rootScope.redirect = function(route) {
     $state.go(route);
   };
+
+  $rootScope.endGame = function() {
+    LocalStorageService.set("finished", true);
+    $rootScope.redirect('tabs.welcome');
+  }
 
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard

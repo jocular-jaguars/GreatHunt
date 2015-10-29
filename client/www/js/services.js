@@ -1,9 +1,9 @@
 // comment out the version you aren't using
 
 // local
-//var root = 'http://localhost:8000';
+var root = 'http://localhost:8000';
 // deploy
-var root = 'https://thegreathunt.herokuapp.com';
+// var root = 'https://thegreathunt.herokuapp.com';
 
 
 angular.module('app.services', ['ngResource'])
@@ -30,6 +30,8 @@ angular.module('app.services', ['ngResource'])
       this.delete("finished");
       this.delete("currentChallenge");
       this.delete("challenges");
+      this.delete("registered");
+
     }
   }
 }])

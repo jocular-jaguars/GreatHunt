@@ -61,11 +61,6 @@ angular.module('app.inGameControllers', ['app.services', 'ngResource'])
 
   LocalStorageService.set("finished", true);
 
-  // When user hits the end game button
-  $scope.endGame = function() {
-    LocalStorageService.deleteAll();
-    $rootScope.redirect('tabs.welcome');
-  }
 })
 
 .controller('dashboardCtrl', function ($scope, $rootScope, $interval, $state,
@@ -85,6 +80,7 @@ angular.module('app.inGameControllers', ['app.services', 'ngResource'])
   $scope.stopGameUpdate = function() {
     $interval.cancel(timer);
     LocalStorageService.delete('creator');
+    LocalStorageService.delete('gameCode');
     $state.go('tabs.welcome');
   }
 });
