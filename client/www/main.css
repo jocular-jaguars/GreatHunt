@@ -1,3 +1,8 @@
 .error {
   border: 5px solid red;
 }
+
+img {
+  max-width:100%;
+  height:auto;
+}
