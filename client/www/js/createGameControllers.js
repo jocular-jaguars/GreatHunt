@@ -67,6 +67,7 @@ angular.module('app.createGameControllers', ['app.services', 'ngResource'])
   $scope.hunt = LocalStorageService.get('newHuntName');
   $scope.challenges = LocalStorageService.get('newChallenges');
   $scope.addHunt = function() {
+    LocalStorageService.set('newChallenges', null);
     HuntService.addHuntToDatabase()
       .then(function(res) {
         console.log('res in createGameControllers: ', res);

@@ -1,6 +1,5 @@
 <ion-view title="Create Hunt">
     <ion-content padding="true" class="has-header">
-    <button style="float: left;" ng-click='redirect("tabs.welcome")'>Back to Welcome</button>
         <h1>Create a Hunt</h1>
         <form class="list">
             <h4>Hunt Name</h4>
@@ -21,5 +20,6 @@
         </form>
         <form class="list"></form>
         <button class="button button-stable button-block " ng-click="createHunt(hunt)">Add a Challenge!</button>
+        <button class="button button-stable button-block " ng-click="redirect('tabs.welcome')">Back to Main Menu</button>
     </ion-content>
 </ion-view>
