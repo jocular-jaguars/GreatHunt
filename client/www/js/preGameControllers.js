@@ -22,7 +22,6 @@ angular.module('app.preGameControllers', ['app.services', 'ngResource'])
   $scope.hunts = hunts;
 })
 
-
 .controller('huntDetailCtrl', function($scope, hunt, GameService, $rootScope,
   LocalStorageService) {
   $scope.hunt = hunt;

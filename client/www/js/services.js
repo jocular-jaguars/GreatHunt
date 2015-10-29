@@ -21,7 +21,7 @@ angular.module('app.services', ['ngResource'])
       $window.localStorage.removeItem(key);
     },
     deleteAll: function() {
-      this.delete('creator');
+      this.delete("creator");
       this.delete("gameCode");
       this.delete("teamIndex");
       this.delete("huntName");
