@@ -2,15 +2,15 @@ angular.module('app.preGameControllers', ['app.services', 'ngResource'])
 //routes for the redirect MUST be in single quotes
 
 .controller('welcomeCtrl', function($scope, $rootScope, LocalStorageService) {
-  $scope.create = function() {
-    $rootScope.redirect('hunts.index');
-  };
 
   // Reset the game if player is no longer playing
   if (LocalStorageService.get('finished')) {
-    // TODO: make a function in local storage service to delete stuff
-    console.log("clearing the local Storage");
+    LocalStorageService.deleteAll();
   }
+
+  $scope.create = function() {
+    $rootScope.redirect('hunts.index');
+  };
 
 })
 
@@ -27,6 +27,7 @@ angular.module('app.preGameControllers', ['app.services', 'ngResource'])
   LocalStorageService) {
   $scope.hunt = hunt;
 
+  // Creator joins a game
   $scope.makeGame = function() {
     GameService.postGame(hunt.name).then(function(gameCode) {
       LocalStorageService.set('gameCode', gameCode);
@@ -96,6 +97,7 @@ angular.module('app.preGameControllers', ['app.services', 'ngResource'])
   $scope.data = {};
   $scope.invalid = false; // game code is considered valid at the beginning
 
+  // Player joins a game
   $scope.joinGame = function() {
     GameService.getGame($scope.data.gameCode).then(function(data) {
       if (data.gameNotFound) {
@@ -103,7 +105,8 @@ angular.module('app.preGameControllers', ['app.services', 'ngResource'])
         $scope.data.gameCode = '';  // clear the input field
       } else {
         $scope.invalid = false;
-        LocalStorageService.set('gameCode', $scope.data.gameCode)
+        LocalStorageService.set('gameCode', $scope.data.gameCode);
+        LocalStorageService.set('creator', false);
         $rootScope.redirect('createTeam');
       }
     });
@@ -118,6 +121,7 @@ angular.module('app.preGameControllers', ['app.services', 'ngResource'])
     var gameCode = LocalStorageService.get('gameCode');
     TeamService.makeTeam($scope.data.teamName, gameCode).then(function(teamIndexObj) {
       LocalStorageService.set('teamIndex', teamIndexObj.teamIndex);
+      $scope.data.teamName = "";
       $rootScope.redirect('lobby');
     });
   }
