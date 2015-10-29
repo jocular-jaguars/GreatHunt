@@ -1,7 +1,12 @@
-angular.module('app', ['ionic', 'app.routes', 'app.directives', 'app.services'])
+angular.module('app', ['ionic',
+  'app.routes',
+  'app.directives',
+  'app.services'
+  ])
 
 .run(function($ionicPlatform, $rootScope, $state, LocalStorageService) {
   $rootScope.redirect = function(route) {
+    console.log('going to ', route);
     $state.go(route);
   };
 

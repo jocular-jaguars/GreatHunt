@@ -8,7 +8,8 @@
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <script src="lib/ionic/js/ionic.bundle.js"></script>
     <script src="lib/angular-resource/angular-resource.min.js"></script>
-    <script src="http://www.parsecdn.com/js/parse-1.2.15.min.js"></script>
+    <script src="lib/parse/parse.min.js"></script>
+    <script src="../platforms/ios/CordovaLib/cordova.js"></script>
 
     <link href="http://code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css"
     rel="stylesheet">
@@ -31,7 +32,7 @@
 
   </head>
 
-  <body ng-app="app" animation="slide-left-right-ios7">
+  <body ng-app="app" class="platform-ios" animation="slide-left-right-ios7">
     <div>
       <div>
         <ion-nav-bar class="bar-stable">
