@@ -1,9 +1,9 @@
 // comment out the version you aren't using
 
 // local
-//var root = 'http://localhost:8000';
+var root = 'http://localhost:8000';
 // deploy
-var root = 'https://thegreathunt.herokuapp.com';
+// var root = 'https://thegreathunt.herokuapp.com';
 
 
 angular.module('app.services', ['ngResource'])
@@ -16,6 +16,20 @@ angular.module('app.services', ['ngResource'])
     },
     get: function(key) {
       return JSON.parse($window.localStorage[key] || null);
+    },
+    delete: function(key) {
+      $window.localStorage.removeItem(key);
+    },
+    deleteAll: function() {
+      this.delete("creator");
+      this.delete("gameCode");
+      this.delete("teamIndex");
+      this.delete("huntName");
+      this.delete("huntDescription");
+      this.delete("started");
+      this.delete("finished");
+      this.delete("currentChallenge");
+      this.delete("challenges");
     }
   }
 }])

@@ -1,10 +1,17 @@
 angular.module('app.preGameControllers', ['app.services', 'ngResource'])
 //routes for the redirect MUST be in single quotes
 
-.controller('welcomeCtrl', function($scope, $rootScope) {
+.controller('welcomeCtrl', function($scope, $rootScope, LocalStorageService) {
+
+  // Reset the game if player is no longer playing
+  if (LocalStorageService.get('finished')) {
+    LocalStorageService.deleteAll();
+  }
+
   $scope.create = function() {
     $rootScope.redirect('hunts.index');
   };
+
 })
 
 .controller('aboutCtrl', function($scope) {
@@ -15,11 +22,11 @@ angular.module('app.preGameControllers', ['app.services', 'ngResource'])
   $scope.hunts = hunts;
 })
 
-
 .controller('huntDetailCtrl', function($scope, hunt, GameService, $rootScope,
   LocalStorageService) {
   $scope.hunt = hunt;
 
+  // Creator joins a game
   $scope.makeGame = function() {
     GameService.postGame(hunt.name).then(function(gameCode) {
       LocalStorageService.set('gameCode', gameCode);
@@ -89,6 +96,7 @@ angular.module('app.preGameControllers', ['app.services', 'ngResource'])
   $scope.data = {};
   $scope.invalid = false; // game code is considered valid at the beginning
 
+  // Player joins a game
   $scope.joinGame = function() {
     GameService.getGame($scope.data.gameCode).then(function(data) {
       if (data.gameNotFound) {
@@ -96,7 +104,8 @@ angular.module('app.preGameControllers', ['app.services', 'ngResource'])
         $scope.data.gameCode = '';  // clear the input field
       } else {
         $scope.invalid = false;
-        LocalStorageService.set('gameCode', $scope.data.gameCode)
+        LocalStorageService.set('gameCode', $scope.data.gameCode);
+        LocalStorageService.set('creator', false);
         $rootScope.redirect('createTeam');
       }
     });
@@ -106,12 +115,12 @@ angular.module('app.preGameControllers', ['app.services', 'ngResource'])
 .controller('createTeamCtrl', function($scope, $rootScope, TeamService,
   LocalStorageService) {
   $scope.data = {};
-  //needs to push info to server
 
   $scope.sendTeam = function() {
     var gameCode = LocalStorageService.get('gameCode');
     TeamService.makeTeam($scope.data.teamName, gameCode).then(function(teamIndexObj) {
       LocalStorageService.set('teamIndex', teamIndexObj.teamIndex);
+      $scope.data.teamName = "";
       $rootScope.redirect('lobby');
     });
   }

@@ -57,8 +57,15 @@ angular.module('app.inGameControllers', ['app.services', 'ngResource'])
   }
 })
 
-.controller('endGameCtrl', function($scope) {
-  // TODO: CLEAR THE GAME FROM LOCAL STORAGE???
+.controller('endGameCtrl', function($scope, $rootScope, LocalStorageService) {
+
+  LocalStorageService.set("finished", true);
+
+  // When user hits the end game button
+  $scope.endGame = function() {
+    LocalStorageService.deleteAll();
+    $rootScope.redirect('tabs.welcome');
+  }
 })
 
 .controller('dashboardCtrl', function ($scope, $rootScope, $interval, $state,
@@ -77,7 +84,7 @@ angular.module('app.inGameControllers', ['app.services', 'ngResource'])
   // timers are not created every time the dashboard is loaded
   $scope.stopGameUpdate = function() {
     $interval.cancel(timer);
-    LocalStorageService.set('creator', false);
+    LocalStorageService.delete('creator');
     $state.go('tabs.welcome');
   }
 });
