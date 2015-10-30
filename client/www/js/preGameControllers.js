@@ -138,4 +138,3 @@ angular.module('app.preGameControllers', ['app.services', 'ngResource'])
     });
   }
 });
-
