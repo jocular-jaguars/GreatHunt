@@ -52,6 +52,7 @@ angular.module('app.createGameControllers', ['app.services', 'ngResource'])
 
 .controller('createHuntCtrl', function($scope, HuntService, $state, $http, LocalStorageService) {
   $scope.createHunt = function(hunt) {
+    // Creates a hunt in the services
     HuntService.createHunt(hunt);
     //need to save the newHuntName on LocalStorage
     LocalStorageService.set('newHuntName', hunt);

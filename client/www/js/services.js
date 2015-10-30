@@ -31,7 +31,8 @@ angular.module('app.services', ['ngResource'])
       this.delete("currentChallenge");
       this.delete("challenges");
       this.delete("registered");
-
+      this.delete("newChallenges");
+      this.delete("newHuntName");
     }
   }
 }])
@@ -134,6 +135,7 @@ angular.module('app.services', ['ngResource'])
 
 .factory('HuntService', function($resource, $http, $state) {
 
+  // Hold the hunts downloaded from server
   var hunts;
 
   //Factory variable to hold new hunt data before it is sent to database
@@ -179,6 +181,8 @@ angular.module('app.services', ['ngResource'])
   };
 
   var addChallengeToHunt = function(challengeId) {
+    console.log(JSON.stringify(newHunt));
+    console.log(JSON.stringify(newHunt.challenges));
     newHunt.challenges.push(challengeId);
   };
 
