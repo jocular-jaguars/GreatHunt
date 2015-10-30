@@ -22,8 +22,8 @@
           <input type="file" id="photo">
         </div>
         <button class="button button-stable button-block" ng-model="challenge.pictureURL" ng-click="uploadPhoto()">Upload Photo</button>
-        <button class="button button-stable button-block" ng-disabled="!(isValidChallenge())" ng-click="addChallenge(challenge)">Submit</button>
-        <button class="button button-stable button-block" ng-model="challenge.pictureURL" ng-click="redirect('createHunt')">Restart Creating Your Hunt</button>
+        <button class="button button-stable button-block" ng-disabled="!(isValidChallenge())" ng-click="addChallenge(challenge)">Add Challenge</button>
+        <button class="button button-stable button-block " ng-click="redirect('tabs.welcome')">Cancel Hunt</button>
         <img ng-src={{challenge.pictureURL}}>
     </ion-content>
 </ion-view>
