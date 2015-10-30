@@ -139,7 +139,7 @@ angular.module('app.services', ['ngResource'])
   var hunts;
 
   //Factory variable to hold new hunt data before it is sent to database
-  var newHunt = {};
+  var newHunt = { challenges: [] };
 
   var getHunts = function() {
     var data = $resource(
