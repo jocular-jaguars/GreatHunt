@@ -11,6 +11,7 @@ angular.module('app.inGameControllers', ['app.services', 'ngResource'])
   $scope.currentIndex = LocalStorageService.get("currentChallenge");
   // All the challenges
   $scope.challenges = LocalStorageService.get("challenges");
+
   // The current challenge
   $scope.challenge = $scope.challenges[$scope.currentIndex];
   // User input
