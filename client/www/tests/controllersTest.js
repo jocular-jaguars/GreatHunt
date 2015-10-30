@@ -5,7 +5,6 @@ describe('app.preGameControllers', function() {
   var controller;
 
   xdescribe('welcomeCtrl', function() {
-    var controller;
 
     beforeEach(module('app'));
     beforeEach(module('app.preGameControllers'));
@@ -30,7 +29,7 @@ describe('app.preGameControllers', function() {
 
   });
 
-  describe('lobbyCtrl', function() {
+  xdescribe('lobbyCtrl', function() {
 
     beforeEach(module('app'));
     beforeEach(module('app.services'));
@@ -86,25 +85,69 @@ describe('app.preGameControllers', function() {
         });
 
         $interval(function() {
-          console.log('scope.teams:  ', scope.teams);
           assert.isArray(scope.teams);
         }, 4000);
       })
     });
   });
 
-  xdescribe('challengeCtrl', function() {
-    beforeEach(module('app.controllers'));
+  xdescribe('createTeamCtrl', function() {
 
-    it('should have a description and question for user', function() {
-      inject(function($controller, $rootScope) {
+    beforeEach(module('app'));
+    beforeEach(module('app.preGameControllers'));
+
+    it('sendTeam should add team to scope.data', function() {
+      inject(function($controller, $rootScope, $interval, TeamService,
+        LocalStorageService) {
+          var scope = $rootScope.$new();
+          controller = $controller('createTeamCtrl', {
+            $scope : scope
+      });
+
+        scope.sendTeam("Fake Team");
+        $interval(function() {
+          assert.isString(scope.data.teamName);
+        }, 10);
+      });
+    });
+
+    it('should call team factory\'s make to add team', function() {
+      inject(function($controller, $rootScope, TeamService, LocalStorageService) {
+        var scope = $rootScope.$new();
+        controller = $controller('createTeamCtrl', {
+          $scope : scope
+        });
+
+        var startSpy = sinon.spy(TeamService, "makeTeam");
+
+        scope.sendTeam("Fake Team");
+        assert(startSpy.calledOnce);
+      });
+    });
+  });
+});
+
+describe('app.inGameControllers', function() {
+
+  describe('challengeCtrl', function() {
+
+    beforeEach(module('app.inGameControllers'));
+
+    it('should have a challenge and huntInformation on $scope', function() {
+      inject(function($controller, $rootScope, LocalStorageService) {
         var scope = $rootScope.$new()
         controller = $controller('challengeCtrl', {
           $scope : scope
         });
 
-        (scope.question).should.be.a("string");
-        (scope.description).should.be.a("string");
+        LocalStorageService.set("huntName", "testHuntName");
+        LocalStorageService.set("gameCode", "abcd");
+        LocalStorageService.set("teamIndex", "0");
+
+        // console.log("huntName: ",scope.huntName);
+        // (scope.huntName).should.be.a("string");
+        // (scope.question).should.be.a("string");
+        // (scope.description).should.be.a("string");
       })
     });
 
@@ -118,13 +161,9 @@ describe('app.preGameControllers', function() {
     });
   });
 
-
-  xdescribe('createTeamCtrl', function() {
-    it('should call team factory\'s make function with team id', function() {
-      //think I might need a sinon spy to check if called
-    });
-    it('should reroute to lobby', function() {
-      //need to find out how to test rerouting
+  xdescribe('endGameCtrl', function() {
+    it('should be able to reroute to welcome page', function() {
+      // need to find out how to test rerouting
     });
   });
 
@@ -143,13 +182,5 @@ describe('app.preGameControllers', function() {
         expect(scope.teams[0]).to.have.property("currentChallenge");
       })
     });
-
   });
-
-  xdescribe('endGameCtrl', function() {
-    it('should be able to reroute to welcome page', function() {
-      // need to find out how to test rerouting
-    });
-  });
-
 });
