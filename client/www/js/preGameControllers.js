@@ -8,6 +8,11 @@ angular.module('app.preGameControllers', ['app.services', 'ngResource'])
     LocalStorageService.deleteAll();
   }
 
+  // If view from previous session is saved, go to it
+  if (LocalStorageService.get('currentView')) {
+    $rootScope.redirect(LocalStorageService.get('currentView'));
+  }
+
   $scope.create = function() {
     $rootScope.redirect('hunts.index');
   };
@@ -39,10 +44,17 @@ angular.module('app.preGameControllers', ['app.services', 'ngResource'])
 .controller('lobbyCtrl', function ($scope, $rootScope, $interval, $state,
   GameService, LocalStorageService) {
 
+  console.log("entered lobbyCtrl");
+  // Set flag that user has registered a team on the server
   LocalStorageService.set('registered', true);
+
+  // Remember lobby view so user can return after closing the app
+  LocalStorageService.set('currentView', 'lobby');
+
   $scope.gameCode = LocalStorageService.get('gameCode');
 
   // Keep checking server for game start
+  // TODO: cancel timer on leaving the view or change to setTimeOut
   var timer = $interval(function() {
     GameService.getGame($scope.gameCode).then(function(data) {
       // If server says game code is invalid
