@@ -5,6 +5,7 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title></title>
 
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <script src="lib/ionic/js/ionic.bundle.js"></script>
     <script src="lib/angular-resource/angular-resource.min.js"></script>
     <script src="lib/parse/parse.min.js"></script>
@@ -15,9 +16,10 @@
 
     <link href="main.css" rel="stylesheet">
 
-    <!-- compiled css output -->
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove
     the CSS includes above
     <link href="css/ionic.app.css" rel="stylesheet">
+    -->
 
     <script src="js/app.js"></script>
     <script src="js/inGameControllers.js"></script>
@@ -34,7 +36,7 @@
   <body ng-app="app" animation="slide-left-right-ios7">
     <div>
       <div>
-        <ion-nav-bar class="bar-balanced">
+        <ion-nav-bar class="bar-stable">
             <!-- <ion-nav-back-button class="button-icon icon ion-ios-arrow-back">
               Back
             </ion-nav-back-button> -->
