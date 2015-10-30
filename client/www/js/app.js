@@ -1,7 +1,8 @@
 angular.module('app', ['ionic',
   'app.routes',
   'app.directives',
-  'app.services'
+  'app.services',
+  'ngIOS9UIWebViewPatch'
   ])
 
 .run(function($ionicPlatform, $rootScope, $state, LocalStorageService) {
