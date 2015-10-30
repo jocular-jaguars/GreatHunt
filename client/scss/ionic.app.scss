@@ -20,6 +20,10 @@ $energized:                       #88c187 !default;
 $stable:                          #79ac78 !default;
 $balanced:                        #4c6b4b !default;
 $base-background-color:           #eeeeee !default;
+$calm:                            #cab497 !default;
+
+@import url(https://fonts.googleapis.com/css?family=Lobster+Two:400,400italic|Josefin+Sans:400,600italic|Overlock:400,400italic|Dosis);
+$font-family-base: "Overlock", sans-serif !default;
 
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
