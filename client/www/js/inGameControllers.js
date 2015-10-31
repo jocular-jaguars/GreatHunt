@@ -113,7 +113,7 @@ angular.module('app.inGameControllers', ['app.services', 'ngResource'])
 
 .controller('leaderboardCtrl', function($scope, $rootScope, TeamService, LocalStorageService) {
   //This will only be shown when the game is ended, so no interval needed.
-  $scope.gameCode = 'ahkr'; //later grab this from LocalStorage
+  $scope.gameCode = LocalStorageService.get('gameCode'); //later grab this from LocalStorage
   $scope.teamInfo = {};
 
   var ranks = {
