@@ -17,13 +17,19 @@ angular.module('app.routes', ['app.auth', 'app.preGameControllers',
     .state('login', {
       url: '/login',
       templateUrl: 'templates/login.html',
-      controller: 'loginCtrl'
+      controller: 'loginCtrl',
+      data: {
+        authenticate: false
+      }
     })
 
     .state('signup', {
       url: '/signup',
       templateUrl: 'templates/signup.html',
-      controller: 'signupCtrl'
+      controller: 'signupCtrl',
+      data: {
+        authenticate: false
+      }
     })
 
     // parent state
@@ -204,7 +210,10 @@ angular.module('app.routes', ['app.auth', 'app.preGameControllers',
     .state('leaderboard', {
       url: '/leaderboard',
       templateUrl: 'templates/leaderboard.html',
-      controller: 'leaderboardCtrl'
+      controller: 'leaderboardCtrl',
+      data: {
+        authenticate: false
+      }
     })
 
   // if none of the above states are matched, use this as the fallback
