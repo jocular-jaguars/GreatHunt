@@ -16,18 +16,17 @@ describe('User Model', function() {
     if(mongoose.connection.db) return done();
     mongoose.connect(dbURI, done);
   });
-
   //clear database and then populate with hunts for the test
   beforeEach(function(done) {
     clearDB(function() {
       var users = [
         {
-          name: "hunt1",
-
+          username: "Ron",
+          password: "Fenolio"
         },
         {
-          name: "hunt2",
-
+          username: "Heidi",
+          password: "Kumar"
         }
       ];
       User.create(users, done);
@@ -35,17 +34,18 @@ describe('User Model', function() {
   });
 
 //hunt controller tests
-  it("should put the user in the database", function(done) {
-    UserController.createUser({
-      name: "hunt3",
+  xit("should put the user in the database", function(done) {
+    UserController.signup({
+      name: "Kristin",
+      password: "Mayer"
 
     }, function(user) {console.log(user)});
 
-    Hunt.findOne({username: "Kristin"})
+    User.findOne({username: "Kristin"})
       .exec(function(err, user) {
         //console.log("I am in the test", hunt);
         expect(user).to.exist;
-        expect(user.username).to.equal('hunt3');
+        expect(user.username).to.equal('Kristin');
         expect(user.hunts).to.be.a('array');
         done();
       });
@@ -53,20 +53,20 @@ describe('User Model', function() {
 
   });
 
-  it("should find the user in the database", function(done) {
+  xit("should find the user in the database", function(done) {
     UserController.findUser(function(err, users) {
 
     });
   });
 
-  it("should return all the hunts in the database", function(done) {
+  xit("should return all the hunts in the database", function(done) {
     HuntController.allHunts(function(err, hunts) {
 
       done();
     });
   });
 
-  it("should return only the name, and description of all the hunts in the database", function(done) {
+  xit("should return only the name, and description of all the hunts in the database", function(done) {
     HuntController.allHuntsClient(function(err, hunts) {
       //console.log(hunts, "~~client side hunts info~~");
       expect(hunts.length).to.equal(2);
