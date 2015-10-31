@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Challenge = require('./challengeModel.js');
+var User = require('./userModel.js')
 var Schema = mongoose.Schema;
 
 var huntSchema = new Schema({
@@ -21,7 +22,7 @@ var huntSchema = new Schema({
     type: Schema.Types.ObjectId, ref: 'Challenge'
   }],
   creator: {
-    type: String
+    type: Schema.Types.ObjectId, ref: 'User'
   },
   private: {
     type: Boolean,
