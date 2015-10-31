@@ -5,7 +5,6 @@ describe('app.preGameControllers', function() {
   var controller;
 
   xdescribe('welcomeCtrl', function() {
-    var controller;
 
     beforeEach(module('app'));
     beforeEach(module('app.preGameControllers'));
@@ -30,7 +29,7 @@ describe('app.preGameControllers', function() {
 
   });
 
-  describe('lobbyCtrl', function() {
+  xdescribe('lobbyCtrl', function() {
 
     beforeEach(module('app'));
     beforeEach(module('app.services'));
@@ -72,7 +71,7 @@ describe('app.preGameControllers', function() {
           var scope = $rootScope.$new();
           controller = $controller('lobbyCtrl', {
             $scope: scope
-        });
+          });
 
         assert.isString(scope.gameCode);
       });
@@ -86,70 +85,153 @@ describe('app.preGameControllers', function() {
         });
 
         $interval(function() {
-          console.log('scope.teams:  ', scope.teams);
           assert.isArray(scope.teams);
         }, 4000);
       })
     });
   });
 
-  xdescribe('challengeCtrl', function() {
-    beforeEach(module('app.controllers'));
+  xdescribe('createTeamCtrl', function() {
 
-    it('should have a description and question for user', function() {
-      inject(function($controller, $rootScope) {
+    beforeEach(module('app'));
+    beforeEach(module('app.preGameControllers'));
+
+    it('sendTeam should add team to scope.data', function() {
+      inject(function($controller, $rootScope, $interval, TeamService,
+        LocalStorageService) {
+          var scope = $rootScope.$new();
+          controller = $controller('createTeamCtrl', {
+            $scope : scope
+      });
+
+        scope.sendTeam("Fake Team");
+        $interval(function() {
+          assert.isString(scope.data.teamName);
+        }, 10);
+      });
+    });
+
+    it('should call team factory\'s make to add team', function() {
+      inject(function($controller, $rootScope, TeamService, LocalStorageService) {
+        var scope = $rootScope.$new();
+        controller = $controller('createTeamCtrl', {
+          $scope : scope
+        });
+
+        var startSpy = sinon.spy(TeamService, "makeTeam");
+
+        scope.sendTeam("Fake Team");
+        assert(startSpy.calledOnce);
+      });
+    });
+  });
+});
+
+describe('app.inGameControllers', function() {
+
+  xdescribe('challengeCtrl', function() {
+    beforeEach(module('app.inGameControllers'));
+    //sample challege to add to scope
+    var challenge = {
+      description: "This is a fun challenge!",
+      question: "What is Dave Grohl's name?",
+      answers: ["Dave Grohl"]
+    };
+    var challenges = [challenge];
+
+    it('should have a challenge and huntInformation on $scope', function() {
+      inject(function($controller, $rootScope, LocalStorageService) {
+        LocalStorageService.set("huntName", "testHuntName");
+        LocalStorageService.set("gameCode", "abcd");
+        LocalStorageService.set("teamIndex", 0);
+        LocalStorageService.set("challenges", challenges);
+        LocalStorageService.set("currentChallenge", 0);
+
         var scope = $rootScope.$new()
         controller = $controller('challengeCtrl', {
           $scope : scope
         });
 
-        (scope.question).should.be.a("string");
-        (scope.description).should.be.a("string");
+        (scope.huntName).should.equal("testHuntName");
+        (scope.gameCode).should.equal("abcd");
+        (scope.teamIndex).should.equal(0);
+        (scope.challenge.description).should.equal("This is a fun challenge!");
       })
     });
 
-    it('should display to user whether answer is correct or incorrect', function() {
-      //use ngClass to change background color
-      //will have to write a directive test, I believe
-    });
+    it('should test to user whether answer is correct or incorrect', function() {
+      inject(function($controller, $rootScope, LocalStorageService) {
+        LocalStorageService.set("challenges", challenges);
+        LocalStorageService.set("currentChallenge", 0);
 
-    it('should display photo from url', function() {
-      //not sure how to test this yet. Maybe file type?
-    });
-  });
-
-
-  xdescribe('createTeamCtrl', function() {
-    it('should call team factory\'s make function with team id', function() {
-      //think I might need a sinon spy to check if called
-    });
-    it('should reroute to lobby', function() {
-      //need to find out how to test rerouting
-    });
-  });
-
-  xdescribe('dashboardCtrl', function() {
-    beforeEach(module('app.controllers'));
-    beforeEach(module('app.services'));
-
-    it('should have an teams array with teams and challenges', function() {
-       inject(function($controller, $rootScope, $interval, $resource) {
         var scope = $rootScope.$new()
-        controller = $controller('dashboardCtrl', {
+        controller = $controller('challengeCtrl', {
           $scope : scope
         });
 
-        expect(scope.teams[0]).to.have.property("name");
-        expect(scope.teams[0]).to.have.property("currentChallenge");
-      })
-    });
-
-  });
-
-  xdescribe('endGameCtrl', function() {
-    it('should be able to reroute to welcome page', function() {
-      // need to find out how to test rerouting
+        scope.user.answer = "Fresh Pots!";
+        expect(scope.isWrong()).to.equal(true);
+        scope.user.answer = "Dave Grohl";
+        expect(scope.isWrong()).to.equal(false);
+      });
     });
   });
 
+  //not writing tests for endGameCtrl as there's no functions or scope storage
+
+  describe('dashboardCtrl', function() {
+    beforeEach(module('app'));
+    beforeEach(module('app.inGameControllers'));
+
+    xit ('should have a have a gameCode on local scope', function() {
+      inject(function($controller, $rootScope, $state, LocalStorageService) {
+        LocalStorageService.set('gameCode', 'abcd');
+
+        var scope = $rootScope.$new();
+        controller = $controller('dashboardCtrl', function() {
+          $scope: scope
+        });
+
+        // expect(scope.gameCode).to.equal('abcd');
+      });
+    });
+
+    it('stopGameUpdate should clear out LocalStorage', function() {
+      inject(function($controller, $rootScope, $interval,
+        LocalStorageService) {
+          LocalStorageService.set('creator', true);
+          LocalStorageService.set('gameCode', 'abcd');
+          var scope = $rootScope.$new();
+          controller = $controller('dashboardCtrl', {
+            $scope : scope
+          });
+
+        var creator = LocalStorageService.get('creator');
+        expect(creator).to.equal(true);
+        scope.stopGameUpdate();
+        creator = LocalStorageService.get('creator');
+        expect(creator).to.equal(null)
+      });
+    });
+
+    it('timer should regularly check for teams on the server', function() {
+      this.timeout(5000);
+      inject(function($controller, $rootScope, $interval, TeamService,
+        GameService) {
+          var scope = $rootScope.$new();
+          controller = $controller('dashboardCtrl', {
+            $scope : scope
+          });
+
+          GameService.postGame("Kristin's Real Hunt").then(function(gameCode) {
+            scope.gameCode = gameCode;
+          });
+
+          TeamService.makeTeam("Fake Team", scope.gameCode);
+          $interval(function() {
+            expect(scope.teams.length).to.equal(1);
+          },4000);
+      });
+    });
+  });
 });
