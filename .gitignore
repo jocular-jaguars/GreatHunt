@@ -34,3 +34,5 @@ client/hooks/
 client/ionic.project
 client/www/lib/
 client/resources
+client/www/css/ionic.app.css
+client/www/css/ionic.app.min.css
