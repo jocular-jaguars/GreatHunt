@@ -3,6 +3,9 @@ angular.module('app.inGameControllers', ['app.services', 'ngResource'])
 .controller('challengeCtrl', function($scope, $rootScope, LocalStorageService,
   TeamService) {
 
+  // Remember challenge view so user can return after closing the app
+  LocalStorageService.set('currentView', 'challenge');
+
   $scope.huntName = LocalStorageService.get("huntName");
   $scope.gameCode = LocalStorageService.get("gameCode");
   $scope.teamIndex = LocalStorageService.get("teamIndex");
@@ -67,6 +70,13 @@ angular.module('app.inGameControllers', ['app.services', 'ngResource'])
 .controller('dashboardCtrl', function ($scope, $rootScope, $interval, $state,
   TeamService, LocalStorageService) {
 
+  // Remember challenge view so user can return after closing the app
+  LocalStorageService.set('currentView', 'dashboard');
+
+  // Remember challenge view so user can return after closing the app
+  LocalStorageService.set('registered', true);
+
+
   $scope.gameCode = LocalStorageService.get('gameCode');
 
   // Keep getting updated team info from server
@@ -80,8 +90,7 @@ angular.module('app.inGameControllers', ['app.services', 'ngResource'])
   // timers are not created every time the dashboard is loaded
   $scope.stopGameUpdate = function() {
     $interval.cancel(timer);
-    LocalStorageService.delete('creator');
-    LocalStorageService.delete('gameCode');
+    LocalStorageService.delete('registered');
     $state.go('tabs.welcome');
   }
 });
