@@ -22,6 +22,7 @@ module.exports = function(config) {
       '../lib/angular/angular.js',
       '../lib/angular-mocks/angular-mocks.js',
       '../lib/angular-resource/angular-resource.js',
+      '../js/ios-webview-patch.js',
       '../js/app.js',
       '../js/services.js',
       '../js/preGameControllers.js',
@@ -30,7 +31,7 @@ module.exports = function(config) {
       '../js/directives.js',
       '../js/routes.js',
       'controllersTest.js',
-      'servicesTest.js'
+      'servicesTest.js',
     ],
 
 
