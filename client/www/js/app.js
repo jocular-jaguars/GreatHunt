@@ -6,11 +6,13 @@ angular.module('app', ['ionic',
   ])
 
 .run(function($ionicPlatform, $rootScope, $state, LocalStorageService) {
+  //allows for global access to changing views
   $rootScope.redirect = function(route) {
     console.log('going to ', route);
     $state.go(route);
   };
 
+  //allows for ending game from multiple views
   $rootScope.endGame = function() {
     LocalStorageService.set("finished", true);
     $rootScope.redirect('tabs.welcome');

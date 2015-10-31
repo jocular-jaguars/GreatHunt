@@ -12,15 +12,19 @@ angular.module('app.services', ['ngResource'])
 .factory('LocalStorageService', ['$window', function($window) {
   return {
     set: function(key, value) {
+      //stringify the value as it may be obj or array
       $window.localStorage[key] = JSON.stringify(value);
     },
     get: function(key) {
+      //re-translating and returning obj or array at key
       return JSON.parse($window.localStorage[key] || null);
     },
     delete: function(key) {
+      //remove key
       $window.localStorage.removeItem(key);
     },
     deleteAll: function() {
+      //remove all keys
       this.delete("creator");
       this.delete("gameCode");
       this.delete("teamIndex");
@@ -42,10 +46,13 @@ angular.module('app.services', ['ngResource'])
 
   var getGame = function(gameCode) {
 
+    //sets up server call
     var data = $resource(
       root + '/api/game/' + gameCode
     );
 
+    //get() assigns request type
+    //$promise handles async and allows us to pass on and return game
     return data.get().$promise.then(function(game) {
       return game;
     });
@@ -53,12 +60,15 @@ angular.module('app.services', ['ngResource'])
 
   // Tell server to make a new game based on the hunt name
   var postGame = function(huntName) {
+
+    //needs to be saved as property on obj for server
     var data = { huntName: huntName };
 
     var resource = $resource(
       root + '/api/game/'
     );
 
+    //save is a post request
     return resource.save(JSON.stringify(data)).$promise.then(function(data) {
       return data.gameCode;
     });
@@ -68,8 +78,10 @@ angular.module('app.services', ['ngResource'])
 
     var resource = $resource(
       root + '/api/gameStart/' + gameCode,
+      //paramDefaults = null
       null,
       {
+        //any additional or custom methods here
         'update': {method: 'PUT'}
       });
 
@@ -90,7 +102,7 @@ angular.module('app.services', ['ngResource'])
 
   //future goal: name sure team name is unique!
   var makeTeam = function(name, gameCode) {
-
+    //must be object based on how server looks at the object it gets
     var teamName = {teamName: name};
 
     var data = $resource(
@@ -146,6 +158,7 @@ angular.module('app.services', ['ngResource'])
     var data = $resource(
       root +'/api/hunts'
     );
+    //query is a get request which must return an array
     hunts = data.query();
     return hunts;
   };
@@ -155,16 +168,17 @@ angular.module('app.services', ['ngResource'])
   };
 
   var addChallenge = function(challenge) {
+
+    //$http works the same as resource but doesn't need $promise chainging and
+    //has the method up-front.
     return $http({
       method: 'POST',
       url: root + '/api/challenge',
       data: {challenge: challenge}
     })
       .then(function(challengeId) {
+        //calling internal function to push to newHunt array
         addChallengeToHunt(challengeId.data);
-        console.log('challengeId: ', challengeId);
-        console.log('newHunt: ', newHunt);
-        console.log('challengeId.data: ', challengeId.data);
         $state.go('previewHunt');
       })
   };
@@ -182,13 +196,12 @@ angular.module('app.services', ['ngResource'])
   };
 
   var addChallengeToHunt = function(challengeId) {
-    console.log(JSON.stringify(newHunt));
-    console.log(JSON.stringify(newHunt.challenges));
     newHunt.challenges.push(challengeId);
   };
 
   var addHuntToDatabase = function() {
 
+    //format needed for server's recieved data object
     var hunt = {hunt: newHunt};
 
     var data = $resource(
@@ -198,11 +211,11 @@ angular.module('app.services', ['ngResource'])
     return data.save(hunt)
       .$promise
       .then(function(res) {
-        console.log('response in addHuntToDatabase service: ', res);
         return res;
       })
   };
 
+  //return statement assigns what can be accessed outside this factory
   return {
     getHunts: getHunts,
     getHunt: getHunt,
