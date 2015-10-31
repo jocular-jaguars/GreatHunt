@@ -52,18 +52,6 @@ app.post('/api/signup', function(req, res){
   userController.signup(req, res);
 });
 
-app.get('/api/signedin', function(req, res){
-  console.log("username: ", req.body.username);
-  console.log("password: ", req.body.password);
-  userController.checkAuth(req, res);
-});
-
-app.get('/api/:username', function(req, res){
-  var name = req.params.username;
-  console.log("username: ", req.body.username);
-  userController.getUser(req, res, null, name);
-});
-
 //get one game object
 app.get('/api/game/:gameCode', function(req, res) {
   var gameCode = req.params.gameCode;
