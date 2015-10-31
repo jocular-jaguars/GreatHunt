@@ -25,6 +25,18 @@ angular.module('app.routes', ['app.preGameControllers',
   // Each state's controller can be found in controllers.js
   // Templates are injected into <ion-nav-view> in index.html
   $stateProvider
+    //login routes
+    .state('login', {
+      url: '/login',
+      templateUrl: 'templates/login.html',
+      controller: 'loginCtrl'
+    })
+         
+    .state('signup', {
+      url: '/signup',
+      templateUrl: 'templates/signup.html',
+      controller: 'signupCtrl'
+    })
 
     // parent state
     .state('tabs', {
