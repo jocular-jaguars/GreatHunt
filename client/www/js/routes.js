@@ -157,7 +157,13 @@ angular.module('app.routes', ['app.preGameControllers',
       url: '/previewHunt',
       templateUrl: 'templates/previewHunt.html',
       controller: 'previewHuntCtrl'
-    });
+    })
+
+    .state('leaderboard', {
+      url: '/leaderboard',
+      templateUrl: 'templates/leaderboard.html',
+      controller: 'leaderboardCtrl'
+    })
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/home/welcome');

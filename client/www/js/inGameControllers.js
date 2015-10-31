@@ -115,5 +115,49 @@ angular.module('app.inGameControllers', ['app.services', 'ngResource'])
     LocalStorageService.delete('registered');
     $state.go('tabs.welcome');
   }
+})
 
+.controller('leaderboardCtrl', function($scope, TeamService, LocalStorageService) {
+  //This will only be shown when the game is ended, so no interval needed.
+  $scope.gameCode = 'ahkr'; //later grab this from LocalStorage
+  $scope.teamInfo = {};
+
+  var ranks = {
+    1: "First",
+    2: "Second",
+    3: "Third",
+    4: "Fourth",
+    5: "Fifth",
+    6: "Sixth",
+    7: "Seventh",
+    8: "Eight",
+    9: "Ninth",
+    10: "Tenth",
+    11: "Eleventh",
+    12: "Twelfth"
+  }
+
+  var setTeamsArray = function() {
+    TeamService.getTeams($scope.gameCode).then(function(teams) {
+      //for now, sorting the same way as dashboard (til we have time info)
+      $scope.teams = teams.sort(compareChallenge);
+      for (var i=0; i<$scope.teams.length; i++) {
+        $scope.teamInfo[i] = {name: $scope.teams[i].name, place: ranks[i+1] + " place"};
+      }
+      console.log('team info: ', $scope.teamInfo);
+    })
+  };
+
+  function compareChallenge(a, b) {
+    if (a.currentChallenge < b.currentChallenge) {
+      return 1;
+    }
+    if (a.currentChallenge > b.currentChallenge) {
+      return -1;
+    }
+    return 0;
+  }
+
+  //calling the setTeams on initialization of this controller
+  setTeamsArray();
 });

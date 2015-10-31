@@ -1,0 +1,12 @@
+<ion-view title="Leaderboard">
+    <ion-content padding="true" class="has-header">
+        <div class="spacer" style="width: 300px; height: 33px;"></div>
+        <ion-list>
+            <ion-item class="item-divider" ng-repeat="rank in teamInfo">{{rank.place}}
+            <ion-item>{{rank.name}}</ion-item>
+            </ion-item>
+        </ion-list>
+        <div class="spacer" style="width: 300px; height: 112px;"></div>
+        <button class="button button-stable button-block ">Back to Main Menu</button>
+    </ion-content>
+</ion-view>
