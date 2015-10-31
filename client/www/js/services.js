@@ -5,7 +5,6 @@
 // deploy
 var root = 'https://thegreathunt.herokuapp.com';
 
-
 angular.module('app.services', ['ngResource'])
 
 // Store and retrieve from local serveice
@@ -225,4 +224,45 @@ angular.module('app.services', ['ngResource'])
     addChallengeToHunt: addChallengeToHunt,
     newHunt: newHunt
   }
+})
+
+.factory('Auth', function ($http, $window, $state) {
+  var signin = function (user) {
+    // return $http({
+    //   method: 'POST',
+    //   url: '/api/users/signin',
+    //   data: user
+    // })
+    // .then(function (resp) {
+    //   return resp.data.token;
+    // });
+  };
+
+  var signup = function (user) {
+    // return $http({
+    //   method: 'POST',
+    //   url: '/api/users/signup',
+    //   data: user
+    // })
+    // .then(function (resp) {
+    //   return resp.data.token;
+    // });
+  };
+
+  var isAuth = function () {
+    console.log("check isAuth: " + !!$window.localStorage.getItem('huntJWT'));
+    return !!$window.localStorage.getItem('huntJWT');
+  };
+
+  var signout = function () {
+    $window.localStorage.removeItem('huntJWT');
+    $state.go('tabs.welcome');
+  };
+
+  return {
+    signin: signin,
+    signup: signup,
+    isAuth: isAuth,
+    signout: signout
+  };
 });

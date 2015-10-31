@@ -1,22 +1,10 @@
-angular.module('app.routes', ['app.preGameControllers',
+angular.module('app.routes', ['app.auth', 'app.preGameControllers',
   'app.inGameControllers',
   'app.createGameControllers',
   'app.services'])
 
-// Test local storage
-// .run(function(LocalStorageService) {
-
-//   LocalStorageService.set('name', 'Max');
-//   console.log(LocalStorageService.get('name'));
-//   LocalStorageService.setObject('post', {
-//     name: 'Thoughts',
-//     text: 'Today was a good day'
-//   });
-//   var post = LocalStorageService.getObject('post');
-//   console.log(post);
-// })
-
-.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider,
+  $httpProvider) {
 
   $ionicConfigProvider.views.maxCache(0);
   // Ionic uses AngularUI Router which uses the concept of states
@@ -31,7 +19,7 @@ angular.module('app.routes', ['app.preGameControllers',
       templateUrl: 'templates/login.html',
       controller: 'loginCtrl'
     })
-         
+
     .state('signup', {
       url: '/signup',
       templateUrl: 'templates/signup.html',
@@ -42,7 +30,10 @@ angular.module('app.routes', ['app.preGameControllers',
     .state('tabs', {
       url: '/home',
       abstract:true,
-      templateUrl: 'templates/tabs.html'  // substates of tabs need labeled views
+      templateUrl: 'templates/tabs.html',  // substates of tabs need labeled views
+      data: {
+        authenticate: false
+      }
     })
 
     // substate of tabs
@@ -71,7 +62,10 @@ angular.module('app.routes', ['app.preGameControllers',
     .state('hunts', {
       abstract: true,
       url: '/hunts',
-      template: '<ion-nav-view></ion-nav-view>'
+      template: '<ion-nav-view></ion-nav-view>',
+      data: {
+        authenticate: false
+      }
     })
 
     // Substate of hunts
@@ -79,6 +73,9 @@ angular.module('app.routes', ['app.preGameControllers',
       url: '',  // relative to the hunts state URL
       templateUrl: 'templates/hunts.html',
       controller: 'huntsCtrl',
+      data: {
+        authenticate: false
+      },
       resolve: {
         // injects hunts into controller, which puts it into $scope
         hunts: function(HuntService) {
@@ -92,9 +89,9 @@ angular.module('app.routes', ['app.preGameControllers',
       url: '/:hunt',   // :hunt is a param injected during ng-repeat in hunts.html
       templateUrl: 'templates/huntDetail.html',
       controller: 'huntDetailCtrl',
-      // resolve is an object
-      // key is the variable name that is injected into the controller
-      // value is a value or promise that gets returned
+      data: {
+        authenticate: false
+      },
       resolve: {
         // hunt function gets hunt URL using $stateParams,
         // calls getHunt with that params, and injects the value returned from getHunt
@@ -108,67 +105,100 @@ angular.module('app.routes', ['app.preGameControllers',
     .state('joinGame', {
       url: '/join',
       templateUrl: 'templates/joinGame.html',
-      controller: 'joinCtrl'
+      controller: 'joinCtrl',
+      data: {
+        authenticate: false
+      }
     })
 
     .state('lobby', {
       url: '/lobby',
       templateUrl: 'templates/lobby.html',
-      controller: 'lobbyCtrl'
+      controller: 'lobbyCtrl',
+      data: {
+        authenticate: false
+      }
     })
 
     .state('creatorJoin', {
       url: '/creatorjoin',
       templateUrl: 'templates/creatorJoin.html',
-      controller: 'creatorJoinCtrl'
+      controller: 'creatorJoinCtrl',
+      data: {
+        authenticate: false
+      }
     })
 
     .state('createTeam', {
       url: '/createteam',
       templateUrl: 'templates/createTeam.html',
-      controller: 'createTeamCtrl'
+      controller: 'createTeamCtrl',
+      data: {
+        authenticate: false
+      }
     })
 
     .state('dashboard', {
       url: '/dashboard',
       templateUrl: 'templates/dashboard.html',
-      controller: 'dashboardCtrl'
+      controller: 'dashboardCtrl',
+      data: {
+        authenticate: false
+      }
     })
 
     .state('challenge', {
       url: '/challenge',
       templateUrl: 'templates/challenge.html',
-      controller: 'challengeCtrl'
+      controller: 'challengeCtrl',
+      data: {
+        authenticate: false
+      }
     })
 
     .state('endGame', {
       url: '/end',
       templateUrl: 'templates/endGame.html',
-      controller: 'endGameCtrl'
+      controller: 'endGameCtrl',
+      data: {
+        authenticate: false
+      }
     })
 
     .state('createChallenge', {
       url: '/createChallenge',
       templateUrl: 'templates/createChallenge.html',
-      controller: 'createChallengeCtrl'
+      controller: 'createChallengeCtrl',
+      data: {
+        authenticate: true
+      }
     })
 
     .state('createHunt', {
       url: '/createHunt',
       templateUrl: 'templates/createHunt.html',
-      controller: 'createHuntCtrl'
+      controller: 'createHuntCtrl',
+      data: {
+        authenticate: true
+      }
     })
 
     .state('previewChallenge', {
       url: '/previewChallenge',
       templateUrl: 'templates/previewChallenge.html',
-      controller: 'previewChallengeCtrl'
+      controller: 'previewChallengeCtrl',
+      data: {
+        authenticate: true
+      }
     })
 
     .state('previewHunt', {
       url: '/previewHunt',
       templateUrl: 'templates/previewHunt.html',
-      controller: 'previewHuntCtrl'
+      controller: 'previewHuntCtrl',
+      data: {
+        authenticate: true
+      }
     })
 
     .state('leaderboard', {
@@ -179,5 +209,39 @@ angular.module('app.routes', ['app.preGameControllers',
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/home/welcome');
+
+  // Add AttachTokens to the array of interceptors
+  $httpProvider.interceptors.push('AttachTokens');
+
+})
+
+// $httpInterceptor that stops all out-going requests and adds token from localStorage
+.factory('AttachTokens', function ($window) {
+  var attach = {
+    request: function (object) {
+      var jwt = $window.localStorage.getItem('huntJWT');
+      if (jwt) {
+        object.headers['x-access-token'] = jwt;
+      }
+      object.headers['Allow-Control-Allow-Origin'] = '*';
+      return object;
+    }
+  };
+  return attach;
+})
+
+.run(function ($rootScope, $state, Auth) {
+  // when route changes, look for the token in localstorage
+  // and send that token to the server to see if it is a real user or hasn't expired
+  // if it's not valid, we then redirect back to signin/signup
+  $rootScope.$on('$stateChangeStart', function (event, toState, toParams,
+    fromState, fromParams) {
+    // If route requires authentication and user is not authenticated
+    if (toState.data.authenticate && !Auth.isAuth()) {
+      event.preventDefault();
+      console.log("can't go there");
+      $state.go('tabs.welcome');
+    }
+  });
 
 });
