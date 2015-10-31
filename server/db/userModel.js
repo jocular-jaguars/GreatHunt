@@ -23,7 +23,7 @@ var userSchema = new Schema({
   }]
 });
 
-UserSchema.methods.comparePasswords = function (candidatePassword) {
+userSchema.methods.comparePasswords = function (candidatePassword) {
   var defer = Q.defer();
   var savedPassword = this.password;
   bcrypt.compare(candidatePassword, savedPassword, function (err, isMatch) {
@@ -36,7 +36,7 @@ UserSchema.methods.comparePasswords = function (candidatePassword) {
   return defer.promise;
 };
 
-UserSchema.pre('save', function (next) {
+userSchema.pre('save', function (next) {
   var user = this;
   // only hash the password if it has been modified (or is new)
   if (!user.isModified('password')) {

@@ -23,11 +23,11 @@ describe('User Model', function() {
         {
           username: "Ron",
           password: "Fenolio"
-        },
-        {
-          username: "Heidi",
-          password: "Kumar"
-        }
+        }//,
+        // {
+        //   username: "Heidi",
+        //   password: "Kumar"
+        // }
       ];
       User.create(users, done);
     });
@@ -53,9 +53,9 @@ describe('User Model', function() {
 
   });
 
-  xit("should find the user in the database", function(done) {
-    UserController.findUser(function(err, users) {
-
+  it("should find the user in the database", function(done) {
+    UserController.getUser(function(err, users) {
+      expect(user.username).to.equal('Ron')
     });
   });
 
