@@ -36,7 +36,7 @@ angular.module('app.inGameControllers', ['app.services', 'ngResource'])
 
     // Send user to end game view if completed last challenge
     if ($scope.currentIndex === $scope.challenges.length - 1) {
-      $rootScope.redirect('endGame');
+      $rootScope.redirect('leaderboard');
     // Otherwise, move to next challenge and save position to localStorage
     } else {
       $scope.currentIndex++;
@@ -59,12 +59,6 @@ angular.module('app.inGameControllers', ['app.services', 'ngResource'])
     }
     return isWrong;
   }
-})
-
-.controller('endGameCtrl', function($scope, $rootScope, LocalStorageService) {
-
-  LocalStorageService.set("finished", true);
-
 })
 
 .controller('dashboardCtrl', function ($scope, $rootScope, $interval, $state,
@@ -117,7 +111,7 @@ angular.module('app.inGameControllers', ['app.services', 'ngResource'])
   }
 })
 
-.controller('leaderboardCtrl', function($scope, TeamService, LocalStorageService) {
+.controller('leaderboardCtrl', function($scope, $rootScope, TeamService, LocalStorageService) {
   //This will only be shown when the game is ended, so no interval needed.
   $scope.gameCode = 'ahkr'; //later grab this from LocalStorage
   $scope.teamInfo = {};
@@ -156,6 +150,11 @@ angular.module('app.inGameControllers', ['app.services', 'ngResource'])
       return -1;
     }
     return 0;
+  }
+
+  $scope.endGame = function() {
+    LocalStorageService.set("finished", true);
+    $rootScope.endGame();
   }
 
   //calling the setTeams on initialization of this controller
