@@ -70,28 +70,38 @@ angular.module('app.inGameControllers', ['app.services', 'ngResource'])
 .controller('dashboardCtrl', function ($scope, $rootScope, $interval, $state,
   TeamService, GameService, LocalStorageService) {
 
-  $scope.creatorStarted = false;
-
-  // Remember challenge view so user can return after closing the app
-  LocalStorageService.set('currentView', 'dashboard');
-
-  // Remember challenge view so user can return after closing the app
+  $scope.started = LocalStorageService.get('started');
   LocalStorageService.set('registered', true);
+
+  // Remember dashboard view so user can return after closing the app
+  LocalStorageService.set('currentView', 'dashboard');
 
   $scope.gameCode = LocalStorageService.get('gameCode');
 
   // Keep getting updated team info from server
   var timer = $interval(function() {
     TeamService.getTeams($scope.gameCode).then(function(teams) {
-      $scope.teams = teams;
+      $scope.teams = teams.sort(compareChallenge);
     })
-  }, 3000);
+  }, 5000);
+
+  // Sort teams by descending current challenge
+  function compareChallenge(a, b) {
+    if (a.currentChallenge < b.currentChallenge) {
+      return 1;
+    }
+    if (a.currentChallenge > b.currentChallenge) {
+      return -1;
+    }
+    return 0;
+  }
 
   // Creator tells server to start game
   $scope.startGame = function() {
     //add update to server when server-side function available
-    GameService.startGame($scope.gameCode).then(function(started){
-      $scope.creatorStarted = true;
+    GameService.startGame($scope.gameCode).then(function(started) {
+      $scope.started = true;
+      LocalStorageService.set('started', true);
       if (!started) {
         console.log('No response from server');
       }
@@ -105,4 +115,5 @@ angular.module('app.inGameControllers', ['app.services', 'ngResource'])
     LocalStorageService.delete('registered');
     $state.go('tabs.welcome');
   }
+
 });
