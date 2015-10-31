@@ -1,15 +1,14 @@
 <ion-view title="Game In Progress">
   <ion-content padding="true" class="has-header">
-    <div class="spacer" style="width: 300px; height: 43px;"></div>
     <h2>Game Code: {{gameCode}}</h2>
     <h2>Current Teams</h2>
     <ion-list>
-      <ion-item class="item-thumbnail-left" ng-repeat="n in teams">
+      <ion-item ng-repeat="n in teams">
         <h2>{{n.name}}</h2>
-        <p>Challenge {{n.currentChallenge}}</p>
+        <p>Challenge {{n.currentChallenge + 1}}</p>
       </ion-item>
     </ion-list>
-    <button class="button button-stable button-block" ng-hide="creatorStarted" ng-click="startGame()">Start!</button>
+    <button class="button button-stable button-block" ng-hide="started" ng-click="startGame()">Start!</button>
     <button ng-click="stopGameUpdate()" class="button button-stable button-block ">
       End Game
     </button>
