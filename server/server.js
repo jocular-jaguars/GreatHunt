@@ -90,6 +90,7 @@ app.put('/api/game/:gameCode', function(req, res) {
 app.put('/api/gameStart/:gameCode', function(req, res) {
   var gameCode = req.params.gameCode;
   games[gameCode].started = true;
+  games[gameCode].startTime = Date.now();
   res.end();
 });
 
