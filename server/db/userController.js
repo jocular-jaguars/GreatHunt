@@ -1,13 +1,13 @@
+var User = require('./userModel.js');
 var Hunt = require('./userModel.js');
 var ObjectId = require('mongoose').Types.ObjectId;
-var User = require('./userModel.js');
 var Q    = require('q');
 var jwt  = require('jwt-simple');
 
 
 var signin = function (req, res, next) {
-    var username = req.body.username,
-        password = req.body.password;
+    var username = req.body.username;
+    var password = req.body.password;
 
     var findUser = Q.nbind(User.findOne, User);
     findUser({username: username})
