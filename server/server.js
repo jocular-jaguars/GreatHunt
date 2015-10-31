@@ -5,6 +5,7 @@ var ObjectId = require('mongoose').Types.ObjectId;
 //Requirements for backend routes
 var huntController = require('./db/huntController.js');
 var challengeController = require('./db/challengeController.js');
+var userController = require('./db/userController.js')
 var Game = require('./game/Game.js');
 var Team = require('./game/Team.js');
 var cors = require('cors');
@@ -36,6 +37,19 @@ var games = {
 //Routes go here
 app.get('/', function(req, res) {
   res.send('helllllooooooooo woooorld! :D');
+});
+
+//user sign in and authentication
+app.post('/api/signin', function(req, res){
+  console.log("username: ", req.body.username);
+  console.log("password: ", req.body.password);
+  userController.signin(req, res);
+});
+
+app.post('/api/signup', function(req, res){
+  console.log("username: ", req.body.username);
+  console.log("password: ", req.body.password);
+  userController.signup(req, res);
 });
 
 //get one game object
