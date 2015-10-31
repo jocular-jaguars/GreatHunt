@@ -87,6 +87,7 @@ angular.module('app.preGameControllers', ['app.services', 'ngResource'])
     LocalStorageService.set('finished', gameObj.finished);
     LocalStorageService.set('challenges', gameObj.challenges); // array
     LocalStorageService.set('currentChallenge', 0) // new game starts at 0
+    LocalStorageService.set('startTime', gameObj.startTime);
   }
 
   // Creator tells server to start game
