@@ -92,9 +92,11 @@ app.post('/api/game', function(req, res) {
 
 //update team status in the game; send team to next challenge.
 app.put('/api/game/:gameCode', function(req, res) {
+  if (req.body.stopTime) {
+    games[gameCode].teams[teamIndex]['stopTime'] = req.body.stopTime;
+  }
   var gameCode = req.params.gameCode;
   var teamIndex = req.body.teamIndex;
-  // Add check for end of challenge
   games[gameCode].teams[teamIndex].nextChallenge();
   console.log(games[gameCode].teams);
   res.end();

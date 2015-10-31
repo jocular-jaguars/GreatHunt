@@ -1,9 +1,9 @@
 // comment out the version you aren't using
 
 // local
-// var root = 'http://localhost:8000';
+var root = 'http://localhost:8000';
 // deploy
-var root = 'https://thegreathunt.herokuapp.com';
+// var root = 'https://thegreathunt.herokuapp.com';
 
 angular.module('app.services', ['ngResource'])
 
@@ -124,8 +124,11 @@ angular.module('app.services', ['ngResource'])
     });
   };
 
-  var updateTeam = function(teamIndex, gameCode) {
+  var updateTeam = function(teamIndex, gameCode, stopTime) {
     var teamUpdate = {teamIndex: teamIndex};
+    if (stopTime) {
+      teamUpdate.stopTime = stopTime;
+    }
 
     var resource = $resource(
       root + '/api/game/' + gameCode,
