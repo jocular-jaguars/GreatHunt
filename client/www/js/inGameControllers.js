@@ -68,14 +68,15 @@ angular.module('app.inGameControllers', ['app.services', 'ngResource'])
 })
 
 .controller('dashboardCtrl', function ($scope, $rootScope, $interval, $state,
-  TeamService, LocalStorageService) {
+  TeamService, GameService, LocalStorageService) {
+
+  $scope.creatorStarted = false;
 
   // Remember challenge view so user can return after closing the app
   LocalStorageService.set('currentView', 'dashboard');
 
   // Remember challenge view so user can return after closing the app
   LocalStorageService.set('registered', true);
-
 
   $scope.gameCode = LocalStorageService.get('gameCode');
 
@@ -85,6 +86,17 @@ angular.module('app.inGameControllers', ['app.services', 'ngResource'])
       $scope.teams = teams;
     })
   }, 3000);
+
+  // Creator tells server to start game
+  $scope.startGame = function() {
+    //add update to server when server-side function available
+    GameService.startGame($scope.gameCode).then(function(started){
+      $scope.creatorStarted = true;
+      if (!started) {
+        console.log('No response from server');
+      }
+    });
+  }
 
   // if the future, may be better to stop timer upon page redirect so new
   // timers are not created every time the dashboard is loaded

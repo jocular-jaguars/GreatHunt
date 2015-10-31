@@ -9,6 +9,7 @@
         <p>Challenge {{n.currentChallenge}}</p>
       </ion-item>
     </ion-list>
+    <button class="button button-stable button-block" ng-hide="creatorStarted" ng-click="startGame()">Start!</button>
     <button ng-click="stopGameUpdate()" class="button button-stable button-block ">
       End Game
     </button>
