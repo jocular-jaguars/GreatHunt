@@ -59,7 +59,7 @@ describe('Hunt Model', function() {
           location: "San Francisco",
           description: "Our first test hunt",
           challenges: [challenge1._id, challenge2._id, challenge3._id],
-          creator: "Jocular Jaguars",
+          //creator: "Jocular Jaguars",
           private: false
         },
         {
@@ -67,7 +67,7 @@ describe('Hunt Model', function() {
           location: "Hack Reactor",
           description: "Scavenger Hunt around Hack Reactor",
           challenges: [challenge2._id, challenge3._id, challenge4._id],
-          creator: "Jocular Jaguars",
+          //creator: "Jocular Jaguars",
           private: false
         }
       ];
@@ -82,7 +82,7 @@ describe('Hunt Model', function() {
       location: "Golden Gate Park",
       description: "Explore Golden Gate Park",
       challenges: [challenge4._id, challenge1._id, challenge3._id, challenge4._id],
-      creator: "Jocular Jaguars",
+      //creator: "Jocular Jaguars",
       private: false
     });
 
