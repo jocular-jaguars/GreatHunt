@@ -22,6 +22,7 @@ module.exports = function(config) {
       '../lib/angular/angular.js',
       '../lib/angular-mocks/angular-mocks.js',
       '../lib/angular-resource/angular-resource.js',
+      '../lib/parse/parse.min.js',
       '../js/ios-webview-patch.js',
       '../js/app.js',
       '../js/services.js',
