@@ -70,7 +70,6 @@ app.get('/api/game/:gameCode', function(req, res) {
 // send the teams to the front end
 app.get('/api/team/:gameCode', function(req, res) {
   var gameCode = req.params.gameCode;
-  console.log(games[gameCode].teams);
   res.send(JSON.stringify(games[gameCode].teams));
 });
 
