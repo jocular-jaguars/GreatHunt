@@ -125,8 +125,10 @@ angular.module('app.services', ['ngResource'])
   };
 
   var updateTeam = function(teamIndex, gameCode, stopTime) {
-    var teamUpdate = {teamIndex: teamIndex};
+    console.log('console logs work in updateTeam');
+    var teamUpdate = {teamIndex: teamIndex, stopTime: false};
     if (stopTime) {
+      console.log('Resetting stopTime to:  ', stopTime);
       teamUpdate.stopTime = stopTime;
     }
 
@@ -139,6 +141,7 @@ angular.module('app.services', ['ngResource'])
     );
 
     return resource.update(teamUpdate).$promise.then(function() {
+      console.log('teamUpdate returned');
       return true;
     });
   };

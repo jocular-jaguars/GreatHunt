@@ -70,6 +70,7 @@ app.get('/api/game/:gameCode', function(req, res) {
 // send the teams to the front end
 app.get('/api/team/:gameCode', function(req, res) {
   var gameCode = req.params.gameCode;
+  console.log(games[gameCode].teams);
   res.send(JSON.stringify(games[gameCode].teams));
 });
 
@@ -92,11 +93,11 @@ app.post('/api/game', function(req, res) {
 
 //update team status in the game; send team to next challenge.
 app.put('/api/game/:gameCode', function(req, res) {
-  if (req.body.stopTime) {
-    games[gameCode].teams[teamIndex]['stopTime'] = req.body.stopTime;
-  }
   var gameCode = req.params.gameCode;
   var teamIndex = req.body.teamIndex;
+  if (req.body.stopTime !== false) {
+    games[gameCode].teams[teamIndex]['stopTime'] = req.body.stopTime;
+  }
   games[gameCode].teams[teamIndex].nextChallenge();
   console.log(games[gameCode].teams);
   res.end();

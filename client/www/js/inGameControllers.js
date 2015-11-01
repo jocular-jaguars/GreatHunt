@@ -46,8 +46,9 @@ angular.module('app.inGameControllers', ['app.services', 'ngResource'])
     // Send user to end game view if completed last challenge
     if ($scope.currentIndex === $scope.challenges.length - 1) {
       $interval.cancel(clock);
-      TeamService.updateTeam($scope.teamIndex, $scope.gameCode).then(function(update){
-        if (updated) {
+      now = Date.now();
+      TeamService.updateTeam($scope.teamIndex, $scope.gameCode, now).then(function(update){
+        if (update) {
           $rootScope.redirect('leaderboard');
         } else {
           console.log('No response from server. Can\'t allow redirect!');
@@ -150,11 +151,11 @@ angular.module('app.inGameControllers', ['app.services', 'ngResource'])
   var setTeamsArray = function() {
     TeamService.getTeams($scope.gameCode).then(function(teams) {
       //for now, sorting the same way as dashboard (til we have time info)
+      console.log("teams information from server: ",teams);
       $scope.teams = teams.sort(compareChallenge);
       for (var i=0; i<$scope.teams.length; i++) {
         $scope.teamInfo[i] = {name: $scope.teams[i].name, place: ranks[i+1] + " place"};
       }
-      console.log('team info: ', $scope.teamInfo);
     })
   };
 
