@@ -124,8 +124,11 @@ angular.module('app.services', ['ngResource'])
     });
   };
 
-  var updateTeam = function(teamIndex, gameCode) {
-    var teamUpdate = {teamIndex: teamIndex};
+  var updateTeam = function(teamIndex, gameCode, stopTime) {
+    var teamUpdate = {teamIndex: teamIndex, stopTime: false};
+    if (stopTime) {
+      teamUpdate.stopTime = stopTime;
+    }
 
     var resource = $resource(
       root + '/api/game/' + gameCode,

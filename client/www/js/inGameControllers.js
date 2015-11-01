@@ -1,7 +1,9 @@
 angular.module('app.inGameControllers', ['app.services', 'ngResource'])
 
-.controller('challengeCtrl', function($scope, $rootScope, LocalStorageService,
+.controller('challengeCtrl', function($scope, $rootScope, $interval, LocalStorageService,
   TeamService) {
+  //used in clock. Just instantiated once.
+  var now;
 
   // Remember challenge view so user can return after closing the app
   LocalStorageService.set('currentView', 'challenge');
@@ -9,6 +11,7 @@ angular.module('app.inGameControllers', ['app.services', 'ngResource'])
   $scope.huntName = LocalStorageService.get("huntName");
   $scope.gameCode = LocalStorageService.get("gameCode");
   $scope.teamIndex = LocalStorageService.get("teamIndex");
+  $scope.startTime = LocalStorageService.get("startTime");
 
   // Index of the current challenge (zero-based)
   $scope.currentIndex = LocalStorageService.get("currentChallenge");
@@ -21,6 +24,14 @@ angular.module('app.inGameControllers', ['app.services', 'ngResource'])
   $scope.user = {};
   $scope.user.answer = "";
 
+  var clock = $interval(function(){
+    //note that this is in milliseconds
+    now = Date.now();
+    $scope.minutes = Math.floor((now - $scope.startTime)/60000);
+    $scope.seconds = Math.floor((now - $scope.startTime)/1000) - $scope.minutes*60;
+    //
+  }, 1000);
+
   // Move to next challenge or end the game
   $scope.moveToNext = function() {
     // Clear user input on the form
@@ -32,11 +43,17 @@ angular.module('app.inGameControllers', ['app.services', 'ngResource'])
       }
     });
 
-    console.log("updated the server!");
-
     // Send user to end game view if completed last challenge
     if ($scope.currentIndex === $scope.challenges.length - 1) {
-      $rootScope.redirect('leaderboard');
+      $interval.cancel(clock);
+      now = Date.now();
+      TeamService.updateTeam($scope.teamIndex, $scope.gameCode, now).then(function(update){
+        if (update) {
+          $rootScope.redirect('leaderboard');
+        } else {
+          console.log('No response from server. Can\'t allow redirect!');
+        }
+      });
     // Otherwise, move to next challenge and save position to localStorage
     } else {
       $scope.currentIndex++;
@@ -134,11 +151,11 @@ angular.module('app.inGameControllers', ['app.services', 'ngResource'])
   var setTeamsArray = function() {
     TeamService.getTeams($scope.gameCode).then(function(teams) {
       //for now, sorting the same way as dashboard (til we have time info)
+      console.log("teams information from server: ",teams);
       $scope.teams = teams.sort(compareChallenge);
       for (var i=0; i<$scope.teams.length; i++) {
         $scope.teamInfo[i] = {name: $scope.teams[i].name, place: ranks[i+1] + " place"};
       }
-      console.log('team info: ', $scope.teamInfo);
     })
   };
 

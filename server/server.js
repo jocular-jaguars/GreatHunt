@@ -94,7 +94,9 @@ app.post('/api/game', function(req, res) {
 app.put('/api/game/:gameCode', function(req, res) {
   var gameCode = req.params.gameCode;
   var teamIndex = req.body.teamIndex;
-  // Add check for end of challenge
+  if (req.body.stopTime !== false) {
+    games[gameCode].teams[teamIndex]['stopTime'] = req.body.stopTime;
+  }
   games[gameCode].teams[teamIndex].nextChallenge();
   console.log(games[gameCode].teams);
   res.end();
