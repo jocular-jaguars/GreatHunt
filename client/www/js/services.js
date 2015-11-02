@@ -38,6 +38,7 @@ angular.module('app.services', ['ngResource'])
       this.delete("newHuntName");
       this.delete("currentView");
       this.delete("startTime");
+      this.delete("stopTime");
     }
   }
 }])
