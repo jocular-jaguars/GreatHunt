@@ -37,6 +37,7 @@ angular.module('app.services', ['ngResource'])
       this.delete("newChallenges");
       this.delete("newHuntName");
       this.delete("currentView");
+      this.delete("startTime");
     }
   }
 }])

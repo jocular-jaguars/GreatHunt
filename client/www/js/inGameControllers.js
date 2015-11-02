@@ -151,13 +151,36 @@ angular.module('app.inGameControllers', ['app.services', 'ngResource'])
   var setTeamsArray = function() {
     TeamService.getTeams($scope.gameCode).then(function(teams) {
       //for now, sorting the same way as dashboard (til we have time info)
-      console.log("teams information from server: ",teams);
-      $scope.teams = teams.sort(compareChallenge);
+      var finishedTeams = [];
+      var unfinishedTeams = [];
+
+      for (var j=0; j<teams.length; j++) {
+        if (teams[j].hasOwnProperty('stopTime')) {
+          finishedTeams.push(teams[j]);
+        } else {
+          unfinishedTeams.push(teams[j]);
+        }
+      };
+
+      finishedTeams = finishedTeams.sort(compareTime);
+      unfinishedTeams = unfinishedTeams.sort(compareChallenge);
+      $scope.teams = finishedTeams.concat(unfinishedTeams);
+      console.log("scope teams: ", $scope.teams);
       for (var i=0; i<$scope.teams.length; i++) {
         $scope.teamInfo[i] = {name: $scope.teams[i].name, place: ranks[i+1] + " place"};
       }
     })
   };
+
+  function compareTime(a, b) {
+    if (a.stopTime > b.stopTime) {
+      return 1;
+    }
+    if (a.stopTime < b.stopTime) {
+      return -1;
+    }
+    return 0;
+  }
 
   function compareChallenge(a, b) {
     if (a.currentChallenge < b.currentChallenge) {
