@@ -113,7 +113,7 @@ describe('Hunt Model', function() {
   it("should return all the hunts in the database", function(done) {
     HuntController.allHunts(function(err, hunts) {
       expect(hunts.length).to.equal(2);
-      console.log("In third test, findAll hunts ", hunts);
+      //console.log("In third test, findAll hunts ", hunts);
       done();
     });
   });
@@ -129,7 +129,7 @@ describe('Hunt Model', function() {
     HuntController.findHunt("hunt5", function(err, hunt) {
       var challengeId1 = hunt.challenges[0]._id;
       ChallengeController.findChallenge({_id: challengeId1}, function(challenge) {
-        console.log("the challenge question is: ", challenge.question, " challenge: ", challenge);
+        //console.log("the challenge question is: ", challenge.question, " challenge: ", challenge);
         expect(challenge.question).to.equal("How many puppies?");
         done();
       });
