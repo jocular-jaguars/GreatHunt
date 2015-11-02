@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Challenge = require('./challengeModel.js');
+var User = require('./userModel.js');
 var Schema = mongoose.Schema;
 
 var huntSchema = new Schema({
@@ -20,8 +21,9 @@ var huntSchema = new Schema({
   challenges: [{
     type: Schema.Types.ObjectId, ref: 'Challenge'
   }],
+  //a user must be signed in to create a hunt
   creator: {
-    type: String
+    type: Schema.Types.ObjectId, ref: 'User'
   },
   private: {
     type: Boolean,

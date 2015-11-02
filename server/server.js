@@ -41,14 +41,10 @@ app.get('/', function(req, res) {
 
 //user sign in and authentication
 app.post('/api/signin', function(req, res){
-  console.log("username: ", req.body.username);
-  console.log("password: ", req.body.password);
-  userController.signin(req, res);
+  userController.verifyUser(req, res);
 });
 
 app.post('/api/signup', function(req, res){
-  console.log("username: ", req.body.username);
-  console.log("password: ", req.body.password);
   userController.signup(req, res);
 });
 
