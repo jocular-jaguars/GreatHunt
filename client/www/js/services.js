@@ -168,7 +168,7 @@ angular.module('app.services', ['ngResource'])
   };
 
   var getHunt = function(index) {
-      return hunts[index];
+    return hunts[index];
   };
 
   var addChallenge = function(challenge) {
@@ -231,27 +231,25 @@ angular.module('app.services', ['ngResource'])
   }
 })
 
-.factory('Auth', function ($http, $window, $state) {
-  var signin = function (user) {
-    // return $http({
-    //   method: 'POST',
-    //   url: '/api/users/signin',
-    //   data: user
-    // })
-    // .then(function (resp) {
-    //   return resp.data.token;
-    // });
+.factory('Auth', function ($http, $window, $state, $resource) {
+  var signIn = function (user) {
+    var resource = $resource(root + '/api/signin');
+
+    return resource.save(user)
+      .$promise
+      .then(function(res) {
+        return res.token;
+      })
   };
 
-  var signup = function (user) {
-    // return $http({
-    //   method: 'POST',
-    //   url: '/api/users/signup',
-    //   data: user
-    // })
-    // .then(function (resp) {
-    //   return resp.data.token;
-    // });
+  var signUp = function (user) {
+    var resource = $resource(root + '/api/signup');
+
+    return resource.save(user)
+      .$promise
+      .then(function(res) {
+        return res.token;
+      })
   };
 
   var isAuth = function () {
@@ -265,8 +263,8 @@ angular.module('app.services', ['ngResource'])
   };
 
   return {
-    signin: signin,
-    signup: signup,
+    signIn: signIn,
+    signUp: signUp,
     isAuth: isAuth,
     signout: signout
   };

@@ -50,12 +50,14 @@ var signup = function(req, res, next) {
           username: username,
           password: password
         };
+        console.log("created user: " + JSON.stringify(newUser));
         return create(newUser);
       }
     })
     .then(function (user) {
       // create token to send back for auth
       var token = jwt.encode(user, 'secret');
+      console.log("token for user " + user.username + "is: " + token);
       res.json({token: token});
     })
     .fail(function (error) {
