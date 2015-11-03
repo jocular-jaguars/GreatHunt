@@ -1,6 +1,7 @@
 angular.module('app.routes', ['app.auth', 'app.preGameControllers',
   'app.inGameControllers',
   'app.createGameControllers',
+  'app.loginControllers',
   'app.services'])
 
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider,
