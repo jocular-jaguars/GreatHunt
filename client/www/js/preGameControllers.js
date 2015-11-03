@@ -1,7 +1,7 @@
 angular.module('app.preGameControllers', ['app.services', 'ngResource'])
 //routes for the redirect MUST be in single quotes
 
-.controller('welcomeCtrl', function($scope, $rootScope, LocalStorageService) {
+.controller('welcomeCtrl', function($scope, $rootScope, LocalStorageService, $window) {
 
   // Reset the game if player has not registered yet or is finished
   if (!LocalStorageService.get('registered') || LocalStorageService.get('finished')) {
@@ -15,6 +15,16 @@ angular.module('app.preGameControllers', ['app.services', 'ngResource'])
 
   $scope.create = function() {
     $rootScope.redirect('hunts.index');
+  };
+
+  $scope.isLoggedIn = function() {
+    //huntJWT will be set on Local Storage when login occurs.
+    var loginKey = $window.localStorage.getItem('huntJWT');
+    if (loginKey === null) {
+      return false;
+    } else {
+      return true;
+    }
   };
 
 })
