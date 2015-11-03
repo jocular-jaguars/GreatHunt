@@ -12,7 +12,7 @@ var verifyUser = function(req, res, next) {
   findUser({username: username})
     .then(function (user) {
       if (!user) {
-        next(new Error('User does not exist'));
+        throw new Error('User does not exist');
       } else {
         return user.comparePasswords(password)
           .then(function (foundUser) {
@@ -42,7 +42,7 @@ var signup = function(req, res, next) {
   findOne({username: username})
     .then(function (user) {
       if (user) {
-        next(new Error('User already exist!'));
+        throw new Error('User already exist!');
       } else {
         // make a new user if not one
         create = Q.nbind(User.create, User);
@@ -74,7 +74,7 @@ var checkAuth = function(req, res, next) {
   var token = req.headers['x-access-token'];
   console.log(token, ": is our token");
   if(!token) {
-    next(new Error('No token'));
+    throw new Error('No token');
   } else {
     console.log("corrct path")
     var user = jwt.decode(token, 'secret');
