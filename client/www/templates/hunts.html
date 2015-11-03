@@ -1,11 +1,19 @@
 <ion-view title="Hunts">
   <ion-content>
     <ion-list>
+    <h4>Private Hunts</h4>
       <!-- ui-sref passes a hunt's array index as a param to the
         the hunts.detail state -->
-      <ion-item ng-repeat="hunt in hunts" class="item item-icon-right"
-        ui-sref="hunts.detail({hunt: $index})">
-        {{hunt.name}}
+      <ion-item ng-repeat="hunt in hunts['private']" class="item item-icon-right"
+        ui-sref="hunts.detail({access: 'private', hunt: $index})">
+        {{hunt.name}}, {{hunt.location}}
+      </ion-item>
+    </ion-list>
+    <ion-list>
+      <h4>Public Hunts</h4>
+      <ion-item ng-repeat="hunt in hunts['public']" class="item item-icon-right"
+        ui-sref="hunts.detail({access: 'public', hunt: $index})">
+        {{hunt.name}}, {{hunt.location}}
       </ion-item>
     </ion-list>
     <button class="button button-energized button-block " ng-click="redirect('tabs.welcome')">Back to Main Menu</button>

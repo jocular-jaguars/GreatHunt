@@ -167,8 +167,8 @@ angular.module('app.services', ['ngResource'])
     return hunts;
   };
 
-  var getHunt = function(index) {
-    return hunts[index];
+  var getHunt = function(access, index) {
+    return hunts[access][index];
   };
 
   var addChallenge = function(challenge) {

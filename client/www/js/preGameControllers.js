@@ -34,7 +34,9 @@ angular.module('app.preGameControllers', ['app.services', 'ngResource'])
 })
 
 .controller('huntsCtrl', function($scope, hunts) {
-  $scope.hunts = hunts;
+  $scope.hunts = {};
+  $scope.hunts["public"] = hunts["public"];
+  $scope.hunts["private"] = hunts["private"];
 })
 
 .controller('huntDetailCtrl', function($scope, hunt, GameService, $rootScope,
