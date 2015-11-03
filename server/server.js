@@ -47,17 +47,19 @@ app.get('/', function(req, res) {
 });
 
 //user sign in and authentication
-app.post('/api/signin', function(req, res){
-  userController.verifyUser(req, res, function(err, user) {
-    if(err) res.send(500, {error: err.message});
-  });
+app.post('/api/signin', function(req, res, next){
+  userController.verifyUser(req, res, next);
 });
 
-app.post('/api/signup', function(req, res){
-  userController.signup(req, res, function(err, user) {
-    if(err) res.send(500, {error: err.message}); 
-  });
+app.use('/api/signin', helpers.errorLogger); 
+app.use('/api/signin', helpers.errorHandler); 
+
+app.post('/api/signup', function(req, res, next){
+  userController.signup(req, res, next);
 });
+
+app.use('/api/signup', helpers.errorLogger); 
+app.use('/api/signup', helpers.errorHandler); 
 
 //get one game object
 app.get('/api/game/:gameCode', function(req, res) {
