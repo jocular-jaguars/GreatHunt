@@ -232,15 +232,14 @@ angular.module('app.services', ['ngResource'])
 })
 
 .factory('Auth', function ($http, $window, $state, $resource) {
-  var signin = function (user) {
-    // return $http({
-    //   method: 'POST',
-    //   url: '/api/users/signin',
-    //   data: user
-    // })
-    // .then(function (resp) {
-    //   return resp.data.token;
-    // });
+  var signIn = function (user) {
+    var resource = $resource(root + '/api/signin');
+
+    return resource.save(user)
+      .$promise
+      .then(function(res) {
+        return res.token;
+      })
   };
 
   var signUp = function (user) {
@@ -264,7 +263,7 @@ angular.module('app.services', ['ngResource'])
   };
 
   return {
-    signin: signin,
+    signIn: signIn,
     signUp: signUp,
     isAuth: isAuth,
     signout: signout
