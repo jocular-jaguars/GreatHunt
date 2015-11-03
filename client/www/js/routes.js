@@ -1,4 +1,4 @@
-angular.module('app.routes', ['app.auth', 'app.preGameControllers',
+angular.module('app.routes', ['app.authControllers', 'app.preGameControllers',
   'app.inGameControllers',
   'app.createGameControllers',
   'app.services'])
@@ -17,7 +17,7 @@ angular.module('app.routes', ['app.auth', 'app.preGameControllers',
     .state('login', {
       url: '/login',
       templateUrl: 'templates/login.html',
-      controller: 'loginCtrl',
+      controller: 'authCtrl',
       data: {
         authenticate: false
       }
@@ -26,7 +26,7 @@ angular.module('app.routes', ['app.auth', 'app.preGameControllers',
     .state('signup', {
       url: '/signup',
       templateUrl: 'templates/signup.html',
-      controller: 'signupCtrl',
+      controller: 'authCtrl',
       data: {
         authenticate: false
       }

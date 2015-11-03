@@ -1,6 +1,5 @@
 angular.module('app', ['ionic',
   'app.routes',
-  'app.directives',
   'app.services',
   'ngIOS9UIWebViewPatch'
   ])
