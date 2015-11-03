@@ -24,7 +24,7 @@ app.use(cors());
 // Require token decode when user tries to access this route
 app.use('/api/hunts', helpers.decode);
 app.use(helpers.errorLogger);
-app.use(helpers.errHandler); 
+app.use(helpers.errorHandler); 
 
 
 
