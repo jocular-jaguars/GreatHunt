@@ -92,7 +92,7 @@ angular.module('app.routes', ['app.authControllers', 'app.preGameControllers',
 
     // Substate of hunts, show the details of one hunt
     .state('hunts.detail', {
-      url: '/:hunt',   // :hunt is a param injected during ng-repeat in hunts.html
+      url: '/:access/:hunt',   // :hunt is a param injected during ng-repeat in hunts.html
       templateUrl: 'templates/huntDetail.html',
       controller: 'huntDetailCtrl',
       data: {
@@ -103,7 +103,7 @@ angular.module('app.routes', ['app.authControllers', 'app.preGameControllers',
         // calls getHunt with that params, and injects the value returned from getHunt
         // into the HuntDetailCtrl, so the controller can be linked to a specific hunt
         hunt: function($stateParams, HuntService) {
-          return HuntService.getHunt($stateParams.hunt)
+          return HuntService.getHunt($stateParams.access, $stateParams.hunt)
         }
       }
     })
