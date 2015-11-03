@@ -23,8 +23,10 @@ app.use(cors());
 
 // Require token decode when user tries to access this route
 app.use('/api/hunts', helpers.decode);
+app.use(helpers.errorLogger);
+app.use(helpers.errorHandler); 
 
-app.use(helpers.errorHandler);
+
 
 // Serve static files in our client folder
 app.use(express.static(__dirname + '/../client'));
@@ -46,11 +48,15 @@ app.get('/', function(req, res) {
 
 //user sign in and authentication
 app.post('/api/signin', function(req, res){
-  userController.verifyUser(req, res);
+  userController.verifyUser(req, res, function(err, user) {
+    if(err) res.send(500, {error: err.message});
+  });
 });
 
 app.post('/api/signup', function(req, res){
-  userController.signup(req, res);
+  userController.signup(req, res, function(err, user) {
+    if(err) res.send(500, {error: err.message}); 
+  });
 });
 
 //get one game object
