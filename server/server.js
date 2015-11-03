@@ -9,7 +9,7 @@ var userController = require('./db/userController.js')
 var Game = require('./game/Game.js');
 var Team = require('./game/Team.js');
 var cors = require('cors');
-
+var helpers = require('./helpers.js'); // custom middleware
 
 var app = express();
 var port = process.env.PORT || 8000;
@@ -20,6 +20,11 @@ mongoose.connect(mongoURI);
 
 app.use(parser.json());
 app.use(cors());
+
+// Require token decode when user tries to access this route
+app.use('/api/hunts', helpers.decode);
+
+app.use(helpers.errorHandler);
 
 // Serve static files in our client folder
 app.use(express.static(__dirname + '/../client'));

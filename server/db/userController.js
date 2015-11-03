@@ -65,36 +65,32 @@ var signup = function(req, res, next) {
 
 //This may not be necessary
 var checkAuth = function(req, res, next) {
-    // checking to see if the user is authenticated
-    // grab the token in the header is any
-    // then decode the token, which we end up being the user object
-    // check to see if that user exists in the database
-    var token = req.headers['x-access-token'];
-    console.log(token, ": is our token");
-    if(!token) {
-      next(new Error('No token'));
-    } else {
-      console.log("corrct path")
-      var user = jwt.decode(token, 'secret');
-      var findUser = Q.nbind(User.findOne, User);
-      findUser({username: user.username})
-        .then(function(foundUser) {
-          if(foundUser) {
-            res.send(200);
-          } else {
-            res.send(401);
-          }
-        })
-        .fail(function (error) {
-          next(error);
-        });
-    }
-  };
-
-
-
+  // checking to see if the user is authenticated
+  // grab the token in the header is any
+  // then decode the token, which we end up being the user object
+  // check to see if that user exists in the database
+  var token = req.headers['x-access-token'];
+  console.log(token, ": is our token");
+  if(!token) {
+    next(new Error('No token'));
+  } else {
+    console.log("corrct path")
+    var user = jwt.decode(token, 'secret');
+    var findUser = Q.nbind(User.findOne, User);
+    findUser({username: user.username})
+      .then(function(foundUser) {
+        if(foundUser) {
+          res.send(200);
+        } else {
+          res.send(401);
+        }
+      })
+      .fail(function (error) {
+        next(error);
+      });
+  }
+};
 
 module.exports.verifyUser = verifyUser;
 module.exports.signup = signup;
 module.exports.checkAuth = checkAuth;
-
