@@ -150,9 +150,9 @@ app.post('/api/hunt', function(req, res) {
   huntController.createHunt(req.body.hunt, function(err, hunt) {
     if(err){
       var str = "There was an error processing your hunt: "+err
-      res.send(str);
+      res.send({error: str});
     } else {
-      res.send("hunt received");
+      res.send({huntName: req.body.hunt.name});
     }
   });
 });
