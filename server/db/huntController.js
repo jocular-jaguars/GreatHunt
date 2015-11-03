@@ -15,7 +15,7 @@ var findHunt = function(huntName, callback) {
     .exec(callback);
 };
 
-var allHunts = function(callback) {
+var allHunts = function(user, callback) {
   Hunt.find({})
     .populate('challenges')
     .exec(callback);

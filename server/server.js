@@ -85,7 +85,9 @@ app.get('/api/team/:gameCode', function(req, res) {
 //hunt route
 //get all the hunts from the database
 app.get('/api/hunts', function(req, res) {
-  huntController.allHunts(function(err, hunts) {
+  //TODO: Change this!!!
+  var user = req.body; 
+  huntController.allHunts(user, function(err, hunts) {
     res.send(hunts);
   });
 });
