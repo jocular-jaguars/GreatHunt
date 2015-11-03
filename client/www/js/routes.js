@@ -217,7 +217,7 @@ angular.module('app.routes', ['app.authControllers', 'app.preGameControllers',
     })
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/home/welcome');
+  $urlRouterProvider.otherwise('/login');
 
   // Add AttachTokens to the array of interceptors
   $httpProvider.interceptors.push('AttachTokens');
