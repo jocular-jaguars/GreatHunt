@@ -14,8 +14,8 @@ angular.module('app.authControllers', ['app.services'])
       });
   };
 
-  $scope.signup = function () {
-    Auth.signup($scope.user)
+  $scope.signUp = function () {
+    Auth.signUp($scope.user)
       .then(function (token) {
         $window.localStorage.setItem('huntJWT', token);
         $state.go('tabs.welcome');
