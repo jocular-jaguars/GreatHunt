@@ -48,14 +48,12 @@ app.get('/', function(req, res) {
 app.post('/api/signin', function(req, res){
   userController.verifyUser(req, res, function(err, user) {
     if(err) res.send(500, {error: err.message});
-    //console.log("In the signin function! err: ", err, " user ", user);
   });
 });
 
 app.post('/api/signup', function(req, res){
   userController.signup(req, res, function(err, user) {
     if(err) res.send(500, {error: err.message}); 
-    //console.log("In the signup function: err ", err, " user ", user);
   });
 });
 
