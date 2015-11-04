@@ -25,7 +25,7 @@ app.use(cors());
 app.use('/api/hunts', helpers.decode);
 app.use('/api/hunt', helpers.decode);
 app.use(helpers.errorLogger);
-app.use(helpers.errorHandler); 
+app.use(helpers.errorHandler);
 
 
 
@@ -44,7 +44,7 @@ var games = {
 
 //Routes go here
 app.get('/', function(req, res) {
-  res.send('helllllooooooooo woooorld! :D');
+  res.sendFile(__dirname + '/web.html');
 });
 
 //user sign in and authentication
@@ -52,15 +52,15 @@ app.post('/api/signin', function(req, res, next){
   userController.verifyUser(req, res, next);
 });
 
-app.use('/api/signin', helpers.errorLogger); 
-app.use('/api/signin', helpers.errorHandler); 
+app.use('/api/signin', helpers.errorLogger);
+app.use('/api/signin', helpers.errorHandler);
 
 app.post('/api/signup', function(req, res, next){
   userController.signup(req, res, next);
 });
 
-app.use('/api/signup', helpers.errorLogger); 
-app.use('/api/signup', helpers.errorHandler); 
+app.use('/api/signup', helpers.errorLogger);
+app.use('/api/signup', helpers.errorHandler);
 
 //get one game object
 app.get('/api/game/:gameCode', function(req, res) {
