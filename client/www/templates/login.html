@@ -10,6 +10,9 @@
           <input type="password" ng-model="user.password" placeholder="Password">
         </label>
       </ion-list>
+      <div ng-show="invalid">
+        <h4>Not a valid username or password. Please try again.</h4>
+      </div>
       <div class="spacer" style="height: 40px;"></div>
       <button ng-click="signIn()" class="button button-stable button-block ">Log in</button>
       <button ng-click="redirect('signup')" class="button button-stable button-block ">Create an account</button>

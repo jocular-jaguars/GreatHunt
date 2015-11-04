@@ -209,8 +209,8 @@ angular.module('app.services', ['ngResource'])
     var hunt = {hunt: newHunt};
 
     var data = $resource(
-        root + '/api/hunt'
-      )
+      root + '/api/hunt'
+    )
 
     return data.save(hunt)
       .$promise
