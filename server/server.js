@@ -87,7 +87,14 @@ app.get('/api/team/:gameCode', function(req, res) {
 //get all the hunts from the database
 app.get('/api/hunts', function(req, res) {
   huntController.allHunts(function(err, hunts) {
-    res.send(hunts);
+    huntController.findUsersHunts(req.user.username, function(err, userHunts) {
+      if(err) res.send(err); 
+      else {
+        var allHunts = {publicHunts: hunts, userHunts: userHunts}; 
+        console.log("!!!!!!ALLLLLLLLLLLLLLLLLLLLLLLLL THE HUNTS: ", allHunts)
+        res.send(allHunts);
+      }
+    })
   });
 });
 

@@ -29,6 +29,7 @@ var findHunt = function(huntName, callback) {
 var findUsersHunts = function(username, callback) {
   User.find({username: username})
     .populate('hunts')
+    .select('hunts')
     .exec(callback)
 }
 
@@ -45,12 +46,9 @@ var allHuntsClient = function(callback) {
     .exec(callback);
 }
 
-// var updateHunts = function(user, callback) {
-//   Hunt.find({})
-// }
 
 module.exports.createHunt = createHunt;
 module.exports.findHunt = findHunt;
 module.exports.allHunts = allHunts;
 module.exports.allHuntsClient = allHuntsClient;
-// module.exports.updateHunts = updateHunts; 
+module.exports.findUsersHunts = findUsersHunts; 
