@@ -9,7 +9,14 @@ var createHunt = function(user, hunt, callback) {
   hunt.save(function(err) {
     if(err) console.log("There was an error adding the hunt: ", err);
     callback(err, hunt);
-  }); 
+  })
+    .then(function(hunt) {
+      User.findOneAndUpdate(
+        {username: hunt.creator},
+        {$push:{hunts:hunt._id}} 
+        )
+        
+    }); 
 };
 
 var findHunt = function(huntName, callback) {
@@ -17,6 +24,12 @@ var findHunt = function(huntName, callback) {
     .populate('challenges')
     .exec(callback);
 };
+
+var findUsersHunts = function(username, callback) {
+  User.find({username: username})
+    .populate('hunts')
+    .exec(callback)
+}
 
 var allHunts = function(callback) {
   Hunt.find({})

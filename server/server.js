@@ -157,7 +157,7 @@ app.post('/api/hunt', function(req, res) {
       var str = "There was an error processing your hunt: "+err
       res.send({error: str});
     } else {
-      console.log(hunt);
+      console.log(hunt, "~~~user~~~", user);
       res.send({huntName: req.body.hunt.name});
     }
   });
