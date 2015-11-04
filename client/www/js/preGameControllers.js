@@ -27,6 +27,12 @@ angular.module('app.preGameControllers', ['app.services', 'ngResource'])
     }
   };
 
+  $scope.signOut = function() {
+    // $window.localStorage.setItem('huntJWT', null);
+    LocalStorageService.delete('huntJWT');
+    $rootScope.redirect('login');
+  };
+
 })
 
 .controller('aboutCtrl', function($scope) {

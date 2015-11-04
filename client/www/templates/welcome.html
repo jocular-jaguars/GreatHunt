@@ -7,5 +7,7 @@
     <button class="button button-energized button-block " ng-click="create()">Choose A Hunt</button>
     <p>Join your friend's hunt!</p>
     <button class="button button-stable button-block " ng-click ="redirect('joinGame')">Join A Hunt</button>
+    <button class="button button-stable button-block " ng-show="!isLoggedIn()" ng-click ="redirect('login')">Back to Login</button>
+    <button class="button button-stable button-block " ng-show="isLoggedIn()" ng-click ="signOut()">Sign Out</button>
   </ion-content>
 </ion-view>
