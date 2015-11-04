@@ -194,7 +194,7 @@ angular.module('app.services', ['ngResource'])
       location: hunt.location,
       description: hunt.description,
       challenges: [],
-      private: false
+      private: hunt.private
     }
     return newHunt;
   };
