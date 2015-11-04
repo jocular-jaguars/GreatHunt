@@ -12,9 +12,9 @@
       </ion-list>
       <div class="spacer" style="height: 40px;"></div>
       <button ng-click="signIn()" class="button button-stable button-block ">Log in</button>
-      <a class="button button-stable button-clear button-block ">Or create an account</a>
-    </form>
-    <button class="button button-stable button-block " ng-click="redirect('tabs.welcome')">Continue without login</button>
+      <button ng-click="redirect('signup')" class="button button-stable button-block ">Create an account</button>
     <a class="button button-stable button-clear button-block ">You must log in to create new hunts</a>
+    <button class="button button-stable button-block " ng-click="redirect('tabs.welcome')">Continue Without Logging In</button>
+    </form>
   </ion-content>
 </ion-view>

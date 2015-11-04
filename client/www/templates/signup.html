@@ -7,10 +7,13 @@
           <input type="text" ng-model="user.username" placeholder="Username">
         </label>
         <label class="item item-input">
-          <input type="text" ng-model="user.password" placeholder="Password">
+          <input type="password" ng-model="user.password" placeholder="Password">
         </label>
       </ion-list>
       <button ng-click="signUp()" class="button button-stable button-block">Sign up</button>
+      <button ng-click="redirect('login')" class="button button-stable button-block">Return to Login</button>
+      <a class="button button-stable button-clear button-block ">You must sign up to create new hunts</a>
+      <button ng-click="redirect('tabs.welcome')" class="button button-stable button-block">Continue Without Logging In</button>
     </form>
   </ion-content>
 </ion-view>
