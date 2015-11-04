@@ -29,6 +29,7 @@ var huntSchema = new Schema({
   },
   private: {
     type: Boolean,
+    default: false,
     required: true
   }
 });

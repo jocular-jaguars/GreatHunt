@@ -10,6 +10,7 @@ var Game = require('./game/Game.js');
 var Team = require('./game/Team.js');
 var cors = require('cors');
 var helpers = require('./helpers.js'); // custom middleware
+var jwt = require('jwt-simple');
 
 var app = express();
 var port = process.env.PORT || 8000;
@@ -22,7 +23,7 @@ app.use(parser.json());
 app.use(cors());
 
 // Require token decode when user tries to access this route
-app.use('/api/hunts', helpers.decode);
+// app.use('/api/hunts', helpers.decode);
 app.use('/api/hunt', helpers.decode);
 app.use(helpers.errorLogger);
 app.use(helpers.errorHandler);
@@ -84,17 +85,47 @@ app.get('/api/team/:gameCode', function(req, res) {
 });
 
 //hunt route
+
+app.post('/api/checkHuntName', function(req, res) {
+  huntController.findHunt(req.body.hunt.name, function(err, hunt) {
+    console.log('hunt Name: ', req.body.hunt.name);
+    console.log("error: ", err);
+    console.log("hunt: ", hunt);
+    if (hunt) {
+      console.log('womp womp, no error, the hunt already exists')
+      res.send({validName: false});
+    } else {
+      res.send({validName: true});
+    }
+  })
+});
+
 //get all the hunts from the database
 app.get('/api/hunts', function(req, res) {
   huntController.allHunts(function(err, hunts) {
-    huntController.findUsersHunts(req.user.username, function(err, userHunts) {
-      if(err) res.send(err); 
-      else {
-        var allHunts = {publicHunts: hunts, userHunts: userHunts}; 
-        console.log("!!!!!!ALLLLLLLLLLLLLLLLLLLLLLLLL THE HUNTS: ", allHunts)
-        res.send(allHunts);
-      }
-    })
+    // if no token exists, only send public hunts
+    var token = req.headers['x-access-token'];
+    console.log("token: ", token);
+    if (!token) {
+      var allHunts = {
+        publicHunts: hunts, 
+        userHunts: []
+      }; 
+      res.send(allHunts);
+    } else {
+      var user = jwt.decode(token, 'secret');
+      console.log("user: ", user);
+      huntController.findUsersHunts(user.username, function(err, userHunts) {
+        if(err) res.send(err); 
+        else {
+          var allHunts = {
+            publicHunts: hunts, 
+            userHunts: userHunts[0].hunts
+          }; 
+          res.send(allHunts);
+        }
+      });
+    }
   });
 });
 
