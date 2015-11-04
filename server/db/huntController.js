@@ -34,7 +34,7 @@ var findUsersHunts = function(username, callback) {
 }
 
 var allHunts = function(callback) {
-  Hunt.find({})
+  Hunt.find({private: false})
     .populate('challenges')
     .exec(callback);
 };
