@@ -13,9 +13,10 @@ var createHunt = function(user, hunt, callback) {
     .then(function(hunt) {
       User.findOneAndUpdate(
         {username: hunt.creator},
-        {$push:{hunts:hunt._id}} 
+        {$push:{hunts:hunt._id}},
+        {upsert: true}, 
+        function(user) {console.log("~~HAI I AM IN THE CREATEHUNT FUNCION LOOK AT ME WEEEEEEEEEE USER: ", user)} 
         )
-        
     }); 
 };
 
