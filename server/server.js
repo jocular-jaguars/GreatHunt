@@ -23,6 +23,7 @@ app.use(cors());
 
 // Require token decode when user tries to access this route
 app.use('/api/hunts', helpers.decode);
+app.use('/api/hunt', helpers.decode);
 app.use(helpers.errorLogger);
 app.use(helpers.errorHandler); 
 
@@ -85,9 +86,7 @@ app.get('/api/team/:gameCode', function(req, res) {
 //hunt route
 //get all the hunts from the database
 app.get('/api/hunts', function(req, res) {
-  //TODO: Change this!!!
-  var user = req.body; 
-  huntController.allHunts(user, function(err, hunts) {
+  huntController.allHunts(function(err, hunts) {
     res.send(hunts);
   });
 });
@@ -151,11 +150,14 @@ app.post('/api/challenge', function(req, res) {
 
 app.post('/api/hunt', function(req, res) {
   console.log('hunt in app.post: ', req.body.hunt);
-  huntController.createHunt(req.body.hunt, function(err, hunt) {
+  var user = req.user;
+  console.log("user", user, "\n", "username: ", user.username); 
+  huntController.createHunt(user.username, req.body.hunt, function(err, hunt) {
     if(err){
       var str = "There was an error processing your hunt: "+err
       res.send({error: str});
     } else {
+      console.log(hunt);
       res.send({huntName: req.body.hunt.name});
     }
   });

@@ -23,7 +23,9 @@ var huntSchema = new Schema({
   }],
   //a user must be signed in to create a hunt
   creator: {
-    type: Schema.Types.ObjectId, ref: 'User'
+    // type: Schema.Types.username, ref: 'User'
+    type: String, 
+    required: true
   },
   private: {
     type: Boolean,
