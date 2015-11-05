@@ -87,13 +87,11 @@ angular.module('app.preGameControllers', ['app.services', 'ngResource'])
   };
 
   // Keep checking server for game start
-  // TODO: cancel timer on leaving the view or change to setTimeOut
   var timer = $interval(function() {
     GameService.getGame($scope.gameCode).then(function(data) {
       // If server says game code is invalid
       if (data.gameNotFound) {
-        // TODO: display this message on the lobby view
-        console.log("Oops the game is not found. Restart the app");
+        $interval.cancel(timer);
         $rootScope.endGame();
       // If server says game has started
       } else if (data.started) {
