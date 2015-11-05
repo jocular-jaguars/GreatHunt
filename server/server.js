@@ -65,7 +65,7 @@ app.use('/api/signup', helpers.errorHandler);
 
 //get one game object
 app.get('/api/game/:gameCode', function(req, res) {
-  var gameCode = req.params.gameCode;
+  var gameCode = req.params.gameCode.toLowerCase();
   if(!(gameCode in games)) {
     res.send({gameNotFound: true});
   } else {
@@ -80,7 +80,7 @@ app.get('/api/game/:gameCode', function(req, res) {
 
 // send the teams to the front end
 app.get('/api/team/:gameCode', function(req, res) {
-  var gameCode = req.params.gameCode;
+  var gameCode = req.params.gameCode.toLowerCase();
   res.send(JSON.stringify(games[gameCode].teams));
 });
 
@@ -140,7 +140,8 @@ app.post('/api/game', function(req, res) {
 
 //update team status in the game; send team to next challenge.
 app.put('/api/game/:gameCode', function(req, res) {
-  var gameCode = req.params.gameCode;
+  var gameCode = req.params.gameCode.toLowerCase();
+  console.log("gameCode: ", gameCode);
   var teamIndex = req.body.teamIndex;
   if (req.body.stopTime !== false) {
     games[gameCode].teams[teamIndex]['stopTime'] = req.body.stopTime;
@@ -152,7 +153,7 @@ app.put('/api/game/:gameCode', function(req, res) {
 
 // start the game from the game creator
 app.put('/api/gameStart/:gameCode', function(req, res) {
-  var gameCode = req.params.gameCode;
+  var gameCode = req.params.gameCode.toLowerCase();
   games[gameCode].started = true;
   games[gameCode].startTime = Date.now();
   res.end();
@@ -160,7 +161,7 @@ app.put('/api/gameStart/:gameCode', function(req, res) {
 
 //We need the game code so we can accurately assign teams to the game
 app.post('/api/team/:gameCode', function(req, res) {
-  var gameCode = req.params.gameCode;
+  var gameCode = req.params.gameCode.toLowerCase();
   console.log('gameCode: ', gameCode);
   var team = new Team(req.body.teamName);
   var teams = games[gameCode].teams;
