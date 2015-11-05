@@ -162,9 +162,13 @@ angular.module('app.services', ['ngResource'])
     var data = $resource(
       root +'/api/hunts'
     );
-    //query is a get request which must return an array
-    hunts = data.query();
-    return hunts;
+
+    return data.get()
+      .$promise
+      .then(function(res) {
+        hunts = res;
+        return hunts;
+      })
   };
 
   var getHunt = function(access, index) {
