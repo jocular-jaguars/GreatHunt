@@ -1,9 +1,9 @@
 // comment out the version you aren't using
 
 // local
-var root = 'http://localhost:8000';
+// var root = 'http://localhost:8000';
 // deploy
-// var root = 'https://thegreathunt.herokuapp.com';
+var root = 'https://thegreathunt.herokuapp.com';
 
 angular.module('app.services', ['ngResource'])
 
@@ -86,16 +86,32 @@ angular.module('app.services', ['ngResource'])
         'update': {method: 'PUT'}
       });
 
-    return resource.update().$promise.then(function(){
+    return resource.update().$promise.then(function() {
       //need to add success confirmation.
       return true;
+    });
+  };
+
+  var deleteGame = function(gameCode) {
+
+    var resource = $resource(
+      root + '/api/game/' + gameCode
+      );
+
+    return resource.delete().$promise.then(function(data) {
+      if (data.deleted) {
+        return data.deleted;
+      } else {
+        console.log('Error in deleteGame request!');
+      }
     });
   };
 
   return {
     getGame: getGame,
     postGame: postGame,
-    startGame: startGame
+    startGame: startGame,
+    deleteGame: deleteGame
   };
 })
 
