@@ -51,15 +51,26 @@ angular.module('app.createGameControllers', ['app.services', 'ngResource'])
 })
 
 .controller('createHuntCtrl', function($scope, HuntService, $state, $http, LocalStorageService) {
+  $scope.invalid = false;  // hunt name is considered valid in the beginning
+  $scope.hunt = {};
   $scope.createHunt = function(hunt) {
-    // Creates a hunt in the services
-    HuntService.createHunt(hunt);
-    //need to save the newHuntName on LocalStorage
-    LocalStorageService.set('newHuntName', hunt);
-    //now redirect to createChallenge page
-    $state.go('createChallenge');
+    // Check if hunt name is taken
+    HuntService.checkHuntName(hunt)
+      .then(function(validName) {
+        // Create hunt in services, and save it to localStorage if valid name
+        if (validName) {
+          $scope.invalid = false;
+          HuntService.createHunt(hunt);
+          LocalStorageService.set('newHuntName', hunt);
+          $state.go('createChallenge');
+        } else {
+          // clear the hunt name input
+          $scope.hunt.name = "";
+          // Input is invalid
+          $scope.invalid = true;
+        }
+      });
   }
-
 })
 
 .controller('previewChallengeCtrl', function($scope, LocalStorageService) {

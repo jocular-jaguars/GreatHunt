@@ -87,8 +87,8 @@ app.get('/api/team/:gameCode', function(req, res) {
 //hunt route
 
 app.post('/api/checkHuntName', function(req, res) {
-  huntController.findHunt(req.body.hunt.name, function(err, hunt) {
-    console.log('hunt Name: ', req.body.hunt.name);
+  huntController.findHunt(req.body.name, function(err, hunt) {
+    console.log('hunt Name: ', req.body.name);
     console.log("error: ", err);
     console.log("hunt: ", hunt);
     if (hunt) {
@@ -108,20 +108,20 @@ app.get('/api/hunts', function(req, res) {
     console.log("token: ", token);
     if (!token) {
       var allHunts = {
-        publicHunts: hunts, 
+        publicHunts: hunts,
         userHunts: []
-      }; 
+      };
       res.send(allHunts);
     } else {
       var user = jwt.decode(token, 'secret');
       console.log("user: ", user);
       huntController.findUsersHunts(user.username, function(err, userHunts) {
-        if(err) res.send(err); 
+        if(err) res.send(err);
         else {
           var allHunts = {
-            publicHunts: hunts, 
+            publicHunts: hunts,
             userHunts: userHunts[0].hunts
-          }; 
+          };
           res.send(allHunts);
         }
       });
@@ -189,7 +189,7 @@ app.post('/api/challenge', function(req, res) {
 app.post('/api/hunt', function(req, res) {
   console.log('hunt in app.post: ', req.body.hunt);
   var user = req.user;
-  console.log("user", user, "\n", "username: ", user.username); 
+  console.log("user", user, "\n", "username: ", user.username);
   huntController.createHunt(user.username, req.body.hunt, function(err, hunt) {
     if(err){
       var str = "There was an error processing your hunt: "+err
