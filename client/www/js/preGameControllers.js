@@ -71,6 +71,21 @@ angular.module('app.preGameControllers', ['app.services', 'ngResource'])
 
   $scope.gameCode = LocalStorageService.get('gameCode');
 
+  $scope.creatorEndGame = function() {
+    var creator = LocalStorageService.get('creator');
+    if (creator) {
+      GameService.deleteGame($scope.gameCode).then(function(data){
+        if (data) {
+          $rootScope.endGame();
+        } else {
+          console.log('GameService.deleteGame did not return true');
+        }
+      })
+    } else {
+      $rootScope.endGame();
+    }
+  };
+
   // Keep checking server for game start
   // TODO: cancel timer on leaving the view or change to setTimeOut
   var timer = $interval(function() {
@@ -79,6 +94,7 @@ angular.module('app.preGameControllers', ['app.services', 'ngResource'])
       if (data.gameNotFound) {
         // TODO: display this message on the lobby view
         console.log("Oops the game is not found. Restart the app");
+        $rootScope.endGame();
       // If server says game has started
       } else if (data.started) {
         // Save game to localStorage
