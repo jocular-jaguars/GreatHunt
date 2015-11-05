@@ -66,7 +66,8 @@ app.use('/api/signup', helpers.errorHandler);
 //get one game object
 app.get('/api/game/:gameCode', function(req, res) {
   var gameCode = req.params.gameCode.toLowerCase();
-  if(!(gameCode in games)) {
+  //if gameCode is not in the games object or game state is set to "finished" from app.delete request
+  if(!(gameCode in games) || games[gameCode].finished) {
     res.send({gameNotFound: true});
   } else {
     if(games[gameCode].started) {
@@ -202,12 +203,14 @@ app.post('/api/hunt', function(req, res) {
   });
 });
 
-//TODO: delete game when game is over (not for MVP yo!)
-// app.delete('/api/game:id', function(req, res) {
-//   req.params.gameCode;
-//   [game].endGame();
-//   res.send('go to the end page, yo');
-// });
+//delete game object when game is completed
+app.delete('/api/game/:gameCode', function(req, res) {
+  var gameCode = req.params.gameCode;
+  console.log("games[gameCode] ",games[gameCode], "\ngames: ", games, " gameCode: ", gameCode); 
+  games[gameCode].finished = true;
+  res.send({deleted: true});
+});
+
 
 app.listen(port, function() {
   console.log('Listening on port: ', port);
