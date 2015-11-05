@@ -175,6 +175,19 @@ angular.module('app.services', ['ngResource'])
     return hunts[access][index];
   };
 
+  // Check if hunt name is taken
+  var checkHuntName = function(hunt) {
+    var data = $resource(
+      root + '/api/checkHuntName'
+    );
+
+    return data.save(hunt)
+      .$promise
+      .then(function(res) {
+        return res.validName;
+      })
+  };
+
   var addChallenge = function(challenge) {
 
     //$http works the same as resource but doesn't need $promise chainging and
@@ -227,6 +240,7 @@ angular.module('app.services', ['ngResource'])
   return {
     getHunts: getHunts,
     getHunt: getHunt,
+    checkHuntName: checkHuntName,
     addHuntToDatabase: addHuntToDatabase,
     addChallenge: addChallenge,
     createHunt: createHunt,

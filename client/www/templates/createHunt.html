@@ -6,6 +6,9 @@
             <label class="item item-input">
                 <input type="text" ng-model="hunt.name" placeholder="Hunt Name">
             </label>
+            <div ng-show="invalid">
+              <h4>Hunt name is already taken. Please try another one.</h4>
+            </div>
             <h4>Hunt Location</h4>
             <label class="item item-input">
                 <input type="text" ng-model="hunt.location" placeholder="Hunt Location">

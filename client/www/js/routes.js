@@ -249,7 +249,7 @@ angular.module('app.routes', ['app.authControllers', 'app.preGameControllers',
     if (toState.data.authenticate && !Auth.isAuth()) {
       event.preventDefault();
       console.log("can't go there");
-      $state.go('tabs.welcome');
+      $state.go('login');
     }
   });
 
