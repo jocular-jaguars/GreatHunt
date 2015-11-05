@@ -69,7 +69,7 @@ angular.module('app.inGameControllers', ['app.services', 'ngResource'])
 
     // Check if input is equal to any of the answers
     for (var i = 0; i < answers.length; i++) {
-      if ($scope.user.answer === answers[i]) {
+      if ($scope.user.answer.toLowerCase() === answers[i].toLowerCase()) {
         isWrong = false;
         break;
       }
