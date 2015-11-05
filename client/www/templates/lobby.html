@@ -1,7 +1,7 @@
 <ion-view title="Waiting For Other Players">
   <ion-content padding="true" class="has-header">
     <h3>Your Hunt Will Begin Shortly!</h3>
-    <h3>Game Code: {{gameCode}}</h3>
+    <h3>Game Code: <span class="gamecode">{{gameCode}}</span></h3>
     <ion-list>
       <ion-item ng-repeat="team in teams">
           <h2>{{team.name}}</h2>
