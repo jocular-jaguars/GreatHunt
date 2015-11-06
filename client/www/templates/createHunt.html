@@ -4,6 +4,7 @@
       <h1 class="title">Create a Hunt</h1>
     </div>
     <ion-content padding="true" class="has-header">
+      <div class="content">
         <form class="list">
             <h4>Hunt Name</h4>
             <label class="item item-input">
@@ -26,5 +27,6 @@
         </form>
         <form class="list"></form>
         <button class="button button-positive button-block " ng-disabled="!(isValidHunt())" ng-click="createHunt(hunt)">Add a Challenge!</button>
+      </div>
     </ion-content>
 </ion-view>

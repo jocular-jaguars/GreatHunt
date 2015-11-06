@@ -5,24 +5,26 @@
   </div>
 
   <ion-content padding="true" class="has-header">
-    <div>
-      <p class="time">{{minutes}} mins {{seconds}} seconds</p>
-    </div>
-    <div>
-      <img ng-src={{challenge.pictureURL}}>
-    </div>
+    <div class="content">
+      <div>
+        <p class="time">{{minutes}} mins {{seconds}} seconds</p>
+      </div>
+      <div>
+        <img ng-src={{challenge.pictureURL}}>
+      </div>
 
-    <h4>{{challenge.description}}</h4>
-    <h4>{{challenge.question}}</h4>
+      <h4>{{challenge.description}}</h4>
+      <h4>{{challenge.question}}</h4>
 
-    <form name="challengeForm" novalidate>
-      <label class="item item-input">
-        <input type="text" name="input" ng-model="user.answer"
-          ng-class="{ 'error': isWrong() && challengeForm.input.$dirty }"
-          placeholder="Enter answer">
-      </label>
-      <button class="button button-stable button-block"
-        ng-disabled="isWrong()" ng-click="moveToNext()">Submit</button>
-    </form>
+      <form name="challengeForm" novalidate>
+        <label class="item item-input">
+          <input type="text" name="input" ng-model="user.answer"
+            ng-class="{ 'error': isWrong() && challengeForm.input.$dirty }"
+            placeholder="Enter answer">
+        </label>
+        <button class="button button-stable button-block"
+          ng-disabled="isWrong()" ng-click="moveToNext()">Submit</button>
+      </form>
+    </div>
   </ion-content>
 </ion-view>

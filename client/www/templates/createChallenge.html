@@ -1,31 +1,33 @@
 <ion-view title="Create Challenge" cache-view="false">
-    <div class="bar bar-header bar-balanced">
-      <h1 class="title">Create A Challenge</h1>
+  <div class="bar bar-header bar-balanced">
+    <h1 class="title">Create A Challenge</h1>
+  </div>
+  <ion-content padding="true" class="has-header">
+    <div class="content">
+      <form class="list">
+          <form class="list">
+              <h4>Challenge Description</h4>
+              <label class="item item-input">
+                  <input type="text" ng-model="challenge.description">
+              </label>
+              <h4>Challenge Question</h4>
+              <label class="item item-input">
+                  <input type="text" ng-model="challenge.question">
+              </label>
+              <h4>Challenge Answer</h4>
+              <label class="item item-input">
+                  <input type="text" ng-model="challenge.answers">
+              </label>
+          </form>
+      </form>
+      <div class="btn">
+        <h4>Upload Photo</h4>
+        <input type="file" id="photo">
+      </div>
+      <button class="button button-positive button-block" ng-model="challenge.pictureURL" ng-click="uploadPhoto()">Upload Photo</button>
+      <button class="button button-positive button-block" ng-disabled="!(isValidChallenge())" ng-click="addChallenge(challenge)">Add Challenge</button>
+      <button class="button button-positive button-block " ng-click="redirect('tabs.welcome')">Cancel Hunt</button>
+      <img ng-src={{challenge.pictureURL}}>
     </div>
-    <ion-content padding="true" class="has-header">
-        <form class="list">
-            <form class="list">
-                <h4>Challenge Description</h4>
-                <label class="item item-input">
-                    <input type="text" ng-model="challenge.description">
-                </label>
-                <h4>Challenge Question</h4>
-                <label class="item item-input">
-                    <input type="text" ng-model="challenge.question">
-                </label>
-                <h4>Challenge Answer</h4>
-                <label class="item item-input">
-                    <input type="text" ng-model="challenge.answers">
-                </label>
-            </form>
-        </form>
-        <div class="btn">
-          <h4>Upload Photo</h4>
-          <input type="file" id="photo">
-        </div>
-        <button class="button button-positive button-block" ng-model="challenge.pictureURL" ng-click="uploadPhoto()">Upload Photo</button>
-        <button class="button button-positive button-block" ng-disabled="!(isValidChallenge())" ng-click="addChallenge(challenge)">Add Challenge</button>
-        <button class="button button-positive button-block " ng-click="redirect('tabs.welcome')">Cancel Hunt</button>
-        <img ng-src={{challenge.pictureURL}}>
-    </ion-content>
+  </ion-content>
 </ion-view>

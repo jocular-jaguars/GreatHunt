@@ -4,21 +4,23 @@
     <h1 class="title">Hunts</h1>
   </div>
   <ion-content padding="true" class="has-header">
-    <ion-list>
-    <h4>Hunts You Created</h4>
-      <!-- ui-sref passes a hunt's array index as a param to the
-        the hunts.detail state -->
-      <ion-item ng-repeat="hunt in hunts.userHunts" class="item item-icon-right"
-        ui-sref="hunts.detail({access: 'userHunts', hunt: $index})">
-        {{hunt.name}}, {{hunt.location}}
-      </ion-item>
-    </ion-list>
-    <ion-list>
-      <h4>Public Hunts</h4>
-      <ion-item ng-repeat="hunt in hunts.publicHunts" class="item item-icon-right"
-        ui-sref="hunts.detail({access: 'publicHunts', hunt: $index})">
-        {{hunt.name}}, {{hunt.location}}
-      </ion-item>
-    </ion-list>
+    <div class="content">
+      <ion-list>
+      <h4>Hunts You Created</h4>
+        <!-- ui-sref passes a hunt's array index as a param to the
+          the hunts.detail state -->
+        <ion-item ng-repeat="hunt in hunts.userHunts" class="item item-icon-right"
+          ui-sref="hunts.detail({access: 'userHunts', hunt: $index})">
+          {{hunt.name}}, {{hunt.location}}
+        </ion-item>
+      </ion-list>
+      <ion-list>
+        <h4>Public Hunts</h4>
+        <ion-item ng-repeat="hunt in hunts.publicHunts" class="item item-icon-right"
+          ui-sref="hunts.detail({access: 'publicHunts', hunt: $index})">
+          {{hunt.name}}, {{hunt.location}}
+        </ion-item>
+      </ion-list>
+    </div>
   </ion-content>
 </ion-view>

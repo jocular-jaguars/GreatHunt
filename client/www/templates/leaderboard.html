@@ -4,11 +4,13 @@
       <h1 class="title">Leaderboard</h1>
     </div>
     <ion-content padding="true" class="has-header">
-        <div class="spacer" style="width: 300px; height: 33px;"></div>
-        <ion-list>
-            <ion-item class="item-divider" ng-repeat="rank in teamInfo">{{rank.place}}
-            <ion-item>{{rank.name}}</ion-item>
-            </ion-item>
-        </ion-list>
+        <div class="content">
+            <div class="spacer" style="width: 300px; height: 33px;"></div>
+            <ion-list>
+                <ion-item class="item-divider" ng-repeat="rank in teamInfo">{{rank.place}}
+                <ion-item>{{rank.name}}</ion-item>
+                </ion-item>
+            </ion-list>
+        </div>
     </ion-content>
 </ion-view>
