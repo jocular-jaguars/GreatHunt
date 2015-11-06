@@ -10,7 +10,7 @@
                 <input type="text" ng-model="hunt.name">
             </label>
             <div ng-show="invalid">
-              <h4 class="message error-message">Hunt name is already taken. Please try another one.</h4>
+              <p class="message error-message">Hunt name is already taken.<br>Please try another one.</p>
             </div>
             <h4>Location</h4>
             <label class="item item-input">
@@ -25,6 +25,6 @@
             <ion-toggle toggle-class="toggle-positive" ng-model="hunt.private" >Private Hunt?</ion-toggle>
         </form>
         <form class="list"></form>
-        <button class="button button-positive button-block " ng-click="createHunt(hunt)">Add a Challenge!</button>
+        <button class="button button-positive button-block " ng-disabled="!(isValidHunt())" ng-click="createHunt(hunt)">Add a Challenge!</button>
     </ion-content>
 </ion-view>
