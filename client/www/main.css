@@ -1,5 +1,9 @@
-.error {
-  border: 5px solid red;
+.header-button {
+  font-size: 13px;
+}
+
+.content {
+  padding: 15px;
 }
 
 img {
@@ -9,4 +13,26 @@ img {
 
 .gamecode {
   text-transform: uppercase;
+}
+
+.hidden-nav-bar {
+  display: none;
+}
+
+.message {
+  text-align: center;
+  font-size: 18px;
+}
+
+.error-message {
+  color: red;
+}
+
+.pull-center {
+  text-align: center;
+}
+
+.time {
+  font-size: 18px;
+  text-align: right;
 }

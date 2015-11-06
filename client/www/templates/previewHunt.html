@@ -1,16 +1,21 @@
-<ion-view title="Preview Hunt">
+<ion-view title="Preview Hunts">
+    <div class="bar bar-header bar-balanced">
+      <h1 class="title">Preview Hunts</h1>
+    </div>
     <ion-content padding="true" class="has-header">
-        <h3{{hunt}}</h3>
-        <ion-list>
-            <ion-item class="item-thumbnail-left"
-            ng-repeat="challenge in challenges">
-                <img src={{challenge.pictureURL}}>
-                <h2>{{challenge.question}}</h2>
-                <p>{{challenge.description}}</p>
-            </ion-item>
-        </ion-list>
-        <button class="button button-positive button-block " ng-click="newChallenge()">Add Next Challenge</button>
-        <button class="button button-positive button-block " ng-click="addHunt(HuntService.newHunt)">Submit Hunt</button>
-        <button class="button button-positive button-block " ng-click="redirect('tabs.welcome')">Cancel Hunt</button>
+        <div class="content">
+            <h3{{hunt}}</h3>
+            <ion-list>
+                <ion-item class="item-thumbnail-left"
+                ng-repeat="challenge in challenges">
+                    <img src={{challenge.pictureURL}}>
+                    <h2>{{challenge.question}}</h2>
+                    <p>{{challenge.description}}</p>
+                </ion-item>
+            </ion-list>
+            <button class="button button-positive button-block " ng-click="newChallenge()">Add Next Challenge</button>
+            <button class="button button-positive button-block " ng-click="addHunt(HuntService.newHunt)">Submit Hunt</button>
+            <button class="button button-positive button-block " ng-click="redirect('tabs.welcome')">Cancel Hunt</button>
+        </div>
     </ion-content>
 </ion-view>

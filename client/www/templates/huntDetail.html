@@ -1,19 +1,24 @@
 <ion-view title="Hunt Detail">
-  <ion-content>
-    <div class="item ">
-      <p>{{hunt.name}}</p>
-    </div>
+  <div class="bar bar-header bar-balanced">
+    <button class="button icon-left ion-ios-arrow-left button-clear pull-left" ng-click="redirect('hunts.index')"><span class="header-button">&nbsp;&nbsp;Back</span></button>
+  </div>
 
-    <div class="item">
-      <p>{{hunt.location}}</p>
-    </div>
+  <ion-content padding="true" class="has-header">
+    <div class="content">
+      <div class="item ">
+        <p>{{hunt.name}}</p>
+      </div>
 
-    <div class="item">
-      <p>{{hunt.description}}</p>
-    </div>
+      <div class="item">
+        <p>{{hunt.location}}</p>
+      </div>
 
-    <button class="button button-energized button-block" ng-click="makeGame()">Make A New Game</button>
-    <button class="button button-energized button-block " ng-click="redirect('hunts.index')">Back to Hunts List</button>
+      <div class="item">
+        <p>{{hunt.description}}</p>
+      </div>
+
+      <button class="button button-energized button-block" ng-click="makeGame()">Make A New Game</button>
+    </div>
 
   </ion-content>
 </ion-view>

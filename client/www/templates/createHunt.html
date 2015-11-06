@@ -1,21 +1,25 @@
 <ion-view title="Create Hunt">
+    <div class="bar bar-header bar-balanced">
+        <button class="button icon-left ion-ios-arrow-left button-clear pull-left" ng-click="redirect('tabs.welcome')"><span class="header-button">&nbsp;&nbsp;Cancel</span></button>
+      <h1 class="title">Create a Hunt</h1>
+    </div>
     <ion-content padding="true" class="has-header">
-        <h1>Create a Hunt</h1>
+      <div class="content">
         <form class="list">
             <h4>Hunt Name</h4>
             <label class="item item-input">
-                <input type="text" ng-model="hunt.name" placeholder="Hunt Name">
+                <input type="text" ng-model="hunt.name">
             </label>
             <div ng-show="invalid">
-              <h4>Hunt name is already taken. Please try another one.</h4>
+              <p class="message error-message">Hunt name is already taken.<br>Please try another one.</p>
             </div>
-            <h4>Hunt Location</h4>
+            <h4>Location</h4>
             <label class="item item-input">
-                <input type="text" ng-model="hunt.location" placeholder="Hunt Location">
+                <input type="text" ng-model="hunt.location">
             </label>
-            <h4>Hunt Description</h4>
+            <h4>Description</h4>
             <label class="item item-input">
-                <input type="text" ng-model="hunt.description" placeholder="Hunt Description">
+                <input type="text" ng-model="hunt.description">
             </label>
         </form>
         <form class="list">
@@ -23,6 +27,6 @@
         </form>
         <form class="list"></form>
         <button class="button button-positive button-block " ng-disabled="!(isValidHunt())" ng-click="createHunt(hunt)">Add a Challenge!</button>
-        <button class="button button-positive button-block " ng-click="redirect('tabs.welcome')">Cancel</button>
+      </div>
     </ion-content>
 </ion-view>

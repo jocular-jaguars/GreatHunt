@@ -1,23 +1,35 @@
-<ion-view title="Login">
+<ion-view title="The Great Hunt" cache-view="false">
+  <div class="bar bar-header bar-balanced">
+    <h1 class="title">The Great Hunt</h1>
+  </div>
+
   <ion-content padding="true" scroll="false" class="has-header">
-    <form class="list">
-      <div class="spacer" style="height: 100px;"></div>
-      <ion-list>
-        <label class="item item-input">
-          <input type="text" ng-model="user.username" placeholder="Username">
-        </label>
-        <label class="item item-input">
-          <input type="password" ng-model="user.password" placeholder="Password">
-        </label>
-      </ion-list>
-      <div ng-show="invalid">
-        <h4>Not a valid username or password. Please try again.</h4>
-      </div>
-      <div class="spacer" style="height: 40px;"></div>
-      <button ng-click="signIn()" class="button button-stable button-block ">Log in</button>
-      <button ng-click="redirect('signup')" class="button button-stable button-block ">Create an account</button>
-    <a class="button button-stable button-clear button-block ">You must log in to create new hunts</a>
-    <button class="button button-stable button-block " ng-click="redirect('tabs.welcome')">Continue Without Logging In</button>
-    </form>
+    <div class="content">
+      <div class="spacer" style="width: 300px; height: 15px;"></div>
+      <form class="list">
+        <ion-list>
+          <label class="item item-input">
+            <input type="text" ng-model="user.username" placeholder="Username">
+          </label>
+          <label class="item item-input">
+            <input type="password" ng-model="user.password" placeholder="Password">
+          </label>
+        </ion-list>
+        <div ng-show="invalid">
+          <p class="message error-message">Not a valid username or password.<br> Please try again.</p>
+        </div>
+        <div class="spacer" style="height: 12px;"></div>
+        <button ng-click="signIn()" class="button button-stable button-block ">Log in</button>
+      </form>
+
+      <form class="list">
+        <div class="message">Don't have an account?</div>
+
+        <button ng-click="redirect('signup')" class="button button-stable button-block ">Create an account</button>
+
+        <button class="button button-stable button-block " ng-click="redirect('tabs.welcome')">Continue without logging in</button>
+        <div class="message">You must log in to create new hunts</div>
+      </form>
+    </div>
   </ion-content>
 </ion-view>
