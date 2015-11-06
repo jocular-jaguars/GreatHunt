@@ -5,9 +5,9 @@ angular.module('app.createGameControllers', ['app.services', 'ngResource'])
 
   $scope.isValidChallenge = function() {
 
-    return $scope.challenge.description !== ''
-      && $scope.challenge.question !== ''
-      && $scope.challenge.answers !== ''
+    return $scope.challenge.description !== undefined
+      && $scope.challenge.question !== undefined
+      && $scope.challenge.answers !== undefined
       && $scope.challenge.pictureURL !== undefined;
   }
 
@@ -70,6 +70,12 @@ angular.module('app.createGameControllers', ['app.services', 'ngResource'])
           $scope.invalid = true;
         }
       });
+  }
+
+  $scope.isValidHunt = function() {
+     return $scope.hunt.name !== undefined
+      && $scope.hunt.location !== undefined
+      && $scope.hunt.description !== undefined;
   }
 })
 
