@@ -1,12 +1,18 @@
 <ion-view title="Welcome">
+    <div class="bar bar-header bar-balanced">
+        <h1 class="title">The Great Hunt</h1>
+        <button class="button button-clear pull-right" ng-show="!isLoggedIn()" ng-click ="redirect('login')"><span class="header-button">Log In</span></button>
+        <button class="button button-clear pull-right" ng-show="isLoggedIn()" ng-click ="signOut()"><span class="header-button">Sign Out</span></button>
+    </div>
   <ion-content padding="true" scroll="false" class="has-header has-footer">
-    <p ng-show="isLoggedIn()">Build your own scavenger hunt!</p>
+    <div class="spacer" style="width: 300px; height: 30px;"></div>
+    <p class="message" ng-show="isLoggedIn()">Build your own scavenger hunt!</p>
     <button class="button button-positive button-block " ng-click="redirect('createHunt')" ng-show="isLoggedIn()">Create A Hunt</button>
-    <p>Choose a hunt for you and your friends!</p>
+    <div class="spacer" style="width: 300px; height: 30px;"></div>
+    <p class="message">Choose a hunt for you and your friends!</p>
     <button class="button button-energized button-block " ng-click="create()">Choose A Hunt</button>
-    <p>Join your friend's hunt!</p>
+    <div class="spacer" style="width: 300px; height: 30px;"></div>
+    <p class="message">Join your friend's hunt!</p>
     <button class="button button-stable button-block " ng-click ="redirect('joinGame')">Join A Hunt</button>
-    <button class="button button-stable button-block " ng-show="!isLoggedIn()" ng-click ="redirect('login')">Back to Login</button>
-    <button class="button button-stable button-block " ng-show="isLoggedIn()" ng-click ="signOut()">Sign Out</button>
   </ion-content>
 </ion-view>
