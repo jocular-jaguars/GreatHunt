@@ -87,6 +87,7 @@ angular.module('app.preGameControllers', ['app.services', 'ngResource'])
   };
 
   // Keep checking server for game start
+  // TODO: cancel timer on leaving the view or change to setTimeOut
   var timer = $interval(function() {
     GameService.getGame($scope.gameCode).then(function(data) {
       // If server says game code is invalid

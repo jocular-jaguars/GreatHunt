@@ -61,6 +61,12 @@ View the project roadmap [here](https://github.com/jocular-jaguars/Thesis/issues
 1. Run "ionic build"
 1. Run "ionic emulate ios"
 
+### Adding Icons and Splash Screens
+
+1. All files for icons and splash screens can be found in their respective folders within the www folder.
+1. To use the icons, replace the current files with those in the icons folder. The files are placed under the path: client > platforms > ios > hunt > Resources > icons. Note that this can only be done after running the command "ionic build ios"
+1. Using the splash files follows the same process, except you will be replacing the files from the splash folder within Resources.
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
