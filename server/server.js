@@ -27,6 +27,7 @@ app.use(cors());
 app.use('/api/hunt', helpers.decode);
 app.use(helpers.errorLogger);
 app.use(helpers.errorHandler);
+app.use(__dirname + '/web.css');
 
 
 
@@ -206,7 +207,7 @@ app.post('/api/hunt', function(req, res) {
 //delete game object when game is completed
 app.delete('/api/game/:gameCode', function(req, res) {
   var gameCode = req.params.gameCode;
-  console.log("games[gameCode] ",games[gameCode], "\ngames: ", games, " gameCode: ", gameCode); 
+  console.log("games[gameCode] ",games[gameCode], "\ngames: ", games, " gameCode: ", gameCode);
   games[gameCode].finished = true;
   res.send({deleted: true});
 });
