@@ -22,16 +22,15 @@ mongoose.connect(mongoURI);
 app.use(parser.json());
 app.use(cors());
 
+// Serve static files in our client folder
+app.use(express.static(__dirname + '../client'));
+
 // Require token decode when user tries to access this route
 // app.use('/api/hunts', helpers.decode);
 app.use('/api/hunt', helpers.decode);
 app.use(helpers.errorLogger);
 app.use(helpers.errorHandler);
 
-
-
-// Serve static files in our client folder
-app.use(express.static(__dirname + '/../client'));
 
 //The game instance to store the games being played.
 var games = {
@@ -44,6 +43,25 @@ var games = {
 };
 
 //Routes go here
+
+//static files for heroku:
+app.get('/web.css', function(req, res) {
+  res.sendFile(__dirname + '/web.css');
+});
+
+app.get('/imgs/sampleImage1.jpg', function(req, res) {
+  res.sendFile(__dirname + '/imgs/sampleImage1.jpg');
+});
+
+app.get('/imgs/sampleImage2.jpg', function(req, res) {
+  res.sendFile(__dirname + '/imgs/sampleImage2.jpg');
+});
+
+app.get('/imgs/sampleImage3.jpg', function(req, res) {
+  res.sendFile(__dirname + '/imgs/sampleImage3.jpg');
+});
+
+//main web page:
 app.get('/', function(req, res) {
   res.sendFile(__dirname + '/web.html');
 });
@@ -206,7 +224,7 @@ app.post('/api/hunt', function(req, res) {
 //delete game object when game is completed
 app.delete('/api/game/:gameCode', function(req, res) {
   var gameCode = req.params.gameCode;
-  console.log("games[gameCode] ",games[gameCode], "\ngames: ", games, " gameCode: ", gameCode); 
+  console.log("games[gameCode] ",games[gameCode], "\ngames: ", games, " gameCode: ", gameCode);
   games[gameCode].finished = true;
   res.send({deleted: true});
 });
