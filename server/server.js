@@ -28,10 +28,6 @@ app.use('/api/hunt', helpers.decode);
 app.use(helpers.errorLogger);
 app.use(helpers.errorHandler);
 
-// Serve static files for webpage
-app.use(express.static(__dirname + './web.css');
-app.use(express.static(__dirname + './imgs'));
-
 // Serve static files in our client folder
 app.use(express.static(__dirname + '/../client'));
 
