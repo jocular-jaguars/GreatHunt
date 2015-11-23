@@ -19,6 +19,9 @@ var mongoURI = process.env.MONGOLAB_URI || 'mongodb://localhost/hunt';
 console.log(mongoURI);
 mongoose.connect(mongoURI);
 
+//Getting directory path (Heroku doesn't cooperate with __dirname)
+process.env.PWD = process.cwd();
+
 app.use(parser.json());
 app.use(cors());
 
@@ -29,7 +32,7 @@ app.use(helpers.errorLogger);
 app.use(helpers.errorHandler);
 
 // Serve static files in our client folder
-app.use(express.static(__dirname + '/../client'));
+app.use(express.static(process.env.PWD + '/../client'));
 
 //The game instance to store the games being played.
 var games = {
@@ -43,7 +46,7 @@ var games = {
 
 //Routes go here
 app.get('/', function(req, res) {
-  res.sendFile(__dirname + '/web.html');
+  res.sendFile(process.env.PWD + '/web.html');
 });
 
 //user sign in and authentication
