@@ -24,7 +24,6 @@ app.use(cors());
 
 // Serve static files in our client folder
 app.use(express.static(__dirname + '../client'));
-app.set('client', express.static(__dirname + '../client'));
 
 // Require token decode when user tries to access this route
 // app.use('/api/hunts', helpers.decode);
@@ -44,6 +43,25 @@ var games = {
 };
 
 //Routes go here
+
+//static files for heroku:
+app.get('/web.css', function(req, res) {
+  res.sendFile(__dirname + '/web.css');
+});
+
+app.get('/imgs/sampleImage1.jpg', function(req, res) {
+  res.sendFile(__dirname + '/imgs/sampleImage1.jpg');
+});
+
+app.get('/imgs/sampleImage2.jpg', function(req, res) {
+  res.sendFile(__dirname + '/imgs/sampleImage2.jpg');
+});
+
+app.get('/imgs/sampleImage3.jpg', function(req, res) {
+  res.sendFile(__dirname + '/imgs/sampleImage3.jpg');
+});
+
+//main web page:
 app.get('/', function(req, res) {
   res.sendFile(__dirname + '/web.html');
 });
