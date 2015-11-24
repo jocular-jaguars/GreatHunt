@@ -13,7 +13,7 @@
   <p id="description">Explore new locations! Find hidden gems! Get out and about and explore! Create a scavenger hunt for your friends, or choose one of ours. You can gather a group and head out and find interesting places. Just grab your web-enabled device and head out on a hunt!</p>
 
   <div id="imgDiv">
-    <img id="Yerba Buena" class="leftImg" src="./imgs/sampleImage1.jpg">
+    <img id="Yerba Buena Gardens" class="leftImg" src="./imgs/sampleImage1.jpg">
     </img>
     <img id ="Union Square" src="./imgs/sampleImage2.jpg">
     </img>
@@ -29,9 +29,9 @@
       var id = $(this).attr('id');
       var position = $(this).position();
       var width = $('body').width();
-      var percent = (position.left/width) * 100 + 8.5;
+      var percent = (position.left/width) * 100 + 9.5;
       $(this).addClass("hover");
-      $(this).closest('div').find('h3').css({'color': 'black'});
+      $(this).closest('div').find('h3').css({'color': '#4C6B4B'});
       $(this).closest('div').find('h3').text(id);
       $(this).closest('div').find('h3').css({'left': percent + "%"});
     }, function() {
