@@ -1,73 +1,93 @@
 
 .header {
+  background-color: #4c6b4b;
+  font-size: 40px;
   margin-top: 0;
   padding-top: 0;
-  background-color: #4c6b4b;
   width: 100%;
-  font-size: 40px;
 }
 
 .header p {
+  color: #eeeeee;
+  font-size: 40px;
   margin-top: 0;
   text-align: center;
-  color: #eeeeee;
   vertical-align: middle;
-  font-size: 40px;
 }
 
 body {
   background-color: #eeeeee;
-  font-family: 'Overlock', cursive;
   color: #4C6B4B;
+  font-family: 'Overlock', cursive;
+}
+
+div {
+  color: #eeeeee;
 }
 
 img {
    height: auto;
+   overflow: hidden;
    padding: 1%;
    width: 29%;
-   overflow: hidden;
 }
 
-#leftImg {
+#imgDiv {
+  overflow: hidden;
+}
+
+.leftImg {
   margin-left: 2%;
 }
 
-#rightImg {
+.rightImg {
   margin-right: 2%;
 }
 
 h1 {
-  text-align: center;
   font-size: 55px;
   font-family: 'Overlock', cursive;
+  text-align: center;
 }
 
 h2 {
-  text-align: center;
   font-family: 'Overlock', cursive;
+  text-align: center;
+}
+
+h3 {
+  bottom: 14%;
+  /*color: #000000;*/
+  position: relative;
+  width: 75%;
 }
 
 p {
-  margin: 4% 15% 4% 15%;
-  font-size: 25px;
   font-family: 'Overlock', cursive;
+  font-size: 20px;
+  margin: 4% 15% 4% 15%;
 }
 
 button {
-  text-align: center;
+  background-color: #79ac78;
+  border-radius: 10px;
+  border: none;
+  color: #eeeeee;
   display: block;
-  width: 75%;
+  font-size: 20px;
   height: 50px;
   margin: auto;
   margin-top: 4%;
   margin-bottom: 4%;
-  background-color: #79ac78;
-  border-radius: 10px;
-  border: none;
+  text-align: center;
+  width: 75%;
 }
 
-button a {
-  color: #eeeeee;
-  font-size: 20px;
+a {
   text-decoration: none;
+}
+
+.hover {
+  opacity: 0.6;
+  filter: alpha(opacity=60);
 }
