@@ -1,4 +1,20 @@
 
+.header {
+  margin-top: 0;
+  padding-top: 0;
+  background-color: #4c6b4b;
+  width: 100%;
+  font-size: 40px;
+}
+
+.header p {
+  margin-top: 0;
+  text-align: center;
+  color: #eeeeee;
+  vertical-align: middle;
+  font-size: 40px;
+}
+
 body {
   background-color: #eeeeee;
   font-family: 'Overlock', cursive;
@@ -7,17 +23,17 @@ body {
 
 img {
    height: auto;
-   padding: 10px;
-   width: 30%;
+   padding: 1%;
+   width: 29%;
    overflow: hidden;
 }
 
 #leftImg {
-  margin-left: 10px;
+  margin-left: 2%;
 }
 
 #rightImg {
-  margin-right: 10px;
+  margin-right: 2%;
 }
 
 h1 {
@@ -32,15 +48,26 @@ h2 {
 }
 
 p {
-  margin: 4% 10% 4% 10%;
+  margin: 4% 15% 4% 15%;
   font-size: 25px;
   font-family: 'Overlock', cursive;
 }
 
-a:link {
-  color: black;
+button {
+  text-align: center;
+  display: block;
+  width: 75%;
+  height: 50px;
+  margin: auto;
+  margin-top: 4%;
+  margin-bottom: 4%;
+  background-color: #79ac78;
+  border-radius: 10px;
+  border: none;
 }
 
-a:visited {
-  color: #79ac78;
+button a {
+  color: #eeeeee;
+  font-size: 20px;
+  text-decoration: none;
 }
